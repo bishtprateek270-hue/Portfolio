@@ -23,6 +23,9 @@
 </head>
 
 <body>
+    <!-- Scrolling progress indicator -->
+    <div class="scroll-progress-bar" id="scrollProgress"></div>
+
     <!-- ==================== NAVIGATION ==================== -->
     <nav class="navbar" id="navbar">
         <div class="nav-container">
@@ -49,6 +52,7 @@
     <!-- ==================== HERO ==================== -->
     <section class="hero" id="hero">
         <div class="hero-bg-grid"></div>
+        <canvas class="hero-particles" id="heroParticles"></canvas>
         <div class="hero-glow hero-glow-1"></div>
         <div class="hero-glow hero-glow-2"></div>
         <div class="hero-content">
@@ -60,7 +64,7 @@
                 <span class="hero-greeting">Hello, I'm</span>
                 <span class="hero-fullname">Prateek Singh<br>Bisht<span class="hero-dot">.</span></span>
             </h1>
-            <p class="hero-title animate-on-scroll">AI & ML Engineering Student</p>
+            <p class="hero-title animate-on-scroll"><span id="typedRole">AI & ML Engineering Student</span><span class="typed-cursor">|</span></p>
             <p class="hero-tagline animate-on-scroll">Crafting intelligent solutions at the intersection of<br><span
                     class="highlight-text">Artificial Intelligence</span>, <span class="highlight-text">Machine
                     Learning</span> & <span class="highlight-text">Design</span>.</p>
