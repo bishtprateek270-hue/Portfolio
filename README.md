@@ -16,13 +16,10 @@ I'm **Prateek Singh Bisht**, a 3rd-year B.Tech student specializing in **Artific
 ## 📂 Featured Projects
 
 ### 🎓 ShikshaSetu
-An AI-powered educational platform that generates personalized learning roadmaps, mock tests, and progress tracking for students.
+An AI-powered EdTech study platform built with Next.js and Firebase, offering automated note generation, dynamic PDF-to-quiz conversion, an adaptive doubt solver, and interactive mock tests.
 
-### 🏛️ AR Heritage Monument App
-An interactive application designed to provide immersive experiences of Indian heritage monuments and promote tourism.
-
-### 📈 Future Career Predictor
-A platform that helps students understand future job market trends and align their skills with emerging opportunities.
+### 💳 SimplePay
+A containerized, full-stack payment application dashboard featuring a 3-tier architecture with a React SPA frontend, a Flask REST API backend, and MongoDB storage.
 
 ## 💻 Skills
 
