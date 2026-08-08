@@ -29,7 +29,7 @@ A containerized, full-stack payment application dashboard featuring a 3-tier arc
 - Machine Learning Fundamentals
 - Data Science Basics
 - Problem Solving
-- UI/UX Design
+- System Architecture & API Development
 - Team Collaboration
 
 ## 📫 Connect With Me
