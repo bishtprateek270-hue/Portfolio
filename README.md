@@ -15,6 +15,15 @@ I'm **Prateek Singh Bisht**, a 3rd-year B.Tech student specializing in **Artific
 
 ## 📂 Featured Projects
 
+### ✨ KarigarAI ( कारीगर AI )
+A full-stack AI marketplace platform empowering Indian artisans to auto-generate multilingual catalogs from craft photos using Vision AI, calculate labor-based fair pricing, generate printable exhibition QR price tags, and execute zero-middleman orders directly via WhatsApp.
+
+### 📄 AI Resume Analyzer & ATS Optimizer
+An intelligent career tool parsing PDF resumes & evaluating ATS match scores against target job descriptions with Gemini 2.5 Flash qualitative feedback and report exports.
+
+### 🧠 RAGMind — Document Search & Study Platform
+An enterprise RAG platform supporting multi-format document indexing (.pdf, .docx, .pptx, .md) with source-cited Q&A, AI flashcards, and summary export.
+
 ### 🎓 ShikshaSetu
 An AI-powered EdTech study platform built with Next.js and Firebase, offering automated note generation, dynamic PDF-to-quiz conversion, an adaptive doubt solver, and interactive mock tests.
 
