@@ -15,6 +15,12 @@ I'm **Prateek Singh Bisht**, a 3rd-year B.Tech student specializing in **Artific
 
 ## 📂 Featured Projects
 
+### 🌐 3D-ULPIN — AI 3D Cadastral & Volumetric Land Registry System
+An AI-powered 3D Cadastral & Volumetric Land Registry Platform modernizing 2D surface land parcels into multi-layer volumetric strata digital twins (ISO 19152 LADM standard). Built with React 18, TypeScript, Vite, deck.gl v9, MapLibre GL, Three.js, FastAPI, Python, PostGIS, and Gemini 2.5 Flash Vision AI. Features autonomous satellite footprint vectorization, AI height & roof classification, 60 FPS WebGL 3D strata slicing, subterranean utility mapping, and 3D topological non-overlap verification.
+- **Role:** Frontend & Backend Developer (Contributor)
+- **GitHub:** https://github.com/harsh3011dev-oops/3D-ULPIN-MVP
+- **Live Demo:** https://3-d-ulpin-mvp.vercel.app/
+
 ### ✨ KarigarAI ( कारीगर AI )
 A full-stack AI marketplace platform empowering Indian artisans to auto-generate multilingual catalogs from craft photos using Vision AI, calculate labor-based fair pricing, generate printable exhibition QR price tags, and execute zero-middleman orders directly via WhatsApp.
 
