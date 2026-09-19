@@ -178,8 +178,62 @@
         });
     });
 
+    // ─── VIDEO DEMO MODAL CONTROLLER ────────────────────────
+    const videoModal = document.getElementById('videoModal');
+    const modalBackdrop = document.getElementById('videoModalBackdrop');
+    const modalCloseBtn = document.getElementById('modalCloseBtn');
+    const modalProjectTitle = document.getElementById('modalProjectTitle');
+    const modalProjectDesc = document.getElementById('modalProjectDesc');
+    const modalVideoPlayer = document.getElementById('modalVideoPlayer');
+    const modalRepoBtn = document.getElementById('modalRepoBtn');
+
+    function openVideoModal(title, desc, videoSrc, repoSrc) {
+        if (!videoModal) return;
+        if (modalProjectTitle) modalProjectTitle.textContent = title || 'Project Demo';
+        if (modalProjectDesc) modalProjectDesc.textContent = desc || '';
+        if (modalVideoPlayer) modalVideoPlayer.src = videoSrc || '';
+        if (modalRepoBtn) {
+            modalRepoBtn.href = repoSrc || '#';
+            modalRepoBtn.style.display = repoSrc ? 'inline-block' : 'none';
+        }
+        videoModal.classList.add('open');
+        videoModal.setAttribute('aria-hidden', 'false');
+        document.body.classList.add('no-scroll');
+    }
+
+    function closeVideoModal() {
+        if (!videoModal) return;
+        videoModal.classList.remove('open');
+        videoModal.setAttribute('aria-hidden', 'true');
+        document.body.classList.remove('no-scroll');
+        if (modalVideoPlayer) {
+            modalVideoPlayer.src = '';
+        }
+    }
+
+    document.querySelectorAll('.video-demo-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const title = btn.getAttribute('data-title');
+            const desc = btn.getAttribute('data-desc');
+            const video = btn.getAttribute('data-video');
+            const repo = btn.getAttribute('data-repo');
+            openVideoModal(title, desc, video, repo);
+        });
+    });
+
+    if (modalCloseBtn) modalCloseBtn.addEventListener('click', closeVideoModal);
+    if (modalBackdrop) modalBackdrop.addEventListener('click', closeVideoModal);
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && videoModal && videoModal.classList.contains('open')) {
+            closeVideoModal();
+        }
+    });
+
     // ─── INITIAL TRIGGER ────────────────────────────────────
     updateScrollProgress();
     updateActiveNavLink();
 
 })();
+
