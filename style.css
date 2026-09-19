@@ -1879,6 +1879,8 @@ section {
 .intro-overlay {
   position: fixed;
   inset: 0;
+  width: 100vw;
+  height: 100vh;
   background-color: var(--bg-canvas);
   z-index: 10000;
   display: flex;
@@ -1888,23 +1890,39 @@ section {
   overflow: hidden;
 }
 
+.intro-glow {
+  position: absolute;
+  width: 550px;
+  height: 550px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.12) 0%, rgba(14, 165, 233, 0.06) 45%, transparent 70%);
+  filter: blur(50px);
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.8;
+}
+
 .intro-container {
+  position: relative;
+  z-index: 1;
   display: flex;
   align-items: center;
-  gap: 2.5rem;
-  max-width: 800px;
-  padding: 1.5rem;
+  gap: 3rem;
+  max-width: 900px;
+  padding: 2rem;
 }
 
 .intro-photo-mask {
-  width: 220px;
-  height: 290px;
-  border-radius: var(--radius-lg);
+  width: 250px;
+  height: 330px;
+  border-radius: var(--radius-xl, 24px);
   overflow: hidden;
   position: relative;
   background: #E2E8F0;
-  box-shadow: var(--shadow-lg);
+  box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--border-light);
   will-change: transform, clip-path;
+  flex-shrink: 0;
 }
 
 .intro-photo {
@@ -1913,14 +1931,14 @@ section {
   object-fit: cover;
   object-position: center 20%;
   display: block;
-  transform: scale(1.2);
+  transform: scale(1.3);
   will-change: transform;
 }
 
 .intro-text-block {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.6rem;
 }
 
 .intro-line-wrap {
@@ -1928,19 +1946,31 @@ section {
   display: block;
 }
 
+.intro-badge {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  opacity: 0;
+  transform: translateY(12px);
+}
+
 .intro-name {
   font-family: var(--font-sans);
-  font-size: 2.75rem;
+  font-size: 3.2rem;
   font-weight: 800;
-  letter-spacing: -0.03em;
-  line-height: 1.1;
+  letter-spacing: -0.035em;
+  line-height: 1.05;
   color: var(--text-main);
   transform: translateY(105%);
 }
 
 .intro-role {
   font-family: var(--font-mono);
-  font-size: 0.92rem;
+  font-size: 1rem;
+  font-weight: 600;
   color: var(--text-muted);
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -1948,34 +1978,62 @@ section {
   transform: translateY(15px);
 }
 
+.intro-status {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--text-body);
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.intro-progress-track {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: var(--border-light);
+  z-index: 2;
+}
+
+.intro-progress-fill {
+  width: 0%;
+  height: 100%;
+  background: var(--text-main);
+  transition: width 0.08s linear;
+}
+
 .intro-footer-bar {
   position: absolute;
   bottom: 2rem;
-  left: 2rem;
-  right: 2rem;
+  left: 2.5rem;
+  right: 2.5rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  z-index: 2;
 }
 
 .intro-counter {
   font-family: var(--font-mono);
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--text-muted);
-  letter-spacing: 0.05em;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-main);
+  letter-spacing: 0.06em;
 }
 
 .intro-skip-btn {
   font-family: var(--font-mono);
-  font-size: 0.78rem;
+  font-size: 0.8rem;
   font-weight: 600;
   background: var(--bg-surface);
   color: var(--text-main);
   border: 1px solid var(--border-mid);
-  padding: 0.4rem 0.95rem;
+  padding: 0.45rem 1.1rem;
   border-radius: var(--radius-pill);
   cursor: pointer;
+  box-shadow: var(--shadow-sm);
   transition: all var(--transition-fast);
 }
 
@@ -1989,13 +2047,19 @@ section {
     flex-direction: column;
     text-align: center;
     gap: 1.5rem;
+    padding: 1.25rem;
   }
   .intro-photo-mask {
-    width: 170px;
-    height: 220px;
+    width: 190px;
+    height: 250px;
   }
   .intro-name {
-    font-size: 2rem;
+    font-size: 2.2rem;
+  }
+  .intro-footer-bar {
+    left: 1.25rem;
+    right: 1.25rem;
+    bottom: 1.5rem;
   }
 }
 

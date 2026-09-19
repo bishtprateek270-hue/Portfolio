@@ -71,28 +71,32 @@
 
 
   /* ────────────────────────────────────────────────────────────
-     5. INTRO SEQUENCE
+     5. INTRO SEQUENCE (7-SECOND CINEMATIC FULLSCREEN INTRO)
      ──────────────────────────────────────────────────────────── */
   function initIntro() {
-    const overlay     = document.getElementById('introOverlay');
-    const photoMask   = document.getElementById('introPhotoMask');
-    const photo       = document.getElementById('introPhoto');
-    const nameEl      = document.getElementById('introName');
-    const roleEl      = document.getElementById('introRole');
-    const counter     = document.getElementById('introCounter');
-    const skipBtn     = document.getElementById('introSkipBtn');
+    const overlay      = document.getElementById('introOverlay');
+    const glow         = document.querySelector('.intro-glow');
+    const photoMask    = document.getElementById('introPhotoMask');
+    const photo        = document.getElementById('introPhoto');
+    const badge        = document.getElementById('introBadge');
+    const nameEl       = document.getElementById('introName');
+    const roleEl       = document.getElementById('introRole');
+    const statusEl     = document.getElementById('introStatus');
+    const progressFill = document.getElementById('introProgressFill');
+    const counter      = document.getElementById('introCounter');
+    const skipBtn      = document.getElementById('introSkipBtn');
     const heroPortrait = document.getElementById('heroPortrait');
 
     if (!overlay) { heroEntrance(false); return; }
 
-    // Skip if already seen or user prefers reduced motion
-    if (sessionStorage.getItem('psb_intro_seen') || reducedMotion) {
+    // Respect reduced motion
+    if (reducedMotion) {
       overlay.remove();
       heroEntrance(false);
       return;
     }
 
-    // Sync intro text from the actual page content
+    // Sync intro text from actual page content if available
     const brandName = document.querySelector('.brand-name');
     const brandRole = document.querySelector('.brand-role');
     if (brandName && nameEl) nameEl.textContent = brandName.textContent.trim();
@@ -100,83 +104,123 @@
 
     document.body.style.overflow = 'hidden';
 
-    // Preload photo
+    // Preload photo before starting the 7s timeline
     const preload = new Promise((res) => {
       const img = new Image();
       img.src = photo ? photo.src : 'assets/images/prateek.jpg';
       if (img.complete && img.naturalWidth) res();
-      else { img.onload = res; img.onerror = res; setTimeout(res, 2500); }
+      else { img.onload = res; img.onerror = res; setTimeout(res, 2000); }
     });
 
     preload.then(() => {
       // Initial states
-      gsap.set(photoMask, { clipPath: 'inset(100% 0% 0% 0% round 20px)' });
-      gsap.set(photo,     { scale: 1.3 });
+      gsap.set(photoMask, { clipPath: 'inset(100% 0% 0% 0% round 24px)', opacity: 0, scale: 0.96 });
+      gsap.set(photo,     { scale: 1.35 });
+      if (badge) gsap.set(badge, { opacity: 0, y: 15 });
       gsap.set(nameEl,    { yPercent: 110 });
       gsap.set(roleEl,    { opacity: 0, y: 20 });
+      if (statusEl) gsap.set(statusEl, { opacity: 0, y: 10 });
+      if (glow) gsap.set(glow, { scale: 0.8, opacity: 0 });
 
       const tl = gsap.timeline({ onComplete: finish });
 
-      // Photo wipe-in
+      // 1. Ambient glow & Photo Reveal (0.0s - 1.8s)
+      if (glow) {
+        tl.to(glow, { opacity: 0.85, scale: 1.15, duration: 3.0, ease: 'power2.out' }, 0.2);
+      }
+
       tl.to(photoMask, {
-        clipPath: 'inset(0% 0% 0% 0% round 20px)',
-        duration: C.dur.introWipe,
-        ease: C.ease.smooth,
-      }, 0.15);
-
-      tl.to(photo, {
+        clipPath: 'inset(0% 0% 0% 0% round 24px)',
+        opacity: 1,
         scale: 1,
-        duration: C.dur.introWipe + 0.4,
-        ease: C.ease.smooth,
-      }, 0.15);
+        duration: 1.8,
+        ease: 'power3.out',
+      }, 0.2);
 
-      // Name slide-up (masked)
+      // Photo continuous cinematic scale/drift (0.2s - 6.0s = 5.8s)
+      tl.to(photo, {
+        scale: 1.05,
+        duration: 5.8,
+        ease: 'power1.out',
+      }, 0.2);
+
+      // 2. Badge & Name slide-up (0.8s - 2.2s)
+      if (badge) {
+        tl.to(badge, {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: 'power3.out',
+        }, 0.8);
+      }
+
       tl.to(nameEl, {
         yPercent: 0,
-        duration: C.dur.introText,
-        ease: C.ease.smooth,
-      }, 0.5);
+        duration: 1.2,
+        ease: 'power3.out',
+      }, 1.0);
 
-      // Role fade-in
+      // Role fade-in (1.4s - 2.4s)
       tl.to(roleEl, {
-        opacity: 1, y: 0,
-        duration: C.dur.introText * 0.75,
-        ease: C.ease.smooth,
-      }, 0.7);
+        opacity: 1,
+        y: 0,
+        duration: 1.0,
+        ease: 'power3.out',
+      }, 1.4);
 
-      // Counter 0→100%
+      // Dynamic status sequence across the 7 seconds
+      if (statusEl) {
+        tl.to(statusEl, { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }, 1.8);
+        tl.to(statusEl, {
+          opacity: 0,
+          duration: 0.3,
+          onComplete: () => { if (statusEl) statusEl.textContent = 'Curating AI projects & research...'; }
+        }, 3.3);
+        tl.to(statusEl, { opacity: 1, duration: 0.4 }, 3.7);
+        tl.to(statusEl, {
+          opacity: 0,
+          duration: 0.3,
+          onComplete: () => { if (statusEl) statusEl.textContent = 'System initialized. Welcome.'; }
+        }, 5.1);
+        tl.to(statusEl, { opacity: 1, duration: 0.4 }, 5.5);
+      }
+
+      // 3. Counter 000% → 100% & Progress fill across 5.8 seconds (0.2s - 6.0s)
       const cObj = { v: 0 };
       tl.to(cObj, {
         v: 100,
-        duration: C.dur.introCounter,
-        ease: 'power2.out',
+        duration: 5.8,
+        ease: 'power2.inOut',
         onUpdate: () => {
-          if (counter) counter.textContent = `${String(Math.floor(cObj.v)).padStart(3, '0')}%`;
+          const val = Math.floor(cObj.v);
+          if (counter) counter.textContent = `${String(val).padStart(3, '0')}%`;
+          if (progressFill) progressFill.style.width = `${val}%`;
         },
-      }, 0.15);
+      }, 0.2);
 
-      // Short hold
-      tl.to({}, { duration: 0.3 });
+      // 4. Brief hold at 100% (6.0s - 6.3s)
+      tl.to({}, { duration: 0.3 }, 6.0);
 
-      // Flip morph photo into hero
+      // 5. Flip morph photo into hero + wipe overlay (6.3s - 7.0s)
       tl.add(() => {
         if (typeof Flip !== 'undefined' && heroPortrait && photo) {
           const state = Flip.getState(photo);
           heroPortrait.parentElement.appendChild(photo);
           Flip.from(state, {
-            duration: C.dur.introFlip,
-            ease: C.ease.smooth,
+            duration: 0.7,
+            ease: 'power3.inOut',
             onComplete: () => { if (photo.parentElement !== photoMask) photo.remove(); },
           });
         }
-      });
+      }, 6.3);
 
-      // Wipe overlay up
+      // Smooth slide-up transition of fullscreen overlay
       tl.to(overlay, {
         yPercent: -100,
-        duration: 0.8,
-        ease: C.ease.smooth,
-      }, '-=0.65');
+        opacity: 0.95,
+        duration: 0.7,
+        ease: 'power3.inOut',
+      }, 6.3);
 
       // Skip button
       if (skipBtn) skipBtn.addEventListener('click', () => { tl.kill(); finish(); });
