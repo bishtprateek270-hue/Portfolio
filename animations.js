@@ -82,57 +82,9 @@
         gsap.ticker so it never falls behind during scroll.
      ──────────────────────────────────────────────────────────── */
   function initCursor() {
-    if (!isDesktop || reducedMotion) return;
-
-    const dot  = document.getElementById('customCursorDot');
-    const ring = document.getElementById('customCursorRing');
-    if (!dot || !ring) return;
-
-    // Raw target from mousemove
-    let mx = window.innerWidth  / 2;
-    let my = window.innerHeight / 2;
-    // Current rendered positions
-    let dx = mx, dy = my;   // dot
-    let rx = mx, ry = my;   // ring
-
-    // Update raw target on every mouse event
-    window.addEventListener('mousemove', (e) => {
-      mx = e.clientX;
-      my = e.clientY;
-    }, { passive: true });
-
-    // Render loop — runs every frame (~60/120fps)
-    gsap.ticker.add(() => {
-      // Dot: near-instant tracking (lerp close to 1)
-      dx += (mx - dx) * C.cursor.dotLerp;
-      dy += (my - dy) * C.cursor.dotLerp;
-      dot.style.transform = `translate(${dx - 4}px, ${dy - 4}px)`;
-
-      // Ring: smooth trailing
-      rx += (mx - rx) * C.cursor.ringLerp;
-      ry += (my - ry) * C.cursor.ringLerp;
-      ring.style.transform = `translate(${rx - 18}px, ${ry - 18}px)`;
-    });
-
-    // Hover expansion on interactive elements
-    const targets = document.querySelectorAll(
-      'a, button, .project-card, .btn, .link-btn, .c-link, input, textarea, .stat-badge-bento, .chip-item'
-    );
-    targets.forEach((el) => {
-      el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
-      el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
-    });
-
-    // Hide cursor when mouse leaves viewport
-    document.addEventListener('mouseleave', () => {
-      dot.style.opacity  = '0';
-      ring.style.opacity = '0';
-    });
-    document.addEventListener('mouseenter', () => {
-      dot.style.opacity  = '1';
-      ring.style.opacity = '1';
-    });
+    // Custom cursor removed
   }
+
 
   /* ────────────────────────────────────────────────────────────
      5. INTRO SEQUENCE

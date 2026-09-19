@@ -1991,58 +1991,7 @@ section {
   }
 }
 
-/* ─── CUSTOM CURSOR (DESKTOP FINE POINTER ONLY) ─── */
-.custom-cursor-dot,
-.custom-cursor-ring {
-  display: none;
-}
 
-@media (hover: hover) and (pointer: fine) {
-  .custom-cursor-dot {
-    display: block;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 8px;
-    height: 8px;
-    background-color: var(--text-main);
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 99999;
-    will-change: transform;
-    transition: opacity 0.2s ease, width 0.2s ease, height 0.2s ease;
-  }
-
-  .custom-cursor-ring {
-    display: block;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 36px;
-    height: 36px;
-    border: 1.5px solid rgba(15, 23, 42, 0.45);
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 99998;
-    will-change: transform;
-    transition: width 0.25s cubic-bezier(0.16, 1, 0.3, 1),
-                height 0.25s cubic-bezier(0.16, 1, 0.3, 1),
-                border-color 0.25s ease,
-                background-color 0.25s ease,
-                opacity 0.2s ease;
-  }
-
-  body.cursor-hover .custom-cursor-ring {
-    width: 54px;
-    height: 54px;
-    border-color: var(--accent-blue);
-    background-color: rgba(37, 99, 235, 0.08);
-  }
-
-  body.cursor-hover .custom-cursor-dot {
-    opacity: 0.5;
-  }
-}
 
 
 /* ─── HARDWARE ACCELERATION FOR SMOOTH 60FPS ─── */
