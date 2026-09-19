@@ -1,6 +1,6 @@
 /* ==========================================================
    PRATEEK SINGH BISHT — PORTFOLIO SCRIPT
-   Interactive Behaviors, Live Time, Scroll Reveal & Modals
+   Interactive Behaviors, Live Time, Entrance & Scroll Animations
    ========================================================== */
 
 (function () {
@@ -97,11 +97,34 @@
         });
     }
 
+    // ─── ANIMATED NUMBER COUNTERS ───────────────────────────
+    let countersAnimated = false;
+
+    function animateCounters() {
+        if (countersAnimated) return;
+        countersAnimated = true;
+
+        document.querySelectorAll('.val[data-count]').forEach(counter => {
+            const target = parseInt(counter.getAttribute('data-count'), 10);
+            const suffix = counter.getAttribute('data-suffix') || '';
+            let count = 0;
+            const stepTime = Math.max(20, Math.floor(1200 / target));
+
+            const timer = setInterval(() => {
+                count += 1;
+                counter.textContent = count + (count === target ? suffix : '');
+                if (count >= target) {
+                    clearInterval(timer);
+                }
+            }, stepTime);
+        });
+    }
+
     // ─── INTERSECTION OBSERVER FOR REVEAL & METERS ─────────
     const observerOptions = {
         root: null,
         rootMargin: '0px 0px -40px 0px',
-        threshold: 0.1
+        threshold: 0.08
     };
 
     let sgpaAnimated = false;
@@ -141,6 +164,9 @@
                 if (entry.target.id === 'skills' || entry.target.querySelector('.meter-bar')) {
                     animateSkillBars();
                 }
+                if (entry.target.id === 'hero' || entry.target.querySelector('[data-count]')) {
+                    animateCounters();
+                }
             }
         });
     }, observerOptions);
@@ -148,6 +174,13 @@
     document.querySelectorAll('.reveal').forEach(el => {
         scrollObserver.observe(el);
     });
+
+    const heroSection = document.getElementById('hero');
+    if (heroSection) {
+        scrollObserver.observe(heroSection);
+        // Trigger counter animation on page start
+        setTimeout(animateCounters, 700);
+    }
 
     const eduSection = document.getElementById('education');
     if (eduSection) scrollObserver.observe(eduSection);
@@ -225,7 +258,7 @@
         }, 4000);
     }
 
-    // ─── SMOOTH ANCHOR SCROLLING ────────────────────────────
+    // ─── SMOOTH ANCHOR SCROLLING ────────────────────
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             const targetId = this.getAttribute('href');

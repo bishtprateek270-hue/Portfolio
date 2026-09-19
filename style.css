@@ -143,6 +143,18 @@ button {
   padding: 0.45rem 0;
   position: relative;
   z-index: 90;
+  animation: slideDownBar 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes slideDownBar {
+  from {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .top-status-inner {
@@ -212,6 +224,18 @@ button {
   border-bottom: 1px solid var(--border-light);
   z-index: 80;
   transition: all var(--transition-smooth);
+  animation: fadeInNav 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes fadeInNav {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .nav-inner {
@@ -237,6 +261,11 @@ button {
   border: 1.5px solid var(--border-mid);
   box-shadow: var(--shadow-sm);
   background: var(--bg-muted);
+  transition: transform var(--transition-bounce);
+}
+
+.brand-avatar-mini:hover {
+  transform: scale(1.08) rotate(3deg);
 }
 
 .brand-avatar-mini img {
@@ -325,7 +354,8 @@ button {
 
 .nav-cta:hover {
   background: #27272A;
-  transform: translateY(-1px);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
 }
 
 .hamburger {
@@ -358,10 +388,30 @@ button {
   transform: translateY(-7px) rotate(-45deg);
 }
 
-/* ─── HERO SECTION ─── */
+/* ─── HERO SECTION & ENTRANCE ANIMATIONS ─── */
 .hero {
   padding-top: 3.5rem;
   padding-bottom: 4rem;
+}
+
+.hero-anim {
+  opacity: 0;
+  transform: translateY(28px);
+  animation: heroFadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: var(--delay, 0s);
+}
+
+@keyframes heroFadeUp {
+  0% {
+    opacity: 0;
+    transform: translateY(28px);
+    filter: blur(4px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
 }
 
 .hero-editorial {
@@ -385,6 +435,12 @@ button {
   border-radius: var(--radius-pill);
   margin-bottom: 1.5rem;
   box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-bounce), border-color var(--transition-fast);
+}
+
+.eyebrow-chip:hover {
+  transform: scale(1.03);
+  border-color: var(--border-mid);
 }
 
 .hero-headline {
@@ -400,6 +456,8 @@ button {
   font-size: 4rem;
   color: var(--accent-blue);
   font-weight: 400;
+  position: relative;
+  display: inline-block;
 }
 
 .hero-subheadline {
@@ -427,11 +485,14 @@ button {
   justify-content: space-between;
   box-shadow: var(--shadow-sm);
   transition: all var(--transition-smooth);
+  position: relative;
+  overflow: hidden;
 }
 
 .bento-bio-card:hover {
   border-color: var(--border-mid);
   box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
 }
 
 .code-snippet {
@@ -520,11 +581,14 @@ button {
   flex-direction: column;
   box-shadow: var(--shadow-sm);
   transition: all var(--transition-smooth);
+  position: relative;
+  overflow: hidden;
 }
 
 .bento-portrait-card:hover {
   border-color: var(--border-mid);
   box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
 }
 
 .portrait-wrapper {
@@ -541,11 +605,11 @@ button {
   height: 100%;
   object-fit: cover;
   object-position: center 20%;
-  transition: transform var(--transition-smooth);
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .bento-portrait-card:hover .portrait-img {
-  transform: scale(1.03);
+  transform: scale(1.04);
 }
 
 .portrait-overlay {
@@ -609,6 +673,12 @@ button {
   align-items: center;
   justify-content: space-between;
   box-shadow: var(--shadow-sm);
+  transition: all var(--transition-smooth);
+}
+
+.metrics-strip:hover {
+  border-color: var(--border-mid);
+  box-shadow: var(--shadow-md);
 }
 
 .metric-item {
@@ -640,7 +710,7 @@ button {
   background: var(--border-light);
 }
 
-/* ─── SHARED SECTION HEADINGS & REVEALS ─── */
+/* ─── SCROLL REVEAL ANIMATIONS (WHILE SCROLLING) ─── */
 section {
   padding-top: 5rem;
   padding-bottom: 5rem;
@@ -673,15 +743,20 @@ section {
   color: var(--accent-blue);
 }
 
+/* High-Impact Scroll Triggers */
 .reveal {
   opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateY(32px);
+  filter: blur(3px);
+  transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 0.75s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .reveal.in, .reveal.revealed {
   opacity: 1;
   transform: translateY(0);
+  filter: blur(0);
 }
 
 /* ─── SECTION 01: ABOUT ─── */
@@ -724,6 +799,12 @@ section {
   border-radius: var(--radius-pill);
   color: var(--text-main);
   box-shadow: var(--shadow-sm);
+  transition: all var(--transition-fast);
+}
+
+.chip-item:hover {
+  border-color: var(--border-mid);
+  transform: translateY(-1px);
 }
 
 .chip-item svg {
@@ -745,6 +826,7 @@ section {
 .about-summary-card:hover {
   border-color: var(--border-mid);
   box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
 }
 
 .summary-avatar {
@@ -814,6 +896,7 @@ section {
 .education-card:hover {
   border-color: var(--border-mid);
   box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
 }
 
 .edu-top-row {
@@ -863,6 +946,12 @@ section {
   border: 1px solid var(--border-light);
   border-radius: var(--radius-md);
   padding: 1.15rem;
+  transition: all var(--transition-fast);
+}
+
+.sgpa-item:hover {
+  border-color: var(--border-mid);
+  transform: translateY(-1px);
 }
 
 .sgpa-info {
@@ -900,7 +989,7 @@ section {
   background: var(--accent-blue);
   border-radius: var(--radius-pill);
   width: 0%;
-  transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: width 1.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* ─── SECTION 03: TECH STACK ─── */
@@ -924,7 +1013,7 @@ section {
 
 .skill-card:hover {
   border-color: var(--border-mid);
-  transform: translateY(-2px);
+  transform: translateY(-3px);
   box-shadow: var(--shadow-md);
 }
 
@@ -970,7 +1059,7 @@ section {
   background: var(--text-main);
   border-radius: var(--radius-pill);
   width: 0%;
-  transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: width 1.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* ─── SECTION 04: PROJECTS / CASE STUDIES ─── */
@@ -986,14 +1075,14 @@ section {
   border-radius: var(--radius-lg);
   padding: 2.25rem;
   box-shadow: var(--shadow-sm);
-  transition: all var(--transition-smooth);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
   position: relative;
 }
 
 .project-card:hover {
   border-color: var(--border-mid);
   box-shadow: var(--shadow-lg);
-  transform: translateY(-3px);
+  transform: translateY(-4px);
 }
 
 .project-header {
@@ -1116,6 +1205,13 @@ section {
   padding: 0.3rem 0.65rem;
   border-radius: var(--radius-xs);
   border: 1px solid var(--border-light);
+  transition: all var(--transition-fast);
+}
+
+.tag-chip:hover {
+  background: var(--text-main);
+  color: #FFFFFF;
+  border-color: var(--text-main);
 }
 
 .project-links {
@@ -1147,7 +1243,8 @@ section {
 
 .link-btn.primary:hover {
   background: #1E293B;
-  transform: translateY(-1px);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
 }
 
 .link-btn.ghost {
@@ -1159,7 +1256,7 @@ section {
 .link-btn.ghost:hover {
   background: var(--bg-subtle);
   border-color: var(--border-mid);
-  transform: translateY(-1px);
+  transform: translateY(-2px);
 }
 
 /* ─── SECTION 05: EXPERIENCE ─── */
@@ -1181,6 +1278,7 @@ section {
 .timeline-card:hover {
   border-color: var(--border-mid);
   box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
 }
 
 .timeline-header {
@@ -1245,7 +1343,7 @@ section {
 
 .milestone-card:hover {
   border-color: var(--border-mid);
-  transform: translateY(-2px);
+  transform: translateY(-3px);
   box-shadow: var(--shadow-md);
 }
 
@@ -1298,6 +1396,12 @@ section {
   padding: 0.45rem 0.85rem;
   border-radius: var(--radius-xs);
   border: 1px solid var(--border-light);
+  transition: all var(--transition-fast);
+}
+
+.cert-chip:hover {
+  border-color: var(--border-mid);
+  transform: translateY(-1px);
 }
 
 /* ─── SECTION 07: CONTACT ─── */
@@ -1314,6 +1418,11 @@ section {
   padding: 2.5rem;
   display: flex;
   flex-direction: column;
+  transition: all var(--transition-smooth);
+}
+
+.contact-info-panel:hover {
+  box-shadow: var(--shadow-lg);
 }
 
 .contact-status-chip {
@@ -1367,7 +1476,7 @@ section {
 .c-link:hover {
   background: rgba(255, 255, 255, 0.12);
   color: #FFFFFF;
-  transform: translateX(3px);
+  transform: translateX(4px);
 }
 
 .c-arrow {
@@ -1381,6 +1490,12 @@ section {
   border-radius: var(--radius-lg);
   padding: 2.5rem;
   box-shadow: var(--shadow-sm);
+  transition: all var(--transition-smooth);
+}
+
+.contact-form-panel:hover {
+  border-color: var(--border-mid);
+  box-shadow: var(--shadow-md);
 }
 
 .contact-form {
