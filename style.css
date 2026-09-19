@@ -1406,44 +1406,51 @@ section {
   display: grid;
   grid-template-columns: 0.95fr 1.25fr;
   gap: 2rem;
+  opacity: 1 !important;
 }
 
 .contact-info-panel {
-  background: #090D16;
-  color: #FFFFFF;
+  background: #090D16 !important;
+  color: #FFFFFF !important;
   border-radius: var(--radius-lg);
   padding: 2.5rem;
   display: flex;
   flex-direction: column;
   transition: all var(--transition-smooth);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  border: 1px solid #1E293B;
+  opacity: 1 !important;
 }
 
 .contact-info-panel:hover {
-  box-shadow: var(--shadow-lg);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.16);
+  border-color: #334155;
 }
 
 .contact-status-chip {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.12) !important;
   font-family: var(--font-mono);
-  font-size: 0.72rem;
-  padding: 0.35rem 0.75rem;
+  font-size: 0.74rem;
+  color: #FFFFFF !important;
+  padding: 0.35rem 0.85rem;
   border-radius: var(--radius-pill);
   margin-bottom: 1.75rem;
   width: fit-content;
+  border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 .contact-info-panel h3 {
-  color: #FFFFFF;
+  color: #FFFFFF !important;
   font-size: 1.75rem;
   font-weight: 800;
   margin-bottom: 0.75rem;
 }
 
 .contact-info-panel p {
-  color: #94A3B8;
+  color: #CBD5E1 !important;
   font-size: 0.98rem;
   line-height: 1.6;
   margin-bottom: 2rem;
@@ -1462,37 +1469,39 @@ section {
   gap: 0.75rem;
   font-family: var(--font-mono);
   font-size: 0.84rem;
-  color: #E2E8F0;
-  padding: 0.65rem 0.85rem;
+  color: #F8FAFC !important;
+  padding: 0.75rem 1rem;
   border-radius: var(--radius-sm);
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid rgba(255, 255, 255, 0.14) !important;
   transition: all var(--transition-fast);
 }
 
 .c-link:hover {
-  background: rgba(255, 255, 255, 0.12);
-  color: #FFFFFF;
+  background: rgba(255, 255, 255, 0.18) !important;
+  color: #FFFFFF !important;
   transform: translateX(4px);
+  border-color: rgba(255, 255, 255, 0.3) !important;
 }
 
 .c-arrow {
-  color: var(--accent-blue);
+  color: #38BDF8 !important;
   font-weight: 700;
 }
 
 .contact-form-panel {
-  background: var(--bg-surface);
-  border: 1px solid var(--border-light);
+  background: #FFFFFF !important;
+  border: 1px solid var(--border-mid) !important;
   border-radius: var(--radius-lg);
   padding: 2.5rem;
-  box-shadow: var(--shadow-sm);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
   transition: all var(--transition-smooth);
+  opacity: 1 !important;
 }
 
 .contact-form-panel:hover {
-  border-color: var(--border-mid);
-  box-shadow: var(--shadow-md);
+  border-color: var(--border-dark) !important;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
 }
 
 .contact-form {
@@ -1517,7 +1526,7 @@ section {
   font-family: var(--font-mono);
   font-size: 0.76rem;
   font-weight: 600;
-  color: var(--text-muted);
+  color: var(--text-main) !important;
   text-transform: uppercase;
   letter-spacing: 0.03em;
 }
@@ -1526,25 +1535,25 @@ section {
 .form-field textarea {
   font-family: var(--font-sans);
   font-size: 0.95rem;
-  background: var(--bg-canvas);
-  border: 1px solid var(--border-light);
+  background: #FAFAFA !important;
+  border: 1px solid var(--border-mid) !important;
   border-radius: var(--radius-sm);
   padding: 0.75rem 1rem;
-  color: var(--text-main);
+  color: var(--text-main) !important;
   outline: none;
   transition: all var(--transition-fast);
 }
 
 .form-field input:focus,
 .form-field textarea:focus {
-  border-color: var(--text-main);
-  background: #FFFFFF;
-  box-shadow: 0 0 0 3px rgba(15, 23, 42, 0.08);
+  border-color: var(--text-main) !important;
+  background: #FFFFFF !important;
+  box-shadow: 0 0 0 3px rgba(15, 23, 42, 0.08) !important;
 }
 
 .submit-btn {
-  background: var(--text-main);
-  color: #FFFFFF;
+  background: var(--text-main) !important;
+  color: #FFFFFF !important;
   font-family: var(--font-sans);
   font-size: 0.92rem;
   font-weight: 600;
@@ -1555,11 +1564,13 @@ section {
   justify-content: center;
   gap: 0.5rem;
   margin-top: 0.5rem;
+  cursor: pointer;
+  border: none;
   transition: all var(--transition-smooth);
 }
 
 .submit-btn:hover {
-  background: #1E293B;
+  background: #1E293B !important;
   transform: translateY(-2px);
   box-shadow: var(--shadow-md);
 }
