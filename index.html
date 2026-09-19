@@ -14,9 +14,12 @@
     <meta property="og:description"
         content="Portfolio of Prateek Singh Bisht — AI/ML enthusiast, hackathon finalist, and aspiring engineer.">
     <meta property="og:type" content="website">
+    <meta property="og:image" content="assets/images/prateek.jpg">
+
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -24,12 +27,38 @@
     <!-- Scrolling progress indicator -->
     <div class="scroll-progress-bar" id="scrollProgress"></div>
 
+    <!-- ==================== TOP TICKER / STATUS BAR ==================== -->
+    <div class="top-status-bar">
+        <div class="wrap top-status-inner">
+            <div class="status-left">
+                <span class="location-dot"></span>
+                <span>Panipat, India</span>
+                <span class="sep">•</span>
+                <span id="liveClock">GMT +5:30</span>
+            </div>
+            <div class="status-center">
+                <span class="pulse-dot"></span>
+                <span class="status-text">Available for AI/ML & Engineering Roles</span>
+            </div>
+            <div class="status-right">
+                <span class="version-tag">V2.0</span>
+                <span class="sep">•</span>
+                <span>2024 — 2028</span>
+            </div>
+        </div>
+    </div>
+
     <!-- ==================== NAVIGATION ==================== -->
     <header class="nav">
-        <div class="nav-inner">
+        <div class="nav-inner wrap">
             <div class="nav-mark" onclick="window.scrollTo({top:0, behavior:'smooth'})">
-                <span class="dot"></span>
-                <span class="logo-bracket">&lt;</span>PSB<span class="logo-bracket"> /&gt;</span>
+                <div class="brand-avatar-mini">
+                    <img src="assets/images/prateek.jpg" alt="Prateek" />
+                </div>
+                <div class="brand-text">
+                    <span class="brand-name">Prateek Singh Bisht</span>
+                    <span class="brand-role">AI & ML Engineer</span>
+                </div>
             </div>
             <nav class="links" id="navLinks">
                 <a href="#about">about</a>
@@ -41,7 +70,7 @@
                 <a href="#contact">contact</a>
             </nav>
             <div class="nav-right">
-                <a class="nav-cta animate-on-scroll" href="#contact">get in touch</a>
+                <a class="nav-cta animate-on-scroll" href="Prateek_Singh_Bisht_Resume.pdf?v=3" target="_blank" rel="noopener noreferrer">Resume ↗</a>
                 <button class="hamburger" id="hamburger" aria-label="Toggle navigation menu">
                     <span></span>
                     <span></span>
@@ -52,116 +81,151 @@
     </header>
 
     <main>
-        <!-- ==================== HERO ==================== -->
+        <!-- ==================== HERO SECTION ==================== -->
         <section class="hero wrap" id="hero">
-            <div class="eyebrow"><span class="pulse-dot"></span>open to internship opportunities</div>
-
-            <h1 class="name">Prateek Singh <em>Bisht</em></h1>
-
-            <p class="role-line">
-                <span class="k">def</span> engineer_solution(problem) <span class="k">-&gt;</span> <span class="s">"production_ai"</span>: AI engineering, machine learning architecture, and scalable software development.
-            </p>
-
-            <p class="bio">
-                I'm a B.Tech student specializing in <strong>Artificial Intelligence & Machine Learning</strong>. I focus on taking ideas from prototype to full production models — building ML pipelines, training models, and engineering robust, low-latency web platforms.
-            </p>
-
-            <div class="hero-actions animate-on-scroll">
-                <a class="btn primary" href="#projects">View projects →</a>
-                <a class="btn ghost" href="#contact">Get in touch</a>
-                <a class="btn ghost" href="Prateek_Singh_Bisht_Resume.pdf?v=3" target="_blank" rel="noopener noreferrer">Resume ↗</a>
+            <div class="hero-editorial">
+                <div class="eyebrow-chip">
+                    <span class="pulse-dot"></span>
+                    <span>AI Engineering &amp; Scalable Systems</span>
+                </div>
+                <h1 class="hero-headline">
+                    I build intelligent AI systems &amp; software — <em>without the gap</em>.
+                </h1>
+                <p class="hero-subheadline">
+                    Taking ideas from mathematical prototypes to high-performance production models — architecting resilient ML pipelines, LLM/RAG engines, and low-latency web platforms.
+                </p>
             </div>
 
-            <div class="metrics animate-on-scroll">
-                <div class="metric">
+            <!-- Hero Bento Grid: Bio Card & Portrait Card -->
+            <div class="hero-bento">
+                <div class="bento-bio-card">
+                    <div class="code-snippet">
+                        <span class="k">def</span> <span class="fn">engineer_solution</span>(problem) <span class="k">-&gt;</span> <span class="s">"production_ai"</span>:
+                        <br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">return</span> MachineLearningPipeline(optimize_for=<span class="s">"low_latency"</span>)
+                    </div>
+                    <p class="bio-text">
+                        I'm a 3rd-year B.Tech student specializing in <strong>Artificial Intelligence &amp; Machine Learning</strong> at PIET. I specialize in bridging research-grade machine learning with robust, production-ready full-stack software.
+                    </p>
+                    <div class="hero-actions">
+                        <a class="btn primary" href="#projects">Explore Selected Work ↓</a>
+                        <a class="btn ghost" href="#contact">Get in Touch</a>
+                        <a class="btn ghost" href="Prateek_Singh_Bisht_Resume.pdf?v=3" target="_blank" rel="noopener noreferrer">Download CV ↗</a>
+                    </div>
+                </div>
+
+                <div class="bento-portrait-card">
+                    <div class="portrait-wrapper">
+                        <img src="assets/images/prateek.jpg" alt="Prateek Singh Bisht" class="portrait-img" id="heroPortrait" />
+                        <div class="portrait-overlay">
+                            <div class="portrait-badge">
+                                <span class="pulse-dot"></span>
+                                <span>Open to Opportunities</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="portrait-footer">
+                        <div>
+                            <h4>Prateek Singh Bisht</h4>
+                            <p>AI &amp; ML Engineering Student</p>
+                        </div>
+                        <span class="portrait-loc">India 📍</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Metrics Strip -->
+            <div class="metrics-strip">
+                <div class="metric-item">
                     <div class="val">9</div>
                     <div class="lbl">Projects Shipped</div>
                 </div>
-                <div class="metric">
+                <div class="metric-divider"></div>
+                <div class="metric-item">
                     <div class="val">1</div>
-                    <div class="lbl">Internship Done</div>
+                    <div class="lbl">Internship Completed</div>
                 </div>
-                <div class="metric">
+                <div class="metric-divider"></div>
+                <div class="metric-item">
                     <div class="val">4+</div>
                     <div class="lbl">Hackathons Joined</div>
+                </div>
+                <div class="metric-divider"></div>
+                <div class="metric-item">
+                    <div class="val">SIH '25</div>
+                    <div class="lbl">Internal Finalist</div>
                 </div>
             </div>
         </section>
 
-        <!-- ==================== ABOUT ==================== -->
+        <!-- ==================== SECTION 01: ABOUT ==================== -->
         <section id="about" class="wrap reveal">
             <div class="sec-head">
-                <h2>Who I <em>Am</em></h2>
-                <span class="tag">01 — about.json</span>
+                <div class="sec-index">01 // WHO I AM</div>
+                <h2>Bridging AI Research with <em>Real-World Impact</em></h2>
             </div>
             <div class="about-grid">
-                <div class="about-text">
-                    <p>I'm a <strong>3rd-year B.Tech student</strong> specializing in <strong>Artificial Intelligence & Machine Learning</strong>, driven by a deep curiosity for how intelligent systems can solve real-world problems.</p>
-                    <p>My journey spans across machine learning, data engineering, and full-stack software development — allowing me to build end-to-end intelligent systems. I thrive in hackathon environments where innovation meets tight deadlines, and I'm constantly pushing myself to learn emerging technologies.</p>
-                    <p>Whether it's building AI-powered platforms, optimizing model performance, or collaborating with teams to ship production software — I'm passionate about creating technology that makes a meaningful impact.</p>
-                    <div class="about-highlights">
-                        <div class="highlight-chip">
+                <div class="about-text-col">
+                    <p>I am a <strong>3rd-year B.Tech student</strong> specializing in <strong>Artificial Intelligence &amp; Machine Learning</strong>, driven by a deep curiosity for how intelligent systems can transform complex domains — from 3D cadastral land registries to forensic document verification and optical toxic gas dosimetry.</p>
+                    <p>My engineering stack spans across deep learning, computer vision, data engineering, and modern full-stack web architectures. I thrive in high-pressure hackathons where rapid innovation meets strict deadlines, and I love shipping practical software that users can rely on.</p>
+                    <p>Whether optimizing transformer/CNN pipelines, designing responsive WebGL interfaces, or training predictive models — my goal is to craft software that thinks clearly before it looks good.</p>
+                    
+                    <div class="about-chips">
+                        <div class="chip-item">
                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
                                 <path d="M2 17l10 5 10-5"></path>
                                 <path d="M2 12l10 5 10-5"></path>
                             </svg>
-                            AI & ML Enthusiast
+                            AI &amp; ML Architecture
                         </div>
-                        <div class="highlight-chip">
+                        <div class="chip-item">
                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <polyline points="16 18 22 12 16 6"></polyline>
                                 <polyline points="8 6 2 12 8 18"></polyline>
                             </svg>
-                            Software Developer
+                            Full-Stack Development
                         </div>
-                        <div class="highlight-chip">
+                        <div class="chip-item">
                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
                             </svg>
                             Hackathon Finalist
                         </div>
-                        <div class="highlight-chip">
+                        <div class="chip-item">
                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <circle cx="12" cy="12" r="10"></circle>
                                 <path d="M8 14s1.5 2 4 2 4-2 4-2"></path>
                                 <line x1="9" y1="9" x2="9.01" y2="9"></line>
                                 <line x1="15" y1="9" x2="15.01" y2="9"></line>
                             </svg>
-                            Team Player
+                            Systems Engineering
                         </div>
                     </div>
                 </div>
-                <div class="about-card">
-                    <div class="about-avatar">
-                        <div class="avatar-placeholder">
-                            <span>PSB</span>
-                        </div>
+
+                <div class="about-summary-card">
+                    <div class="summary-avatar">
+                        <img src="assets/images/prateek.jpg" alt="Prateek Singh Bisht" />
                     </div>
-                    <div class="about-info">
+                    <div class="summary-details">
                         <h3>Prateek Singh Bisht</h3>
-                        <p class="about-role">AI & ML Engineering Student</p>
-                        <div class="about-details">
-                            <div class="detail-row">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"></path>
-                                    <circle cx="12" cy="10" r="3"></circle>
-                                </svg>
-                                <span>India</span>
+                        <p class="summary-subtitle">B.Tech AI &amp; ML (2024 — 2028)</p>
+                        <div class="summary-rows">
+                            <div class="s-row">
+                                <span class="s-label">Institution</span>
+                                <span class="s-val">PIET, Haryana</span>
                             </div>
-                            <div class="detail-row">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
-                                    <path d="M6 12v5c3 3 10 3 12 0v-5"></path>
-                                </svg>
-                                <span>Panipat Institute of Engineering & Tech</span>
+                            <div class="s-row">
+                                <span class="s-label">Status</span>
+                                <span class="s-val">3rd Year, 5th Sem</span>
                             </div>
-                            <div class="detail-row">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <circle cx="12" cy="12" r="10"></circle>
-                                    <polyline points="12 6 12 12 16 14"></polyline>
-                                </svg>
-                                <span>3rd Year, 5th Semester</span>
+                            <div class="s-row">
+                                <span class="s-label">Location</span>
+                                <span class="s-val">India</span>
+                            </div>
+                            <div class="s-row">
+                                <span class="s-label">Focus</span>
+                                <span class="s-val">GenAI &amp; MLOps</span>
                             </div>
                         </div>
                     </div>
@@ -169,532 +233,546 @@
             </div>
         </section>
 
-        <!-- ==================== EDUCATION ==================== -->
+        <!-- ==================== SECTION 02: EDUCATION ==================== -->
         <section id="education" class="wrap reveal">
             <div class="sec-head">
-                <h2>Education</h2>
-                <span class="tag">02 — academics.log</span>
+                <div class="sec-index">02 // ACADEMICS</div>
+                <h2>Education &amp; <em>Academic Record</em></h2>
             </div>
-            <div class="education-timeline">
-                <div class="edu-item">
-                    <div class="edu-header">
-                        <div>
-                            <span class="edu-badge">2024 — 2028 (Expected)</span>
-                            <h3 style="font-size: 19px; font-weight: 600; margin-top: 8px;">B.Tech in Artificial Intelligence & Machine Learning</h3>
-                            <p class="edu-institution">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
-                                    <path d="M6 12v5c3 3 10 3 12 0v-5"></path>
-                                </svg>
-                                Panipat Institute of Engineering & Technology (PIET)
-                            </p>
+            <div class="education-card">
+                <div class="edu-top-row">
+                    <div>
+                        <span class="badge-pill">2024 — 2028 (Expected)</span>
+                        <h3 class="edu-degree">B.Tech in Artificial Intelligence &amp; Machine Learning</h3>
+                        <p class="edu-school">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+                                <path d="M6 12v5c3 3 10 3 12 0v-5"></path>
+                            </svg>
+                            Panipat Institute of Engineering &amp; Technology (PIET)
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="sgpa-container">
+                    <div class="sgpa-item">
+                        <div class="sgpa-info">
+                            <span class="sgpa-sem">Semester 1</span>
+                            <span class="sgpa-score">7.95</span>
+                        </div>
+                        <div class="sgpa-meter">
+                            <div class="sgpa-bar" data-width="79.5"></div>
                         </div>
                     </div>
-                    <div class="sgpa-grid">
-                        <div class="sgpa-card">
-                            <span class="sgpa-label">Semester 1</span>
-                            <span class="sgpa-value">7.95</span>
-                            <div class="sgpa-bar">
-                                <div class="sgpa-fill" data-width="79.5"></div>
-                            </div>
+                    <div class="sgpa-item">
+                        <div class="sgpa-info">
+                            <span class="sgpa-sem">Semester 2</span>
+                            <span class="sgpa-score">8.21</span>
                         </div>
-                        <div class="sgpa-card">
-                            <span class="sgpa-label">Semester 2</span>
-                            <span class="sgpa-value">8.21</span>
-                            <div class="sgpa-bar">
-                                <div class="sgpa-fill" data-width="82.1"></div>
-                            </div>
+                        <div class="sgpa-meter">
+                            <div class="sgpa-bar" data-width="82.1"></div>
                         </div>
-                        <div class="sgpa-card">
-                            <span class="sgpa-label">Semester 3</span>
-                            <span class="sgpa-value">7.30</span>
-                            <div class="sgpa-bar">
-                                <div class="sgpa-fill" data-width="73.0"></div>
-                            </div>
+                    </div>
+                    <div class="sgpa-item">
+                        <div class="sgpa-info">
+                            <span class="sgpa-sem">Semester 3</span>
+                            <span class="sgpa-score">7.30</span>
+                        </div>
+                        <div class="sgpa-meter">
+                            <div class="sgpa-bar" data-width="73.0"></div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- ==================== SKILLS ==================== -->
+        <!-- ==================== SECTION 03: TECH STACK ==================== -->
         <section id="skills" class="wrap reveal">
             <div class="sec-head">
-                <h2>Stack</h2>
-                <span class="tag">03 — tools & proficiency</span>
+                <div class="sec-index">03 // TOOLKIT</div>
+                <h2>Technical Stack &amp; <em>Proficiency</em></h2>
             </div>
-            <div class="skill-grid">
-                <div class="skill-col">
-                    <h4>Modeling & AI</h4>
-                    <div class="skill-row">Machine Learning <div class="skill-bar"><i data-width="85%"></i></div></div>
-                    <div class="skill-row">Data Science <div class="skill-bar"><i data-width="70%"></i></div></div>
-                    <div class="skill-row">Analytical Thinking <div class="skill-bar"><i data-width="80%"></i></div></div>
+            <div class="skills-bento">
+                <div class="skill-card">
+                    <div class="skill-card-head">
+                        <span class="skill-cat-icon">🤖</span>
+                        <h4>Modeling &amp; AI</h4>
+                    </div>
+                    <div class="skill-meter-row">
+                        <span>Machine Learning</span>
+                        <div class="meter-bar"><i data-width="85%"></i></div>
+                    </div>
+                    <div class="skill-meter-row">
+                        <span>Generative AI &amp; RAG</span>
+                        <div class="meter-bar"><i data-width="90%"></i></div>
+                    </div>
+                    <div class="skill-meter-row">
+                        <span>Computer Vision &amp; Deep Learning</span>
+                        <div class="meter-bar"><i data-width="80%"></i></div>
+                    </div>
                 </div>
-                <div class="skill-col">
-                    <h4>Languages</h4>
-                    <div class="skill-row">Python <div class="skill-bar"><i data-width="90%"></i></div></div>
-                    <div class="skill-row">C++ <div class="skill-bar"><i data-width="80%"></i></div></div>
-                    <div class="skill-row">C <div class="skill-bar"><i data-width="75%"></i></div></div>
+
+                <div class="skill-card">
+                    <div class="skill-card-head">
+                        <span class="skill-cat-icon">⚡</span>
+                        <h4>Languages</h4>
+                    </div>
+                    <div class="skill-meter-row">
+                        <span>Python</span>
+                        <div class="meter-bar"><i data-width="92%"></i></div>
+                    </div>
+                    <div class="skill-meter-row">
+                        <span>TypeScript / JavaScript</span>
+                        <div class="meter-bar"><i data-width="85%"></i></div>
+                    </div>
+                    <div class="skill-meter-row">
+                        <span>C++ / C</span>
+                        <div class="meter-bar"><i data-width="80%"></i></div>
+                    </div>
                 </div>
-                <div class="skill-col">
-                    <h4>Engineering & Soft Skills</h4>
-                    <div class="skill-row">System Architecture <div class="skill-bar"><i data-width="82%"></i></div></div>
-                    <div class="skill-row">API & Web Dev <div class="skill-bar"><i data-width="85%"></i></div></div>
-                    <div class="skill-row">Team Collaboration <div class="skill-bar"><i data-width="92%"></i></div></div>
+
+                <div class="skill-card">
+                    <div class="skill-card-head">
+                        <span class="skill-cat-icon">🛠️</span>
+                        <h4>Frameworks &amp; Systems</h4>
+                    </div>
+                    <div class="skill-meter-row">
+                        <span>FastAPI &amp; REST APIs</span>
+                        <div class="meter-bar"><i data-width="88%"></i></div>
+                    </div>
+                    <div class="skill-meter-row">
+                        <span>React &amp; Next.js</span>
+                        <div class="meter-bar"><i data-width="85%"></i></div>
+                    </div>
+                    <div class="skill-meter-row">
+                        <span>Docker &amp; MLOps</span>
+                        <div class="meter-bar"><i data-width="80%"></i></div>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- ==================== PROJECTS ==================== -->
+        <!-- ==================== SECTION 04: SELECTED WORK ==================== -->
         <section id="projects" class="wrap reveal">
             <div class="sec-head">
-                <h2>Selected Work</h2>
-                <span class="tag">04 — projects_log.jsonl</span>
+                <div class="sec-index">04 // CASE STUDIES &amp; WORKS</div>
+                <h2>Selected Work &amp; <em>Featured Systems</em></h2>
             </div>
 
-            <!-- Project 1: 3D-ULPIN — AI 3D Cadastral & Volumetric Land Registry System -->
-            <div class="exp">
-                <div class="exp-top">
-                    <span class="exp-id">exp_009</span>
-                    <span class="exp-status"><span class="d"></span>in production</span>
+            <div class="projects-list">
+                <!-- Project 1: 3D-ULPIN -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-num">_01</div>
+                        <div class="project-status in-prod"><span class="dot"></span>in production</div>
+                    </div>
+                    <h3 class="project-title">3D-ULPIN — AI 3D Cadastral &amp; Volumetric Land Registry System</h3>
+                    <div class="project-meta-grid">
+                        <div class="meta-item"><b>Role:</b> Frontend &amp; Backend Developer (Contributor)</div>
+                        <div class="meta-item"><b>Stack:</b> React 18 + TypeScript + Vite + deck.gl + MapLibre + FastAPI + PostGIS</div>
+                        <div class="meta-item"><b>AI Engine:</b> Gemini 2.5 Flash Vision AI &amp; 3D Topological Validation Engine</div>
+                    </div>
+                    <p class="project-desc">
+                        An AI-powered 3D Cadastral &amp; Volumetric Land Registry Platform modernizing 2D surface land parcels into multi-layer volumetric strata digital twins (ISO 19152 LADM standard). Features autonomous satellite footprint vectorization, Gemini Vision AI structural height &amp; roof typology classification, high-performance 60 FPS WebGL 3D strata slicing &amp; solar daylight simulation via deck.gl and Three.js, subterranean utility infrastructure mapping, and automated 3D topological non-overlap verification.
+                    </p>
+                    <div class="project-tags">
+                        <span class="tag-chip">react 18</span>
+                        <span class="tag-chip">typescript</span>
+                        <span class="tag-chip">deck.gl v9</span>
+                        <span class="tag-chip">maplibre gl</span>
+                        <span class="tag-chip">three.js</span>
+                        <span class="tag-chip">fastapi</span>
+                        <span class="tag-chip">python</span>
+                        <span class="tag-chip">postgis</span>
+                        <span class="tag-chip">gemini vision ai</span>
+                        <span class="tag-chip">3d cadastre</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://3-d-ulpin-mvp.vercel.app/" target="_blank" rel="noopener noreferrer" class="link-btn primary">Live Demo ↗</a>
+                        <a href="https://github.com/harsh3011dev-oops/3D-ULPIN-MVP" target="_blank" rel="noopener noreferrer" class="link-btn ghost">GitHub Repo ↗</a>
+                    </div>
                 </div>
-                <h3>3D-ULPIN — AI 3D Cadastral & Volumetric Land Registry System</h3>
-                <div class="exp-meta">
-                    <span><b>role</b> Frontend & Backend Developer (Contributor)</span>
-                    <span><b>stack</b> React 18 + TypeScript + Vite + deck.gl + MapLibre + FastAPI + PostGIS</span>
-                    <span><b>AI Integration</b> Gemini 2.5 Flash Vision AI & 3D Topological Validation Engine</span>
-                </div>
-                <p>An AI-powered 3D Cadastral & Volumetric Land Registry Platform modernizing 2D surface land parcels into multi-layer volumetric strata digital twins (ISO 19152 LADM standard). Features autonomous satellite footprint vectorization, Gemini Vision AI structural height & roof typology classification, high-performance 60 FPS WebGL 3D strata slicing & solar daylight simulation via deck.gl and Three.js, subterranean utility infrastructure mapping, and automated 3D topological non-overlap verification.</p>
-                <div class="tags">
-                    <span class="chip">react 18</span>
-                    <span class="chip">typescript</span>
-                    <span class="chip">deck.gl v9</span>
-                    <span class="chip">maplibre gl</span>
-                    <span class="chip">three.js</span>
-                    <span class="chip">fastapi</span>
-                    <span class="chip">python</span>
-                    <span class="chip">postgis</span>
-                    <span class="chip">gemini vision ai</span>
-                    <span class="chip">3d cadastre</span>
-                </div>
-                <div class="exp-links">
-                    <a href="https://github.com/harsh3011dev-oops/3D-ULPIN-MVP" target="_blank" rel="noopener noreferrer">repo ↗</a>
-                    <a href="https://3-d-ulpin-mvp.vercel.app/" target="_blank" rel="noopener noreferrer">live demo ↗</a>
-                </div>
-            </div>
 
-            <!-- Project 2: KarigarAI — AI E-Commerce & WhatsApp Commerce Platform -->
-            <div class="exp">
-                <div class="exp-top">
-                    <span class="exp-id">exp_008</span>
-                    <span class="exp-status"><span class="d"></span>in production</span>
+                <!-- Project 2: KarigarAI -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-num">_02</div>
+                        <div class="project-status in-prod"><span class="dot"></span>in production</div>
+                    </div>
+                    <h3 class="project-title">KarigarAI — AI E-Commerce &amp; WhatsApp Commerce Platform</h3>
+                    <div class="project-meta-grid">
+                        <div class="meta-item"><b>Role:</b> Lead AI &amp; Full-Stack Developer</div>
+                        <div class="meta-item"><b>Stack:</b> React 19 + Vite + FastAPI + Python</div>
+                        <div class="meta-item"><b>AI Engine:</b> Vision AI Feature Extraction &amp; Multilingual Story Engine</div>
+                    </div>
+                    <p class="project-desc">
+                        A full-stack AI marketplace platform empowering Indian artisans to digitize their craft. Features vision AI craft feature extraction, labor-based fair price calculation engine, bi-directional English-Hindi catalog translation, printable exhibition QR price tags, and direct zero-middleman buyer-to-artisan ordering via WhatsApp.
+                    </p>
+                    <div class="project-tags">
+                        <span class="tag-chip">react 19</span>
+                        <span class="tag-chip">fastapi</span>
+                        <span class="tag-chip">python</span>
+                        <span class="tag-chip">vision ai</span>
+                        <span class="tag-chip">whatsapp commerce</span>
+                        <span class="tag-chip">generative ai</span>
+                        <span class="tag-chip">resend api</span>
+                        <span class="tag-chip">jwt auth</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://karigar-ai-amber.vercel.app" target="_blank" rel="noopener noreferrer" class="link-btn primary">Live Demo ↗</a>
+                        <a href="https://github.com/bishtprateek270-hue/karigarAI" target="_blank" rel="noopener noreferrer" class="link-btn ghost">GitHub Repo ↗</a>
+                    </div>
                 </div>
-                <h3>KarigarAI — AI E-Commerce & WhatsApp Commerce Platform</h3>
-                <div class="exp-meta">
-                    <span><b>role</b> Lead AI & Full-Stack Developer</span>
-                    <span><b>stack</b> React 19 + Vite + FastAPI + Python</span>
-                    <span><b>AI Integration</b> Vision AI Feature Extraction & Multilingual Heritage Story Engine</span>
-                </div>
-                <p>A full-stack AI marketplace platform empowering Indian artisans to digitize their craft. Features vision AI craft feature extraction, labor-based fair price calculation engine, bi-directional English-Hindi catalog translation, printable exhibition QR price tags, and direct zero-middleman buyer-to-artisan ordering via WhatsApp.</p>
-                <div class="tags">
-                    <span class="chip">react 19</span>
-                    <span class="chip">fastapi</span>
-                    <span class="chip">python</span>
-                    <span class="chip">vision ai</span>
-                    <span class="chip">whatsapp commerce</span>
-                    <span class="chip">generative ai</span>
-                    <span class="chip">resend api</span>
-                    <span class="chip">jwt auth</span>
-                </div>
-                <div class="exp-links">
-                    <a href="https://github.com/bishtprateek270-hue/karigarAI" target="_blank" rel="noopener noreferrer">repo ↗</a>
-                    <a href="https://karigar-ai-amber.vercel.app" target="_blank" rel="noopener noreferrer">live demo ↗</a>
-                </div>
-            </div>
 
-            <!-- Project 3: DocForensics AI — Multi-Evidence Document Forensic Analysis System -->
-            <div class="exp">
-                <div class="exp-top">
-                    <span class="exp-id">exp_007</span>
-                    <span class="exp-status"><span class="d"></span>in production</span>
+                <!-- Project 3: DocForensics AI -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-num">_03</div>
+                        <div class="project-status in-prod"><span class="dot"></span>in production</div>
+                    </div>
+                    <h3 class="project-title">DocForensics AI — Multi-Evidence Document Forensic Analysis System</h3>
+                    <div class="project-meta-grid">
+                        <div class="meta-item"><b>Role:</b> AI &amp; Full-Stack Engineer</div>
+                        <div class="meta-item"><b>Stack:</b> Next.js 14 + FastAPI + PyTorch 2.0 + TypeScript + OpenCV</div>
+                        <div class="meta-item"><b>AI Engine:</b> Dual-Specialist Deep Learning + OCR Spatial Corridor Filtering</div>
+                    </div>
+                    <p class="project-desc">
+                        An enterprise-grade, multi-evidence document forensic analysis system designed to detect, localize, and explain pixel-level tampering and micro-text alterations in digital documents (PDFs, scans, certificates, and invoices). Employs dual-stream deep learning architectures (RGB + SRM residual stream and DocTamper with Focal Tversky Loss), deterministic arithmetic consistency validation, and automated generation of court-ready PDF forensic audit reports.
+                    </p>
+                    <div class="project-tags">
+                        <span class="tag-chip">pytorch 2.0</span>
+                        <span class="tag-chip">next.js 14</span>
+                        <span class="tag-chip">fastapi</span>
+                        <span class="tag-chip">typescript</span>
+                        <span class="tag-chip">opencv</span>
+                        <span class="tag-chip">deep learning</span>
+                        <span class="tag-chip">doc forensics</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://doc-forensics-ai.vercel.app" target="_blank" rel="noopener noreferrer" class="link-btn primary">Live Demo ↗</a>
+                        <a href="https://github.com/bishtprateek270-hue/DocForensics-AI" target="_blank" rel="noopener noreferrer" class="link-btn ghost">GitHub Repo ↗</a>
+                    </div>
                 </div>
-                <h3>DocForensics AI — Multi-Evidence Document Forensic Analysis System</h3>
-                <div class="exp-meta">
-                    <span><b>role</b> AI & Full-Stack Engineer</span>
-                    <span><b>stack</b> Next.js 14 + FastAPI + PyTorch 2.0 + TypeScript + OpenCV</span>
-                    <span><b>AI Integration</b> Dual-Specialist Deep Learning (Physical & Micro-Text) + OCR Spatial Corridor Filtering</span>
-                </div>
-                <p>An enterprise-grade, multi-evidence document forensic analysis system designed to detect, localize, and explain pixel-level tampering and micro-text alterations in digital documents (PDFs, scans, certificates, and invoices). Employs dual-stream deep learning architectures (RGB + SRM residual stream and DocTamper with Focal Tversky Loss), deterministic arithmetic consistency validation, and automated generation of court-ready PDF forensic audit reports.</p>
-                <div class="tags">
-                    <span class="chip">pytorch 2.0</span>
-                    <span class="chip">next.js 14</span>
-                    <span class="chip">fastapi</span>
-                    <span class="chip">typescript</span>
-                    <span class="chip">opencv</span>
-                    <span class="chip">deep learning</span>
-                    <span class="chip">doc forensics</span>
-                    <span class="chip">ocr filtering</span>
-                </div>
-                <div class="exp-links">
-                    <a href="https://github.com/bishtprateek270-hue/DocForensics-AI" target="_blank" rel="noopener noreferrer">repo ↗</a>
-                    <a href="https://doc-forensics-ai.vercel.app" target="_blank" rel="noopener noreferrer">live demo ↗</a>
-                </div>
-            </div>
 
-            <!-- Project 4: DoseBand — Industrial H2S Optical Dosimeter & Worker Safety Intelligence -->
-            <div class="exp">
-                <div class="exp-top">
-                    <span class="exp-id">exp_006</span>
-                    <span class="exp-status demo"><span class="d"></span>iot & hardware</span>
+                <!-- Project 4: DoseBand -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-num">_04</div>
+                        <div class="project-status iot"><span class="dot"></span>iot &amp; hardware</div>
+                    </div>
+                    <h3 class="project-title">DoseBand — Industrial H₂S Optical Dosimeter &amp; Worker Safety Intelligence</h3>
+                    <div class="project-meta-grid">
+                        <div class="meta-item"><b>Role:</b> Embedded AI &amp; Full-Stack Developer</div>
+                        <div class="meta-item"><b>Stack:</b> Flutter 3.x + Streamlit + OpenCV + Scikit-Learn + Python + SQLite</div>
+                        <div class="meta-item"><b>AI Engine:</b> Computer Vision Optical Colorimetry &amp; Toxic Exposure Modeling</div>
+                    </div>
+                    <p class="project-desc">
+                        An end-to-end industrial occupational safety IoT intelligence system for Hydrogen Sulfide (H₂S) toxic gas monitoring. Digitizes optical lead-acetate colorimetric dosimeter strips using calibrated computer vision image processing, detects exposure ppm-hour dosages against DGMS/OSHA thresholds, logs real-time geo-tagged worker telemetry via mobile apps, and provides an interactive safety operations command center dashboard.
+                    </p>
+                    <div class="project-tags">
+                        <span class="tag-chip">flutter 3.x</span>
+                        <span class="tag-chip">streamlit</span>
+                        <span class="tag-chip">opencv</span>
+                        <span class="tag-chip">scikit-learn</span>
+                        <span class="tag-chip">python</span>
+                        <span class="tag-chip">sqlite</span>
+                        <span class="tag-chip">iot / safety</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="assets/videos/doseband_demo.webp" class="link-btn primary video-demo-btn" data-title="DoseBand — Industrial H₂S Safety Dosimeter" data-desc="End-to-end occupational safety IoT platform digitizing optical colorimetric strips &amp; tracking exposure telemetry." data-video="assets/videos/doseband_demo.webp" data-repo="https://github.com/bishtprateek270-hue/DoseBand">Video Demo ↗</a>
+                        <a href="https://github.com/bishtprateek270-hue/DoseBand" target="_blank" rel="noopener noreferrer" class="link-btn ghost">GitHub Repo ↗</a>
+                    </div>
                 </div>
-                <h3>DoseBand — Industrial H₂S Optical Dosimeter & Worker Safety Intelligence</h3>
-                <div class="exp-meta">
-                    <span><b>role</b> Embedded AI & Full-Stack Developer</span>
-                    <span><b>stack</b> Flutter 3.x + Streamlit + OpenCV + Scikit-Learn + Python + SQLite</span>
-                    <span><b>AI Integration</b> Computer Vision Optical Colorimetry & Predictive Toxic Exposure Modeling</span>
-                </div>
-                <p>An end-to-end industrial occupational safety IoT intelligence system for Hydrogen Sulfide (H₂S) toxic gas monitoring. Digitizes optical lead-acetate colorimetric dosimeter strips using calibrated computer vision image processing, detects exposure ppm-hour dosages against DGMS/OSHA thresholds, logs real-time geo-tagged worker telemetry via mobile apps, and provides an interactive safety operations command center dashboard.</p>
-                <div class="tags">
-                    <span class="chip">flutter 3.x</span>
-                    <span class="chip">streamlit</span>
-                    <span class="chip">opencv</span>
-                    <span class="chip">scikit-learn</span>
-                    <span class="chip">python</span>
-                    <span class="chip">sqlite</span>
-                    <span class="chip">iot / safety</span>
-                    <span class="chip">colorimetry</span>
-                </div>
-                <div class="exp-links">
-                    <a href="https://github.com/bishtprateek270-hue/DoseBand" target="_blank" rel="noopener noreferrer">repo ↗</a>
-                    <a href="assets/videos/doseband_demo.webp" class="video-demo-btn" data-title="DoseBand — Industrial H₂S Safety Dosimeter" data-desc="End-to-end occupational safety IoT platform digitizing optical colorimetric strips & tracking exposure telemetry." data-video="assets/videos/doseband_demo.webp" data-repo="https://github.com/bishtprateek270-hue/DoseBand">video demo ↗</a>
-                </div>
-            </div>
 
-            <!-- Project 5: AI Resume Analyzer & ATS Optimizer -->
-            <div class="exp">
-                <div class="exp-top">
-                    <span class="exp-id">exp_005</span>
-                    <span class="exp-status"><span class="d"></span>in production</span>
+                <!-- Project 5: AI Resume Analyzer -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-num">_05</div>
+                        <div class="project-status in-prod"><span class="dot"></span>in production</div>
+                    </div>
+                    <h3 class="project-title">AI Resume Analyzer &amp; ATS Optimizer</h3>
+                    <div class="project-meta-grid">
+                        <div class="meta-item"><b>Role:</b> Lead AI/ML Developer</div>
+                        <div class="meta-item"><b>Stack:</b> Streamlit + Python + PostgreSQL</div>
+                        <div class="meta-item"><b>AI Engine:</b> Google Gemini API (2.5 Flash)</div>
+                    </div>
+                    <p class="project-desc">
+                        An intelligent career acceleration tool that parses PDF resumes and evaluates them against target job descriptions. Computes deterministic ATS match scores across skills and experience, provides LLM-driven qualitative feedback, identifies skill gaps, recommends targeted projects, and exports downloadable PDF reports.
+                    </p>
+                    <div class="project-tags">
+                        <span class="tag-chip">python</span>
+                        <span class="tag-chip">streamlit</span>
+                        <span class="tag-chip">generative ai</span>
+                        <span class="tag-chip">gemini api</span>
+                        <span class="tag-chip">postgresql</span>
+                        <span class="tag-chip">nlp / ats</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://resume-analyzer-nejevwpy2bcvrvuag9schr.streamlit.app/" target="_blank" rel="noopener noreferrer" class="link-btn primary">Live Demo ↗</a>
+                        <a href="https://github.com/bishtprateek270-hue/resume-analyzer" target="_blank" rel="noopener noreferrer" class="link-btn ghost">GitHub Repo ↗</a>
+                    </div>
                 </div>
-                <h3>AI Resume Analyzer & ATS Optimizer</h3>
-                <div class="exp-meta">
-                    <span><b>role</b> Lead AI/ML Developer</span>
-                    <span><b>stack</b> Streamlit + Python + PostgreSQL</span>
-                    <span><b>AI Integration</b> Google Gemini API (2.5 Flash)</span>
-                </div>
-                <p>An intelligent career acceleration tool that parses PDF resumes and evaluates them against target job descriptions. Computes deterministic ATS match scores across skills and experience, provides LLM-driven qualitative feedback, identifies skill gaps, recommends targeted projects, and exports downloadable PDF reports.</p>
-                <div class="tags">
-                    <span class="chip">python</span>
-                    <span class="chip">streamlit</span>
-                    <span class="chip">generative ai</span>
-                    <span class="chip">gemini api</span>
-                    <span class="chip">postgresql</span>
-                    <span class="chip">nlp / ats</span>
-                    <span class="chip">reportlab</span>
-                </div>
-                <div class="exp-links">
-                    <a href="https://github.com/bishtprateek270-hue/resume-analyzer" target="_blank" rel="noopener noreferrer">repo ↗</a>
-                    <a href="https://resume-analyzer-nejevwpy2bcvrvuag9schr.streamlit.app/" target="_blank" rel="noopener noreferrer">live demo ↗</a>
-                </div>
-            </div>
 
-            <!-- Project 6: RAGMind - Document Search & Study Platform -->
-            <div class="exp">
-                <div class="exp-top">
-                    <span class="exp-id">exp_004</span>
-                    <span class="exp-status"><span class="d"></span>in production</span>
+                <!-- Project 6: RAGMind -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-num">_06</div>
+                        <div class="project-status in-prod"><span class="dot"></span>in production</div>
+                    </div>
+                    <h3 class="project-title">RAGMind — Document Search &amp; Study Platform</h3>
+                    <div class="project-meta-grid">
+                        <div class="meta-item"><b>Role:</b> Full-Stack AI Engineer</div>
+                        <div class="meta-item"><b>Stack:</b> Next.js 16 + FastAPI + SQLite</div>
+                        <div class="meta-item"><b>AI Engine:</b> RAG Pipeline (Gemini API + Vector Search)</div>
+                    </div>
+                    <p class="project-desc">
+                        An enterprise-grade Retrieval-Augmented Generation (RAG) platform supporting multi-format document indexing (.pdf, .docx, .pptx, .md). Features interactive source-cited Q&amp;A chat with exact page numbers, executive summaries, AI flashcard generation, interactive quizzes, and multi-format document exporting.
+                    </p>
+                    <div class="project-tags">
+                        <span class="tag-chip">next.js 16</span>
+                        <span class="tag-chip">fastapi</span>
+                        <span class="tag-chip">python</span>
+                        <span class="tag-chip">typescript</span>
+                        <span class="tag-chip">rag</span>
+                        <span class="tag-chip">vector search</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://ai-rag-platform-sigma.vercel.app" target="_blank" rel="noopener noreferrer" class="link-btn primary">Live Demo ↗</a>
+                        <a href="https://github.com/bishtprateek270-hue/ai-rag-platform" target="_blank" rel="noopener noreferrer" class="link-btn ghost">GitHub Repo ↗</a>
+                    </div>
                 </div>
-                <h3>RAGMind — Document Search & Study Platform</h3>
-                <div class="exp-meta">
-                    <span><b>role</b> Full-Stack AI Engineer</span>
-                    <span><b>stack</b> Next.js 16 + FastAPI + SQLite</span>
-                    <span><b>AI Integration</b> RAG Pipeline (Gemini API + Vector Search)</span>
-                </div>
-                <p>An enterprise-grade Retrieval-Augmented Generation (RAG) platform supporting multi-format document indexing (.pdf, .docx, .pptx, .md). Features interactive source-cited Q&A chat with exact page numbers, executive summaries, AI flashcard generation, interactive quizzes, and multi-format document exporting.</p>
-                <div class="tags">
-                    <span class="chip">next.js 16</span>
-                    <span class="chip">fastapi</span>
-                    <span class="chip">python</span>
-                    <span class="chip">typescript</span>
-                    <span class="chip">rag</span>
-                    <span class="chip">vector search</span>
-                    <span class="chip">generative ai</span>
-                </div>
-                <div class="exp-links">
-                    <a href="https://github.com/bishtprateek270-hue/ai-rag-platform" target="_blank" rel="noopener noreferrer">repo ↗</a>
-                    <a href="https://ai-rag-platform-sigma.vercel.app" target="_blank" rel="noopener noreferrer">live demo ↗</a>
-                </div>
-            </div>
 
-            <!-- Project 7: ShikshaSetu -->
-            <div class="exp">
-                <div class="exp-top">
-                    <span class="exp-id">exp_003</span>
-                    <span class="exp-status"><span class="d"></span>in production</span>
+                <!-- Project 7: ShikshaSetu -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-num">_07</div>
+                        <div class="project-status in-prod"><span class="dot"></span>in production</div>
+                    </div>
+                    <h3 class="project-title">ShikshaSetu</h3>
+                    <div class="project-meta-grid">
+                        <div class="meta-item"><b>Role:</b> Lead Developer</div>
+                        <div class="meta-item"><b>Stack:</b> Next.js + Firebase</div>
+                        <div class="meta-item"><b>AI Engine:</b> Gemini Pro / Vision API</div>
+                    </div>
+                    <p class="project-desc">
+                        An AI-powered EdTech study platform built with Next.js and Firebase. Offers automated study notes generation, dynamic PDF-to-interactive-quiz conversion, an adaptive doubt solver, and customized mock test pipelines.
+                    </p>
+                    <div class="project-tags">
+                        <span class="tag-chip">next.js</span>
+                        <span class="tag-chip">typescript</span>
+                        <span class="tag-chip">firebase</span>
+                        <span class="tag-chip">generative ai</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://shikshasetu-ten.vercel.app" target="_blank" rel="noopener noreferrer" class="link-btn primary">Live Demo ↗</a>
+                        <a href="https://github.com/bishtprateek270-hue/ShikshaSetu" target="_blank" rel="noopener noreferrer" class="link-btn ghost">GitHub Repo ↗</a>
+                    </div>
                 </div>
-                <h3>ShikshaSetu</h3>
-                <div class="exp-meta">
-                    <span><b>role</b> Lead Developer</span>
-                    <span><b>stack</b> Next.js + Firebase</span>
-                    <span><b>AI Integration</b> Gemini Pro / Vision API</span>
-                </div>
-                <p>An AI-powered EdTech study platform built with Next.js and Firebase. Offers automated study notes generation, dynamic PDF-to-interactive-quiz conversion, an adaptive doubt solver, and customized mock test pipelines.</p>
-                <div class="tags">
-                    <span class="chip">next.js</span>
-                    <span class="chip">typescript</span>
-                    <span class="chip">firebase</span>
-                    <span class="chip">generative ai</span>
-                </div>
-                <div class="exp-links">
-                    <a href="https://github.com/bishtprateek270-hue/ShikshaSetu" target="_blank" rel="noopener noreferrer">repo ↗</a>
-                    <a href="https://shikshasetu-ten.vercel.app" target="_blank" rel="noopener noreferrer">live demo ↗</a>
-                </div>
-            </div>
 
-            <!-- Project 8: ChurnOps — Production MLOps Customer Churn Prediction Engine -->
-            <div class="exp">
-                <div class="exp-top">
-                    <span class="exp-id">exp_002</span>
-                    <span class="exp-status demo"><span class="d"></span>mlops / api</span>
+                <!-- Project 8: ChurnOps -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-num">_08</div>
+                        <div class="project-status mlops"><span class="dot"></span>mlops / api</div>
+                    </div>
+                    <h3 class="project-title">ChurnOps — Production MLOps Customer Churn Prediction Engine</h3>
+                    <div class="project-meta-grid">
+                        <div class="meta-item"><b>Role:</b> MLOps &amp; Machine Learning Engineer</div>
+                        <div class="meta-item"><b>Stack:</b> FastAPI + XGBoost + Scikit-Learn + Docker + MLflow + Python</div>
+                        <div class="meta-item"><b>AI Engine:</b> Automated Feature Engineering &amp; Drift Monitoring</div>
+                    </div>
+                    <p class="project-desc">
+                        A production-ready end-to-end MLOps pipeline and REST API for predicting customer churn risk with dataset-agnostic inference. Features automated schema detection, hyperparameter tuning, model versioning with MLflow, containerized Docker deployment, interactive OpenAPI/Swagger test interfaces, and automated health probing.
+                    </p>
+                    <div class="project-tags">
+                        <span class="tag-chip">fastapi</span>
+                        <span class="tag-chip">xgboost</span>
+                        <span class="tag-chip">scikit-learn</span>
+                        <span class="tag-chip">docker</span>
+                        <span class="tag-chip">mlflow</span>
+                        <span class="tag-chip">python</span>
+                        <span class="tag-chip">mlops</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://github.com/bishtprateek270-hue/churnops" target="_blank" rel="noopener noreferrer" class="link-btn primary">GitHub Repo ↗</a>
+                    </div>
                 </div>
-                <h3>ChurnOps — Production MLOps Customer Churn Prediction Engine</h3>
-                <div class="exp-meta">
-                    <span><b>role</b> MLOps & Machine Learning Engineer</span>
-                    <span><b>stack</b> FastAPI + XGBoost + Scikit-Learn + Docker + MLflow + Python</span>
-                    <span><b>AI Integration</b> Automated Feature Engineering, Probability Calibration & Drift Monitoring</span>
-                </div>
-                <p>A production-ready end-to-end MLOps pipeline and REST API for predicting customer churn risk with dataset-agnostic inference. Features automated schema detection, hyperparameter tuning, model versioning with MLflow, containerized Docker deployment, interactive OpenAPI/Swagger test interfaces, and automated health probing.</p>
-                <div class="tags">
-                    <span class="chip">fastapi</span>
-                    <span class="chip">xgboost</span>
-                    <span class="chip">scikit-learn</span>
-                    <span class="chip">docker</span>
-                    <span class="chip">mlflow</span>
-                    <span class="chip">python</span>
-                    <span class="chip">mlops</span>
-                    <span class="chip">ci/cd</span>
-                </div>
-                <div class="exp-links">
-                    <a href="https://github.com/bishtprateek270-hue/churnops" target="_blank" rel="noopener noreferrer">repo ↗</a>
-                </div>
-            </div>
 
-            <!-- Project 9: SimplePay -->
-            <div class="exp">
-                <div class="exp-top">
-                    <span class="exp-id">exp_001</span>
-                    <span class="exp-status demo"><span class="d"></span>microservice</span>
-                </div>
-                <h3>SimplePay</h3>
-                <div class="exp-meta">
-                    <span><b>role</b> Full-Stack Developer</span>
-                    <span><b>architecture</b> 3-Tier Distributed System</span>
-                    <span><b>infrastructure</b> Docker & Docker Compose</span>
-                </div>
-                <p>A containerized, full-stack payment application dashboard featuring a 3-tier architecture with a React Single Page Application frontend, a Python Flask REST API backend, and persistent MongoDB storage orchestrated with Docker.</p>
-                <div class="tags">
-                    <span class="chip">react</span>
-                    <span class="chip">flask</span>
-                    <span class="chip">mongodb</span>
-                    <span class="chip">docker</span>
-                    <span class="chip">docker compose</span>
-                    <span class="chip">rest api</span>
-                </div>
-                <div class="exp-links">
-                    <a href="https://github.com/bishtprateek270-hue/SimplePay" target="_blank" rel="noopener noreferrer">repo ↗</a>
+                <!-- Project 9: SimplePay -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-num">_09</div>
+                        <div class="project-status microservice"><span class="dot"></span>microservice</div>
+                    </div>
+                    <h3 class="project-title">SimplePay</h3>
+                    <div class="project-meta-grid">
+                        <div class="meta-item"><b>Role:</b> Full-Stack Developer</div>
+                        <div class="meta-item"><b>Architecture:</b> 3-Tier Distributed System</div>
+                        <div class="meta-item"><b>Infrastructure:</b> Docker &amp; Docker Compose</div>
+                    </div>
+                    <p class="project-desc">
+                        A containerized, full-stack payment application dashboard featuring a 3-tier architecture with a React Single Page Application frontend, a Python Flask REST API backend, and persistent MongoDB storage orchestrated with Docker.
+                    </p>
+                    <div class="project-tags">
+                        <span class="tag-chip">react</span>
+                        <span class="tag-chip">flask</span>
+                        <span class="tag-chip">mongodb</span>
+                        <span class="tag-chip">docker</span>
+                        <span class="tag-chip">docker compose</span>
+                        <span class="tag-chip">rest api</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://github.com/bishtprateek270-hue/SimplePay" target="_blank" rel="noopener noreferrer" class="link-btn primary">GitHub Repo ↗</a>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- ==================== EXPERIENCE ==================== -->
+        <!-- ==================== SECTION 05: EXPERIENCE ==================== -->
         <section id="experience" class="wrap reveal">
             <div class="sec-head">
-                <h2>Experience</h2>
-                <span class="tag">05 — timeline.md</span>
+                <div class="sec-index">05 // EXPERIENCE</div>
+                <h2>Professional <em>Internships</em></h2>
             </div>
-            <div class="timeline">
-                <div class="tl-item">
-                    <div class="tl-when">July 2025 — August 2025 (45 Days)</div>
-                    <h3>Data Science & Machine Learning Intern <span class="org">@ The Brainhub</span></h3>
-                    <ul class="tl-highlights">
-                        <li>Gained hands-on experience with core machine learning concepts and algorithms.</li>
-                        <li>Worked on data processing, cleaning, and feature engineering pipelines.</li>
-                        <li>Implemented and evaluated various ML models for predictive analytics.</li>
-                        <li>Collaborated with the team on real-world data science problem statements.</li>
+            <div class="timeline-container">
+                <div class="timeline-card">
+                    <div class="timeline-header">
+                        <div>
+                            <span class="badge-pill">July 2025 — August 2025 (45 Days)</span>
+                            <h3 class="timeline-role">Data Science &amp; Machine Learning Intern</h3>
+                            <p class="timeline-org">@ The Brainhub</p>
+                        </div>
+                    </div>
+                    <ul class="timeline-list">
+                        <li>Gained hands-on experience implementing core machine learning algorithms, model evaluation metrics, and predictive analytics.</li>
+                        <li>Built data cleaning, preprocessing, and feature engineering workflows for production-ready model training.</li>
+                        <li>Evaluated predictive models for real-world client data and collaborated with senior engineers on data science workflows.</li>
+                        <li>Delivered analytical reports and interactive dashboards demonstrating performance metrics across classification datasets.</li>
                     </ul>
-                    <div class="tags" style="margin-top: 12px;">
-                        <span class="chip">python</span>
-                        <span class="chip">machine learning</span>
-                        <span class="chip">data processing</span>
-                        <span class="chip">model evaluation</span>
+                    <div class="project-tags" style="margin-top: 14px;">
+                        <span class="tag-chip">python</span>
+                        <span class="tag-chip">machine learning</span>
+                        <span class="tag-chip">data processing</span>
+                        <span class="tag-chip">model evaluation</span>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- ==================== ACHIEVEMENTS & CERTIFICATIONS ==================== -->
+        <!-- ==================== SECTION 06: ACHIEVEMENTS & CERTIFICATIONS ==================== -->
         <section id="achievements" class="wrap reveal">
             <div class="sec-head">
-                <h2>Milestones & Certifications</h2>
-                <span class="tag">06 — certifications_log.json</span>
+                <div class="sec-index">06 // MILESTONES &amp; CREDENTIALS</div>
+                <h2>Honors, Hackathons &amp; <em>Certifications</em></h2>
             </div>
-            <div class="achievements-grid">
-                <div class="achievement-card">
-                    <div class="achievement-icon">
-                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
-                            <path d="M2 17l10 5 10-5"></path>
-                            <path d="M2 12l10 5 10-5"></path>
-                        </svg>
-                    </div>
-                    <div class="achievement-content">
-                        <h3>Generative AI Studio (Google Cloud)</h3>
-                        <p>Generative AI Studio Professional Certification by Google Cloud & Simplilearn SkillUp (Aug 2026).</p>
-                    </div>
-                </div>
-                <div class="achievement-card">
-                    <div class="achievement-icon">
-                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <circle cx="12" cy="12" r="10"></circle>
-                            <line x1="12" y1="8" x2="12" y2="12"></line>
-                            <line x1="12" y1="16" x2="12.01" y2="16"></line>
-                        </svg>
-                    </div>
-                    <div class="achievement-content">
-                        <h3>Introduction to Generative AI</h3>
-                        <p>Introduction to Generative AI Certification by Google Cloud & Simplilearn SkillUp (Aug 2026).</p>
-                    </div>
-                </div>
-                <div class="achievement-card">
-                    <div class="achievement-icon">
-                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M22 11.08V12a10 10 0 11-5.93-9.14"></path>
-                            <polyline points="22 4 12 14.01 9 11.01"></polyline>
-                        </svg>
-                    </div>
-                    <div class="achievement-content">
-                        <h3>Internship Common Aptitude Test</h3>
-                        <p>Certified Candidate & Qualified Participant in Internship Common Aptitude Test — ICAT (Aug 2026).</p>
-                    </div>
-                </div>
-                <div class="achievement-card">
-                    <div class="achievement-icon">
-                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M22 11.08V12a10 10 0 11-5.93-9.14"></path>
-                            <polyline points="22 4 12 14.01 9 11.01"></polyline>
-                        </svg>
-                    </div>
-                    <div class="achievement-content">
-                        <h3>C Programming (IIT Bombay)</h3>
-                        <p>Certified in C Programming with an 85% score by Spoken Tutorial Project, IIT Bombay (Dec 2024).</p>
-                    </div>
-                </div>
-                <div class="achievement-card">
-                    <div class="achievement-icon">
-                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
-                            <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
-                        </svg>
-                    </div>
-                    <div class="achievement-content">
-                        <h3>Data Science & ML Internship</h3>
-                        <p>45-Day Practical Data Science & Machine Learning Summer Program Certification at The Brainhub (Aug 2025).</p>
-                    </div>
-                </div>
-                <div class="achievement-card">
-                    <div class="achievement-icon">
-                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
-                        </svg>
-                    </div>
-                    <div class="achievement-content">
+            <div class="milestones-grid">
+                <!-- Milestone 1 -->
+                <div class="milestone-card">
+                    <div class="m-icon">🏆</div>
+                    <div class="m-body">
                         <h3>SIH 2025 Internal Finalist</h3>
-                        <p>National Hackathon Internal Finalist for Smart India Hackathon 2025 organized by PIET.</p>
+                        <p>Smart India Hackathon 2025 — Selected as internal finalist at college level organized by PIET.</p>
                     </div>
                 </div>
-                <div class="achievement-card">
-                    <div class="achievement-icon">
-                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
-                        </svg>
-                    </div>
-                    <div class="achievement-content">
-                        <h3>COER Manthan'25 Hackathon</h3>
-                        <p>Recognized National Hackathon Contender in Manthan '25 at COER University, Roorkee (2025).</p>
+                <!-- Milestone 2 -->
+                <div class="milestone-card">
+                    <div class="m-icon">⚡</div>
+                    <div class="m-body">
+                        <h3>COER Manthan '25 Contender</h3>
+                        <p>Competed against top national engineering teams with AI solutions at COER University, Roorkee.</p>
                     </div>
                 </div>
-                <div class="achievement-card">
-                    <div class="achievement-icon">
-                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect>
-                            <rect x="9" y="9" width="6" height="6"></rect>
-                            <line x1="9" y1="1" x2="9" y2="4"></line>
-                            <line x1="15" y1="1" x2="15" y2="4"></line>
-                            <line x1="9" y1="20" x2="9" y2="23"></line>
-                            <line x1="15" y1="20" x2="15" y2="23"></line>
-                        </svg>
-                    </div>
-                    <div class="achievement-content">
-                        <h3>Hack KRMU 5.0 Hackathon</h3>
-                        <p>National Hackathon Contender in Hack KRMU 5.0 at K.R. Mangalam University, Gurugram (Feb 2026).</p>
+                <!-- Milestone 3 -->
+                <div class="milestone-card">
+                    <div class="m-icon">🚀</div>
+                    <div class="m-body">
+                        <h3>Hack KRMU 5.0</h3>
+                        <p>National hackathon contender at K.R. Mangalam University, building rapid AI-powered prototypes.</p>
                     </div>
                 </div>
-                <div class="achievement-card">
-                    <div class="achievement-icon">
-                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M12 19l7-7 3 3-7 7-3-3z"></path>
-                            <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path>
-                            <circle cx="11" cy="11" r="2"></circle>
-                        </svg>
+                <!-- Milestone 4 -->
+                <div class="milestone-card">
+                    <div class="m-icon">🎨</div>
+                    <div class="m-body">
+                        <h3>LogoLocha Design Award</h3>
+                        <p>Recognized for brand identity, visual vector styling, and UI aesthetic design at SKLZ TECT.</p>
                     </div>
-                    <div class="achievement-content">
-                        <h3>LogoLocha Design Competition</h3>
-                        <p>Visual Branding & Design Contender in LogoLocha Competition by SKLZ TECT (Sept 2025).</p>
-                    </div>
+                </div>
+            </div>
+
+            <div class="certifications-strip">
+                <h4 class="cert-title">Verified Certifications</h4>
+                <div class="cert-tags">
+                    <span class="cert-chip">🎖️ Google Cloud GenAI Studio (Aug 2026)</span>
+                    <span class="cert-chip">🎖️ Intro to Generative AI — Google Cloud (Aug 2026)</span>
+                    <span class="cert-chip">🎖️ IIT Bombay C Programming (Score: 85%, Dec 2024)</span>
+                    <span class="cert-chip">🎖️ Brainhub DS &amp; ML Program (Aug 2025)</span>
+                    <span class="cert-chip">🎖️ ICAT Certified Candidate (Aug 2026)</span>
                 </div>
             </div>
         </section>
 
-        <!-- ==================== CONTACT ==================== -->
+        <!-- ==================== SECTION 07: CONTACT ==================== -->
         <section id="contact" class="wrap reveal">
             <div class="sec-head">
-                <h2>Let's Connect</h2>
-                <span class="tag">07 — contact.sh</span>
+                <div class="sec-index">07 // LET'S TALK</div>
+                <h2>Let's build something that <em>ships</em>.</h2>
             </div>
-            <div class="contact-container">
-                <div class="contact-left">
-                    <h2>Let's build something that <em>ships</em>.</h2>
-                    <div class="contact-links">
-                        <a href="mailto:bishtprateek270@gmail.com"><span class="arrow">→</span> bishtprateek270@gmail.com</a>
-                        <a href="https://github.com/bishtprateek270-hue" target="_blank" rel="noopener noreferrer"><span class="arrow">→</span> github.com/bishtprateek270-hue</a>
-                        <a href="https://www.linkedin.com/in/prateek-singh-bisht-4868742b9" target="_blank" rel="noopener noreferrer"><span class="arrow">→</span> linkedin.com/in/prateek-singh-bisht-4868742b9</a>
-                        <a href="Prateek_Singh_Bisht_Resume.pdf?v=3" target="_blank" rel="noopener noreferrer"><span class="arrow">→</span> resume.pdf</a>
+            <div class="contact-bento">
+                <div class="contact-info-panel">
+                    <div class="contact-status-chip">
+                        <span class="pulse-dot"></span>
+                        <span>Open to Work &amp; Collaborations</span>
+                    </div>
+                    <h3>Start a Conversation</h3>
+                    <p>Have an open AI/ML engineering role, hackathon opportunity, or interesting project? I'd love to connect.</p>
+                    
+                    <div class="contact-links-list">
+                        <a href="mailto:bishtprateek270@gmail.com" class="c-link">
+                            <span class="c-arrow">→</span>
+                            <span>bishtprateek270@gmail.com</span>
+                        </a>
+                        <a href="https://github.com/bishtprateek270-hue" target="_blank" rel="noopener noreferrer" class="c-link">
+                            <span class="c-arrow">→</span>
+                            <span>github.com/bishtprateek270-hue</span>
+                        </a>
+                        <a href="https://www.linkedin.com/in/prateek-singh-bisht-4868742b9" target="_blank" rel="noopener noreferrer" class="c-link">
+                            <span class="c-arrow">→</span>
+                            <span>linkedin.com/in/prateek-singh-bisht</span>
+                        </a>
+                        <a href="Prateek_Singh_Bisht_Resume.pdf?v=3" target="_blank" rel="noopener noreferrer" class="c-link">
+                            <span class="c-arrow">→</span>
+                            <span>download_resume.pdf</span>
+                        </a>
                     </div>
                 </div>
-                <div class="contact-form-wrap">
+
+                <div class="contact-form-panel">
                     <form class="contact-form" id="contactForm">
-                        <div class="form-group">
-                            <label for="name">Full Name</label>
-                            <input type="text" id="name" name="name" placeholder="John Doe" required />
+                        <div class="form-row">
+                            <div class="form-field">
+                                <label for="name">Your Name</label>
+                                <input type="text" id="name" name="name" placeholder="Alex Morgan" required />
+                            </div>
+                            <div class="form-field">
+                                <label for="email">Email Address</label>
+                                <input type="email" id="email" name="email" placeholder="alex@company.com" required />
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="email">Email Address</label>
-                            <input type="email" id="email" name="email" placeholder="john@example.com" required />
-                        </div>
-                        <div class="form-group">
+                        <div class="form-field">
                             <label for="subject">Subject</label>
-                            <input type="text" id="subject" name="subject" placeholder="Project Collaboration" required />
+                            <input type="text" id="subject" name="subject" placeholder="AI Engineering Opportunity" required />
                         </div>
-                        <div class="form-group">
+                        <div class="form-field">
                             <label for="message">Message</label>
-                            <textarea id="message" name="message" rows="5" placeholder="Tell me about your project..." required></textarea>
+                            <textarea id="message" name="message" rows="4" placeholder="Tell me about your project or team..." required></textarea>
                         </div>
-                        <button type="submit">
+                        <button type="submit" class="submit-btn">
+                            <span>Send Message</span>
                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <line x1="22" y1="2" x2="11" y2="13"></line>
                                 <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
                             </svg>
-                            Send Message
                         </button>
                     </form>
                 </div>
@@ -702,9 +780,25 @@
         </section>
     </main>
 
-    <footer class="wrap">
-        <span>© 2026 Prateek Singh Bisht</span>
-        <span>built with care, not a template</span>
+    <!-- ==================== FOOTER ==================== -->
+    <footer class="site-footer wrap">
+        <div class="footer-top">
+            <div class="footer-brand">
+                <span class="f-logo">&lt;PSB /&gt;</span>
+                <p>Prateek Singh Bisht — AI &amp; ML Engineering</p>
+            </div>
+            <div class="footer-nav">
+                <a href="#about">About</a>
+                <a href="#projects">Work</a>
+                <a href="#skills">Stack</a>
+                <a href="#contact">Contact</a>
+                <a href="#" onclick="window.scrollTo({top:0, behavior:'smooth'}); return false;">Back to Top ↑</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>© 2026 Prateek Singh Bisht</span>
+            <span>Designed with precision &amp; care • Built without templates</span>
+        </div>
     </footer>
 
     <!-- ==================== VIDEO DEMO MODAL ==================== -->
@@ -724,7 +818,7 @@
             <div class="video-modal-footer">
                 <p id="modalProjectDesc">Interactive recorded local demo</p>
                 <div class="modal-actions">
-                    <a id="modalRepoBtn" href="#" target="_blank" rel="noopener noreferrer" class="btn ghost small">View Repo ↗</a>
+                    <a id="modalRepoBtn" href="#" target="_blank" rel="noopener noreferrer" class="link-btn primary small">View Repo ↗</a>
                 </div>
             </div>
         </div>
@@ -736,7 +830,7 @@
             <path d="M22 11.08V12a10 10 0 11-5.93-9.14"></path>
             <polyline points="22 4 12 14.01 9 11.01"></polyline>
         </svg>
-        <span>Message sent successfully!</span>
+        <span>Message sent successfully! I'll get back to you shortly.</span>
     </div>
 
     <script src="script.js"></script>

@@ -1,5 +1,6 @@
 /* ==========================================================
-   script.js — Portfolio Interactions & Animations (Light Cream Minimalist Theme)
+   PRATEEK SINGH BISHT — PORTFOLIO SCRIPT
+   Interactive Behaviors, Live Time, Scroll Reveal & Modals
    ========================================================== */
 
 (function () {
@@ -11,6 +12,25 @@
     const contactForm = document.getElementById('contactForm');
     const toast = document.getElementById('toast');
     const scrollProgress = document.getElementById('scrollProgress');
+    const liveClock = document.getElementById('liveClock');
+
+    // ─── LIVE IST / GMT+5:30 CLOCK ─────────────────────────
+    function updateLiveClock() {
+        if (!liveClock) return;
+        const now = new Date();
+        const options = {
+            timeZone: 'Asia/Kolkata',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+            hour12: true
+        };
+        const timeStr = new Intl.DateTimeFormat('en-US', options).format(now);
+        liveClock.textContent = `${timeStr} IST`;
+    }
+
+    updateLiveClock();
+    setInterval(updateLiveClock, 1000);
 
     // ─── SCROLL PROGRESS BAR ────────────────────────────────
     function updateScrollProgress() {
@@ -29,7 +49,7 @@
 
     function updateActiveNavLink() {
         let currentSectionId = '';
-        const scrollPos = window.scrollY + 120; // offset
+        const scrollPos = window.scrollY + 140;
 
         sections.forEach(section => {
             const top = section.offsetTop;
@@ -60,7 +80,6 @@
             document.body.classList.toggle('no-scroll');
         });
 
-        // Close menu on link click
         navLinkItems.forEach(link => {
             link.addEventListener('click', () => {
                 hamburger.classList.remove('active');
@@ -69,7 +88,6 @@
             });
         });
 
-        // Close menu when clicking outside
         document.addEventListener('click', (e) => {
             if (!navLinks.contains(e.target) && !hamburger.contains(e.target)) {
                 hamburger.classList.remove('active');
@@ -79,11 +97,11 @@
         });
     }
 
-    // ─── INTERSECTION OBSERVER FOR REVEAL & PROGRESS BARS ───
+    // ─── INTERSECTION OBSERVER FOR REVEAL & METERS ─────────
     const observerOptions = {
         root: null,
-        rootMargin: '0px 0px -50px 0px',
-        threshold: 0.12
+        rootMargin: '0px 0px -40px 0px',
+        threshold: 0.1
     };
 
     let sgpaAnimated = false;
@@ -92,7 +110,7 @@
     function animateSGPABars() {
         if (sgpaAnimated) return;
         sgpaAnimated = true;
-        document.querySelectorAll('.sgpa-fill').forEach(bar => {
+        document.querySelectorAll('.sgpa-bar').forEach(bar => {
             const widthVal = bar.getAttribute('data-width');
             if (widthVal) {
                 bar.style.width = widthVal + '%';
@@ -103,7 +121,7 @@
     function animateSkillBars() {
         if (skillsAnimated) return;
         skillsAnimated = true;
-        document.querySelectorAll('.skill-bar i').forEach(bar => {
+        document.querySelectorAll('.meter-bar i').forEach(bar => {
             const widthVal = bar.getAttribute('data-width');
             if (widthVal) {
                 bar.style.width = widthVal;
@@ -115,68 +133,27 @@
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('in');
+                entry.target.classList.add('revealed');
 
-                // Check if specific sections were revealed
-                if (entry.target.id === 'education' || entry.target.querySelector('.sgpa-fill')) {
+                if (entry.target.id === 'education' || entry.target.querySelector('.sgpa-bar')) {
                     animateSGPABars();
                 }
-                if (entry.target.id === 'skills' || entry.target.querySelector('.skill-bar')) {
+                if (entry.target.id === 'skills' || entry.target.querySelector('.meter-bar')) {
                     animateSkillBars();
                 }
             }
         });
     }, observerOptions);
 
-    // Observe reveal elements
     document.querySelectorAll('.reveal').forEach(el => {
         scrollObserver.observe(el);
     });
 
-    // Also observe education and skills specifically just in case
     const eduSection = document.getElementById('education');
     if (eduSection) scrollObserver.observe(eduSection);
 
     const skillsSection = document.getElementById('skills');
     if (skillsSection) scrollObserver.observe(skillsSection);
-
-    // ─── CONTACT FORM SUBMISSION ────────────────────────────
-    if (contactForm) {
-        contactForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-
-            // Simulate form submission success
-            showToast();
-            contactForm.reset();
-        });
-    }
-
-    function showToast() {
-        if (!toast) return;
-        toast.classList.add('visible');
-        setTimeout(() => {
-            toast.classList.remove('visible');
-        }, 4000);
-    }
-
-    // ─── SMOOTH ANCHOR SCROLLING WITH OFFSET ────────────────
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            const targetId = this.getAttribute('href');
-            if (targetId === '#') return;
-            
-            const targetElement = document.querySelector(targetId);
-            if (targetElement) {
-                e.preventDefault();
-                const navHeight = 70; // Approximation of header height
-                const targetPosition = targetElement.offsetTop - navHeight;
-
-                window.scrollTo({
-                    top: targetPosition,
-                    behavior: 'smooth'
-                });
-            }
-        });
-    });
 
     // ─── VIDEO DEMO MODAL CONTROLLER ────────────────────────
     const videoModal = document.getElementById('videoModal');
@@ -194,7 +171,7 @@
         if (modalVideoPlayer) modalVideoPlayer.src = videoSrc || '';
         if (modalRepoBtn) {
             modalRepoBtn.href = repoSrc || '#';
-            modalRepoBtn.style.display = repoSrc ? 'inline-block' : 'none';
+            modalRepoBtn.style.display = repoSrc ? 'inline-flex' : 'none';
         }
         videoModal.classList.add('open');
         videoModal.setAttribute('aria-hidden', 'false');
@@ -231,9 +208,44 @@
         }
     });
 
-    // ─── INITIAL TRIGGER ────────────────────────────────────
+    // ─── CONTACT FORM SUBMISSION ────────────────────────────
+    if (contactForm) {
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            showToast();
+            contactForm.reset();
+        });
+    }
+
+    function showToast() {
+        if (!toast) return;
+        toast.classList.add('visible');
+        setTimeout(() => {
+            toast.classList.remove('visible');
+        }, 4000);
+    }
+
+    // ─── SMOOTH ANCHOR SCROLLING ────────────────────────────
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            const targetId = this.getAttribute('href');
+            if (!targetId || targetId === '#') return;
+
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                e.preventDefault();
+                const navHeight = 70;
+                const targetPosition = targetElement.offsetTop - navHeight;
+
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+
+    // ─── INITIAL RUN ────────────────────────────────────────
     updateScrollProgress();
     updateActiveNavLink();
-
 })();
-
