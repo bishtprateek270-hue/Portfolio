@@ -29,10 +29,15 @@
 
     <!-- ==================== INTRO ANIMATION OVERLAY ==================== -->
     <div class="intro-overlay" id="introOverlay">
-        <div class="intro-glow"></div>
+        <div class="intro-glow intro-glow-1"></div>
+        <div class="intro-glow intro-glow-2"></div>
         <div class="intro-container">
             <div class="intro-photo-mask" id="introPhotoMask">
                 <img src="assets/images/prateek.jpg" alt="Prateek Singh Bisht" class="intro-photo" id="introPhoto" />
+                <div class="intro-photo-badge" id="introPhotoBadge">
+                    <span class="pulse-dot"></span>
+                    <span>AI Specialist</span>
+                </div>
             </div>
             <div class="intro-text-block">
                 <div class="intro-line-wrap">
@@ -42,10 +47,18 @@
                     <h2 class="intro-name" id="introName">Prateek Singh Bisht</h2>
                 </div>
                 <div class="intro-line-wrap">
-                    <p class="intro-role" id="introRole">AI &amp; ML Engineer</p>
+                    <p class="intro-role" id="introRole">AI &amp; Machine Learning Engineer</p>
                 </div>
-                <div class="intro-line-wrap">
-                    <span class="intro-status" id="introStatus">Initializing experience...</span>
+                <div class="intro-tagline-wrap">
+                    <h3 class="intro-tagline" id="introTagline">Engineering Intelligent Systems &amp; Scalable AI Solutions.</h3>
+                </div>
+                <div class="intro-highlights" id="introHighlights">
+                    <span class="intro-chip">🧠 Deep Learning &amp; LLMs</span>
+                    <span class="intro-chip">🏆 Hackathon Finalist</span>
+                    <span class="intro-chip">⚡ Production ML Pipelines</span>
+                </div>
+                <div class="intro-story-box" id="introStoryBox">
+                    <p class="intro-story-text" id="introStoryText">Transforming complex mathematical algorithms into production-grade intelligence.</p>
                 </div>
             </div>
         </div>
@@ -53,7 +66,10 @@
             <div class="intro-progress-fill" id="introProgressFill"></div>
         </div>
         <div class="intro-footer-bar">
-            <div class="intro-counter" id="introCounter">000%</div>
+            <div class="intro-footer-left">
+                <span class="intro-counter" id="introCounter">000%</span>
+                <span class="intro-footer-status" id="introFooterStatus">INITIALIZING CORE ASSETS...</span>
+            </div>
             <button class="intro-skip-btn" id="introSkipBtn" aria-label="Skip intro animation">Skip Intro →</button>
         </div>
     </div>

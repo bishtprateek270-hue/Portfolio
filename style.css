@@ -1892,14 +1892,28 @@ section {
 
 .intro-glow {
   position: absolute;
-  width: 550px;
-  height: 550px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(99, 102, 241, 0.12) 0%, rgba(14, 165, 233, 0.06) 45%, transparent 70%);
-  filter: blur(50px);
   pointer-events: none;
   z-index: 0;
-  opacity: 0.8;
+  opacity: 0.7;
+}
+
+.intro-glow-1 {
+  width: 600px;
+  height: 600px;
+  top: -10%;
+  left: 10%;
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, rgba(14, 165, 233, 0.05) 50%, transparent 70%);
+  filter: blur(60px);
+}
+
+.intro-glow-2 {
+  width: 500px;
+  height: 500px;
+  bottom: -10%;
+  right: 15%;
+  background: radial-gradient(circle, rgba(168, 85, 247, 0.12) 0%, rgba(99, 102, 241, 0.04) 50%, transparent 70%);
+  filter: blur(60px);
 }
 
 .intro-container {
@@ -1907,19 +1921,20 @@ section {
   z-index: 1;
   display: flex;
   align-items: center;
-  gap: 3rem;
-  max-width: 900px;
-  padding: 2rem;
+  gap: 3.5rem;
+  max-width: 1020px;
+  width: 90%;
+  padding: 2.5rem;
 }
 
 .intro-photo-mask {
-  width: 250px;
-  height: 330px;
+  width: 270px;
+  height: 360px;
   border-radius: var(--radius-xl, 24px);
   overflow: hidden;
   position: relative;
   background: #E2E8F0;
-  box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 30px 70px -15px rgba(0, 0, 0, 0.22);
   border: 1px solid var(--border-light);
   will-change: transform, clip-path;
   flex-shrink: 0;
@@ -1931,14 +1946,37 @@ section {
   object-fit: cover;
   object-position: center 20%;
   display: block;
-  transform: scale(1.3);
+  transform: scale(1.35);
   will-change: transform;
+}
+
+.intro-photo-badge {
+  position: absolute;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%) translateY(10px);
+  opacity: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(15, 23, 42, 0.82);
+  color: #FFFFFF;
+  padding: 0.4rem 0.9rem;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  backdrop-filter: blur(8px);
+  box-shadow: var(--shadow-sm);
+  white-space: nowrap;
 }
 
 .intro-text-block {
   display: flex;
   flex-direction: column;
-  gap: 0.6rem;
+  gap: 0.75rem;
+  flex: 1;
 }
 
 .intro-line-wrap {
@@ -1949,9 +1987,9 @@ section {
 .intro-badge {
   display: inline-block;
   font-family: var(--font-mono);
-  font-size: 0.78rem;
+  font-size: 0.8rem;
   font-weight: 700;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.12em;
   color: var(--text-muted);
   opacity: 0;
   transform: translateY(12px);
@@ -1959,9 +1997,9 @@ section {
 
 .intro-name {
   font-family: var(--font-sans);
-  font-size: 3.2rem;
-  font-weight: 800;
-  letter-spacing: -0.035em;
+  font-size: 3.4rem;
+  font-weight: 900;
+  letter-spacing: -0.04em;
   line-height: 1.05;
   color: var(--text-main);
   transform: translateY(105%);
@@ -1969,22 +2007,71 @@ section {
 
 .intro-role {
   font-family: var(--font-mono);
-  font-size: 1rem;
-  font-weight: 600;
-  color: var(--text-muted);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-main);
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.06em;
   opacity: 0;
   transform: translateY(15px);
 }
 
-.intro-status {
-  display: inline-block;
+.intro-tagline-wrap {
+  overflow: hidden;
+  margin-top: 0.2rem;
+}
+
+.intro-tagline {
+  font-family: var(--font-sans);
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--text-body);
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.intro-highlights {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 0.4rem;
+}
+
+.intro-chip {
   font-family: var(--font-mono);
-  font-size: 0.85rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  background: var(--bg-surface);
+  color: var(--text-main);
+  border: 1px solid var(--border-mid);
+  padding: 0.35rem 0.8rem;
+  border-radius: var(--radius-pill);
+  opacity: 0;
+  transform: translateY(15px);
+  box-shadow: var(--shadow-sm);
+}
+
+.intro-story-box {
+  margin-top: 0.6rem;
+  padding: 0.75rem 1rem;
+  background: rgba(99, 102, 241, 0.05);
+  border-left: 3px solid var(--text-main);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+}
+
+.intro-story-text {
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  font-weight: 500;
+  font-style: italic;
   color: var(--text-body);
   opacity: 0;
   transform: translateY(10px);
+  line-height: 1.5;
 }
 
 .intro-progress-track {
@@ -1992,7 +2079,7 @@ section {
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 3px;
+  height: 4px;
   background: var(--border-light);
   z-index: 2;
 }
@@ -2000,37 +2087,51 @@ section {
 .intro-progress-fill {
   width: 0%;
   height: 100%;
-  background: var(--text-main);
+  background: linear-gradient(90deg, #6366F1, #0EA5E9, #10B981);
   transition: width 0.08s linear;
 }
 
 .intro-footer-bar {
   position: absolute;
   bottom: 2rem;
-  left: 2.5rem;
-  right: 2.5rem;
+  left: 3rem;
+  right: 3rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
   z-index: 2;
 }
 
+.intro-footer-left {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
 .intro-counter {
   font-family: var(--font-mono);
-  font-size: 0.95rem;
-  font-weight: 700;
+  font-size: 1rem;
+  font-weight: 800;
   color: var(--text-main);
   letter-spacing: 0.06em;
+}
+
+.intro-footer-status {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  letter-spacing: 0.08em;
 }
 
 .intro-skip-btn {
   font-family: var(--font-mono);
   font-size: 0.8rem;
-  font-weight: 600;
+  font-weight: 700;
   background: var(--bg-surface);
   color: var(--text-main);
   border: 1px solid var(--border-mid);
-  padding: 0.45rem 1.1rem;
+  padding: 0.45rem 1.15rem;
   border-radius: var(--radius-pill);
   cursor: pointer;
   box-shadow: var(--shadow-sm);
@@ -2048,18 +2149,29 @@ section {
     text-align: center;
     gap: 1.5rem;
     padding: 1.25rem;
+    max-height: 80vh;
+    overflow-y: auto;
   }
   .intro-photo-mask {
-    width: 190px;
-    height: 250px;
+    width: 170px;
+    height: 220px;
   }
   .intro-name {
     font-size: 2.2rem;
+  }
+  .intro-tagline {
+    font-size: 1.05rem;
+  }
+  .intro-highlights {
+    justify-content: center;
   }
   .intro-footer-bar {
     left: 1.25rem;
     right: 1.25rem;
     bottom: 1.5rem;
+  }
+  .intro-footer-status {
+    display: none;
   }
 }
 

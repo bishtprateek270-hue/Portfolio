@@ -71,19 +71,25 @@
 
 
   /* ────────────────────────────────────────────────────────────
-     5. INTRO SEQUENCE (7-SECOND CINEMATIC FULLSCREEN INTRO)
+     5. INTRO SEQUENCE (EXTENDED CINEMATIC FULLSCREEN INTRO)
      ──────────────────────────────────────────────────────────── */
   function initIntro() {
     const overlay      = document.getElementById('introOverlay');
-    const glow         = document.querySelector('.intro-glow');
+    const glow1        = document.querySelector('.intro-glow-1');
+    const glow2        = document.querySelector('.intro-glow-2');
     const photoMask    = document.getElementById('introPhotoMask');
     const photo        = document.getElementById('introPhoto');
+    const photoBadge   = document.getElementById('introPhotoBadge');
     const badge        = document.getElementById('introBadge');
     const nameEl       = document.getElementById('introName');
     const roleEl       = document.getElementById('introRole');
-    const statusEl     = document.getElementById('introStatus');
+    const tagline      = document.getElementById('introTagline');
+    const chips        = document.querySelectorAll('.intro-chip');
+    const storyBox     = document.getElementById('introStoryBox');
+    const storyText    = document.getElementById('introStoryText');
     const progressFill = document.getElementById('introProgressFill');
     const counter      = document.getElementById('introCounter');
+    const footerStatus = document.getElementById('introFooterStatus');
     const skipBtn      = document.getElementById('introSkipBtn');
     const heroPortrait = document.getElementById('heroPortrait');
 
@@ -104,7 +110,7 @@
 
     document.body.style.overflow = 'hidden';
 
-    // Preload photo before starting the 7s timeline
+    // Preload photo before starting the timeline
     const preload = new Promise((res) => {
       const img = new Image();
       img.src = photo ? photo.src : 'assets/images/prateek.jpg';
@@ -113,116 +119,142 @@
     });
 
     preload.then(() => {
-      // Initial states
-      gsap.set(photoMask, { clipPath: 'inset(100% 0% 0% 0% round 24px)', opacity: 0, scale: 0.96 });
-      gsap.set(photo,     { scale: 1.35 });
-      if (badge) gsap.set(badge, { opacity: 0, y: 15 });
-      gsap.set(nameEl,    { yPercent: 110 });
-      gsap.set(roleEl,    { opacity: 0, y: 20 });
-      if (statusEl) gsap.set(statusEl, { opacity: 0, y: 10 });
-      if (glow) gsap.set(glow, { scale: 0.8, opacity: 0 });
+      // Set initial states
+      gsap.set(photoMask,   { clipPath: 'inset(100% 0% 0% 0% round 24px)', opacity: 0, scale: 0.95 });
+      gsap.set(photo,       { scale: 1.38 });
+      if (photoBadge) gsap.set(photoBadge, { opacity: 0, y: 15 });
+      if (badge)      gsap.set(badge,      { opacity: 0, y: 15 });
+      if (nameEl)     gsap.set(nameEl,     { yPercent: 110 });
+      if (roleEl)     gsap.set(roleEl,     { opacity: 0, y: 20 });
+      if (tagline)    gsap.set(tagline,    { opacity: 0, y: 25 });
+      if (chips && chips.length) gsap.set(chips, { opacity: 0, y: 18, scale: 0.9 });
+      if (storyBox)   gsap.set(storyBox,   { opacity: 0, scaleX: 0.9, transformOrigin: 'left center' });
+      if (storyText)  gsap.set(storyText,  { opacity: 0, y: 12 });
+      if (glow1)      gsap.set(glow1,      { scale: 0.8, opacity: 0 });
+      if (glow2)      gsap.set(glow2,      { scale: 0.8, opacity: 0 });
 
       const tl = gsap.timeline({ onComplete: finish });
 
-      // 1. Ambient glow & Photo Reveal (0.0s - 1.8s)
-      if (glow) {
-        tl.to(glow, { opacity: 0.85, scale: 1.15, duration: 3.0, ease: 'power2.out' }, 0.2);
-      }
+      // 1. Ambient Lighting (0.2s - 3.5s)
+      if (glow1) tl.to(glow1, { opacity: 0.8, scale: 1.15, duration: 3.5, ease: 'power2.out' }, 0.2);
+      if (glow2) tl.to(glow2, { opacity: 0.65, scale: 1.1, duration: 4.0, ease: 'power2.out' }, 0.5);
 
+      // 2. Photo Mask Expansion & Slow Zoom (0.2s - 11.5s)
       tl.to(photoMask, {
         clipPath: 'inset(0% 0% 0% 0% round 24px)',
         opacity: 1,
         scale: 1,
-        duration: 1.8,
+        duration: 2.0,
         ease: 'power3.out',
       }, 0.2);
 
-      // Photo continuous cinematic scale/drift (0.2s - 6.0s = 5.8s)
       tl.to(photo, {
         scale: 1.05,
-        duration: 5.8,
+        duration: 11.5,
         ease: 'power1.out',
       }, 0.2);
 
-      // 2. Badge & Name slide-up (0.8s - 2.2s)
+      if (photoBadge) {
+        tl.to(photoBadge, { opacity: 1, y: 0, duration: 1.0, ease: 'back.out(1.5)' }, 1.4);
+      }
+
+      // 3. Name & Identity Reveal (1.0s - 3.0s)
       if (badge) {
-        tl.to(badge, {
+        tl.to(badge, { opacity: 1, y: 0, duration: 0.9, ease: 'power3.out' }, 1.0);
+      }
+
+      if (nameEl) {
+        tl.to(nameEl, { yPercent: 0, duration: 1.4, ease: 'power3.out' }, 1.2);
+      }
+
+      if (roleEl) {
+        tl.to(roleEl, { opacity: 1, y: 0, duration: 1.0, ease: 'power3.out' }, 1.8);
+      }
+
+      // 4. Bold Catchy Tagline Reveal (2.6s - 4.2s)
+      if (tagline) {
+        tl.to(tagline, { opacity: 1, y: 0, duration: 1.3, ease: 'power3.out' }, 2.6);
+      }
+
+      // 5. Staggered Highlight Chips (4.0s - 5.8s)
+      if (chips && chips.length) {
+        tl.to(chips, {
           opacity: 1,
           y: 0,
+          scale: 1,
           duration: 0.8,
-          ease: 'power3.out',
-        }, 0.8);
+          stagger: 0.25,
+          ease: 'back.out(1.4)',
+        }, 4.0);
       }
 
-      tl.to(nameEl, {
-        yPercent: 0,
-        duration: 1.2,
-        ease: 'power3.out',
-      }, 1.0);
-
-      // Role fade-in (1.4s - 2.4s)
-      tl.to(roleEl, {
-        opacity: 1,
-        y: 0,
-        duration: 1.0,
-        ease: 'power3.out',
-      }, 1.4);
-
-      // Dynamic status sequence across the 7 seconds
-      if (statusEl) {
-        tl.to(statusEl, { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }, 1.8);
-        tl.to(statusEl, {
-          opacity: 0,
-          duration: 0.3,
-          onComplete: () => { if (statusEl) statusEl.textContent = 'Curating AI projects & research...'; }
-        }, 3.3);
-        tl.to(statusEl, { opacity: 1, duration: 0.4 }, 3.7);
-        tl.to(statusEl, {
-          opacity: 0,
-          duration: 0.3,
-          onComplete: () => { if (statusEl) statusEl.textContent = 'System initialized. Welcome.'; }
-        }, 5.1);
-        tl.to(statusEl, { opacity: 1, duration: 0.4 }, 5.5);
+      // 6. Story Box & Text Transitions (5.8s - 11.2s)
+      if (storyBox) {
+        tl.to(storyBox, { opacity: 1, scaleX: 1, duration: 0.8, ease: 'power3.out' }, 5.6);
       }
 
-      // 3. Counter 000% → 100% & Progress fill across 5.8 seconds (0.2s - 6.0s)
+      if (storyText) {
+        tl.to(storyText, { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out' }, 5.8);
+
+        // Transition to story phase 2 at ~8.6s
+        tl.to(storyText, {
+          opacity: 0,
+          y: -8,
+          duration: 0.4,
+          ease: 'power2.in',
+          onComplete: () => {
+            if (storyText) storyText.textContent = 'Crafting resilient, low-latency machine learning platforms. Welcome to my portfolio.';
+            if (footerStatus) footerStatus.textContent = 'SYSTEM VERIFIED & OPTIMIZED';
+          }
+        }, 8.6);
+
+        tl.to(storyText, { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }, 9.1);
+      }
+
+      // 7. Dynamic Footer Status updates along the timeline
+      if (footerStatus) {
+        tl.add(() => { if (footerStatus) footerStatus.textContent = 'ARCHITECTING ML PIPELINES...'; }, 2.5);
+        tl.add(() => { if (footerStatus) footerStatus.textContent = 'CURATING RESEARCH & PROJECTS...'; }, 5.5);
+        tl.add(() => { if (footerStatus) footerStatus.textContent = 'SYSTEM INITIALIZED • READY'; }, 10.5);
+      }
+
+      // 8. Progress Fill & 000% → 100% Counter across 11.2 seconds (0.3s - 11.5s)
       const cObj = { v: 0 };
       tl.to(cObj, {
         v: 100,
-        duration: 5.8,
+        duration: 11.2,
         ease: 'power2.inOut',
         onUpdate: () => {
           const val = Math.floor(cObj.v);
           if (counter) counter.textContent = `${String(val).padStart(3, '0')}%`;
           if (progressFill) progressFill.style.width = `${val}%`;
         },
-      }, 0.2);
+      }, 0.3);
 
-      // 4. Brief hold at 100% (6.0s - 6.3s)
-      tl.to({}, { duration: 0.3 }, 6.0);
+      // 9. Climax Hold at 100% (11.5s - 12.0s)
+      tl.to({}, { duration: 0.5 }, 11.5);
 
-      // 5. Flip morph photo into hero + wipe overlay (6.3s - 7.0s)
+      // 10. Flip Morph into Hero + Slide Overlay (12.0s - 12.8s)
       tl.add(() => {
         if (typeof Flip !== 'undefined' && heroPortrait && photo) {
           const state = Flip.getState(photo);
           heroPortrait.parentElement.appendChild(photo);
           Flip.from(state, {
-            duration: 0.7,
+            duration: 0.8,
             ease: 'power3.inOut',
             onComplete: () => { if (photo.parentElement !== photoMask) photo.remove(); },
           });
         }
-      }, 6.3);
+      }, 12.0);
 
-      // Smooth slide-up transition of fullscreen overlay
       tl.to(overlay, {
         yPercent: -100,
         opacity: 0.95,
-        duration: 0.7,
+        duration: 0.8,
         ease: 'power3.inOut',
-      }, 6.3);
+      }, 12.0);
 
-      // Skip button
+      // Skip button listener
       if (skipBtn) skipBtn.addEventListener('click', () => { tl.kill(); finish(); });
 
       function finish() {
