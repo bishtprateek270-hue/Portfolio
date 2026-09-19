@@ -1862,3 +1862,204 @@ section {
     padding: 1.75rem;
   }
 }
+
+/* ==========================================================================
+   POLISHED ANIMATION LAYER (GSAP, FLIP, LENIS & CUSTOM CURSOR)
+   ========================================================================== */
+
+/* ─── INTRO ANIMATION OVERLAY ─── */
+.intro-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: var(--bg-canvas);
+  z-index: 10000;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.intro-container {
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+  max-width: 800px;
+  padding: 1.5rem;
+}
+
+.intro-photo-mask {
+  width: 220px;
+  height: 290px;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  position: relative;
+  background: #E2E8F0;
+  box-shadow: var(--shadow-lg);
+  will-change: transform, clip-path;
+}
+
+.intro-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 20%;
+  display: block;
+  transform: scale(1.2);
+  will-change: transform;
+}
+
+.intro-text-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.intro-line-wrap {
+  overflow: hidden;
+  display: block;
+}
+
+.intro-name {
+  font-family: var(--font-sans);
+  font-size: 2.75rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  color: var(--text-main);
+  transform: translateY(105%);
+}
+
+.intro-role {
+  font-family: var(--font-mono);
+  font-size: 0.92rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  opacity: 0;
+  transform: translateY(15px);
+}
+
+.intro-footer-bar {
+  position: absolute;
+  bottom: 2rem;
+  left: 2rem;
+  right: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.intro-counter {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+}
+
+.intro-skip-btn {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 600;
+  background: var(--bg-surface);
+  color: var(--text-main);
+  border: 1px solid var(--border-mid);
+  padding: 0.4rem 0.95rem;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.intro-skip-btn:hover {
+  background: var(--text-main);
+  color: #FFFFFF;
+}
+
+@media (max-width: 768px) {
+  .intro-container {
+    flex-direction: column;
+    text-align: center;
+    gap: 1.5rem;
+  }
+  .intro-photo-mask {
+    width: 170px;
+    height: 220px;
+  }
+  .intro-name {
+    font-size: 2rem;
+  }
+}
+
+/* ─── CUSTOM CURSOR (DESKTOP FINE POINTER ONLY) ─── */
+.custom-cursor-dot,
+.custom-cursor-ring {
+  display: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .custom-cursor-dot {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 8px;
+    height: 8px;
+    background-color: var(--text-main);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 99999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s ease-out, opacity 0.2s ease;
+    will-change: transform;
+  }
+
+  .custom-cursor-ring {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 36px;
+    height: 36px;
+    border: 1.5px solid rgba(15, 23, 42, 0.45);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 99998;
+    transform: translate(-50%, -50%);
+    transition: width 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+                height 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+                border-color 0.25s ease,
+                background-color 0.25s ease;
+    will-change: transform, width, height;
+  }
+
+  body.cursor-hover .custom-cursor-ring {
+    width: 54px;
+    height: 54px;
+    border-color: var(--accent-blue);
+    background-color: rgba(37, 99, 235, 0.08);
+  }
+
+  body.cursor-hover .custom-cursor-dot {
+    opacity: 0.5;
+    transform: translate(-50%, -50%) scale(0.6);
+  }
+}
+
+/* ─── HARDWARE ACCELERATION FOR SMOOTH 60FPS ─── */
+.project-card,
+.skill-card,
+.milestone-card,
+.timeline-card,
+.bento-bio-card,
+.bento-portrait-card,
+.edu-card,
+.education-card {
+  will-change: transform, opacity;
+}
+
+/* Navbar hide/show state classes */
+.nav.nav-hidden {
+  transform: translateY(-100%);
+}
+

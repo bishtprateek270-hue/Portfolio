@@ -24,6 +24,31 @@
 </head>
 
 <body>
+    <!-- Custom Desktop Cursor -->
+    <div class="custom-cursor-dot" id="customCursorDot"></div>
+    <div class="custom-cursor-ring" id="customCursorRing"></div>
+
+    <!-- ==================== INTRO ANIMATION OVERLAY ==================== -->
+    <div class="intro-overlay" id="introOverlay">
+        <div class="intro-container">
+            <div class="intro-photo-mask" id="introPhotoMask">
+                <img src="assets/images/prateek.jpg" alt="Prateek Singh Bisht" class="intro-photo" id="introPhoto" />
+            </div>
+            <div class="intro-text-block">
+                <div class="intro-line-wrap">
+                    <h2 class="intro-name" id="introName">Prateek Singh Bisht</h2>
+                </div>
+                <div class="intro-line-wrap">
+                    <p class="intro-role" id="introRole">AI &amp; ML Engineer</p>
+                </div>
+            </div>
+        </div>
+        <div class="intro-footer-bar">
+            <div class="intro-counter" id="introCounter">000%</div>
+            <button class="intro-skip-btn" id="introSkipBtn" aria-label="Skip intro animation">Skip Intro →</button>
+        </div>
+    </div>
+
     <!-- Scrolling progress indicator -->
     <div class="scroll-progress-bar" id="scrollProgress"></div>
 
@@ -824,16 +849,16 @@
         </div>
     </div>
 
-    <!-- Toast notification for form -->
-    <div class="toast" id="toast">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M22 11.08V12a10 10 0 11-5.93-9.14"></path>
-            <polyline points="22 4 12 14.01 9 11.01"></polyline>
-        </svg>
-        <span>Message sent successfully! I'll get back to you shortly.</span>
-    </div>
+    <!-- GSAP Core & Plugins -->
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/Flip.min.js"></script>
+    <!-- Lenis Smooth Scroll -->
+    <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
 
+    <!-- App Logic & Isolated Animation Engine -->
     <script src="script.js"></script>
+    <script src="animations.js"></script>
 </body>
 
 </html>
