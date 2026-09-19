@@ -1065,6 +1065,33 @@ section {
   transition: width 1.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+.skill-tags-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.5rem;
+  padding-top: 0.85rem;
+  border-top: 1px solid var(--border-light);
+}
+
+.skill-tag {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  background: var(--bg-canvas);
+  color: var(--text-body);
+  border: 1px solid var(--border-light);
+  padding: 0.25rem 0.55rem;
+  border-radius: var(--radius-xs);
+  transition: all var(--transition-fast);
+}
+
+.skill-tag:hover {
+  border-color: var(--border-mid);
+  color: var(--text-main);
+  background: var(--bg-surface);
+}
+
 /* ─── SECTION 04: PROJECTS / CASE STUDIES ─── */
 .projects-list {
   display: flex;
