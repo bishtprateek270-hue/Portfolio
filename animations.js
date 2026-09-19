@@ -261,6 +261,10 @@
         document.body.style.overflow = '';
         if (overlay) overlay.remove();
         heroEntrance(true);
+        if (typeof ScrollTrigger !== 'undefined') {
+          ScrollTrigger.refresh(true);
+          setTimeout(() => ScrollTrigger.refresh(true), 150);
+        }
       }
     });
   }
@@ -329,7 +333,7 @@
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: head,
-          start: 'top 96%',
+          start: 'top 92%',
           once: true,
         },
       });
@@ -338,28 +342,35 @@
         tl.from(idx, { opacity: 0, x: -20, duration: 0.4, ease: C.ease.smooth, clearProps: 'all' });
       }
       if (h2) {
-        tl.from(h2, { opacity: 0, y: 30, duration: C.dur.heading, ease: C.ease.smooth, clearProps: 'all' }, idx ? '-=0.3' : 0);
+        tl.from(h2, { opacity: 0, y: 25, duration: C.dur.heading, ease: C.ease.smooth, clearProps: 'all' }, idx ? '-=0.25' : 0);
       }
     });
 
-    // ── C. General content blocks (about text, summary card, etc.) ──
-    document.querySelectorAll('.about-text-col, .about-summary-card, .about-chips').forEach((el) => {
-      gsap.from(el, {
-        scrollTrigger: { trigger: el, start: 'top 96%', once: true },
-        opacity: 0, y: 25, duration: 0.6, ease: C.ease.smooth, clearProps: 'all',
+    // ── C. About Section (Text Column & Summary Card) ──
+    const aboutGrid = document.querySelector('.about-grid');
+    if (aboutGrid) {
+      const aboutCols = aboutGrid.querySelectorAll('.about-text-col, .about-summary-card');
+      gsap.from(aboutCols, {
+        scrollTrigger: { trigger: '#about', start: 'top 90%', once: true },
+        opacity: 0,
+        y: 25,
+        duration: 0.6,
+        stagger: 0.15,
+        ease: C.ease.smooth,
+        clearProps: 'all',
       });
-    });
+    }
 
     // ── D. Project cards — staggered lift with 3D tilt on desktop ──
     document.querySelectorAll('.project-card').forEach((card, i) => {
       gsap.from(card, {
-        scrollTrigger: { trigger: card, start: 'top 96%', once: true },
+        scrollTrigger: { trigger: card, start: 'top 92%', once: true },
         opacity: 0,
         y: 35,
         duration: C.dur.card,
         delay: i * 0.04,
         ease: C.ease.smooth,
-        clearProps: 'opacity,transform',
+        clearProps: 'all',
       });
 
       // Desktop 3D tilt
@@ -384,14 +395,14 @@
     const eduCard = document.querySelector('.education-card, .edu-card');
     if (eduCard) {
       gsap.from(eduCard, {
-        scrollTrigger: { trigger: eduCard, start: 'top 96%', once: true },
+        scrollTrigger: { trigger: '#education', start: 'top 90%', once: true },
         opacity: 0, y: 25, duration: 0.6, ease: C.ease.smooth, clearProps: 'all',
       });
 
       document.querySelectorAll('.sgpa-bar').forEach((bar) => {
         const tw = bar.getAttribute('data-width') || '80';
         gsap.fromTo(bar, { width: '0%' }, {
-          scrollTrigger: { trigger: bar, start: 'top 96%', once: true },
+          scrollTrigger: { trigger: '#education', start: 'top 90%', once: true },
           width: `${tw}%`, duration: C.dur.meter, ease: C.ease.smooth,
         });
       });
@@ -401,7 +412,7 @@
     const skillCards = document.querySelectorAll('.skills-bento .skill-card');
     if (skillCards.length) {
       gsap.from(skillCards, {
-        scrollTrigger: { trigger: '.skills-bento', start: 'top 96%', once: true },
+        scrollTrigger: { trigger: '#skills', start: 'top 90%', once: true },
         opacity: 0, y: 30, duration: 0.6,
         stagger: C.stagger.skills, ease: C.ease.smooth, clearProps: 'all',
       });
@@ -409,16 +420,16 @@
       document.querySelectorAll('.meter-bar i').forEach((bar) => {
         const tw = bar.getAttribute('data-width') || '85%';
         gsap.fromTo(bar, { width: '0%' }, {
-          scrollTrigger: { trigger: bar, start: 'top 96%', once: true },
+          scrollTrigger: { trigger: '#skills', start: 'top 90%', once: true },
           width: tw, duration: C.dur.meter, ease: C.ease.smooth,
         });
       });
     }
 
-    // ── G. Experience timeline ──
+    // ── G. Experience / Internship timeline ──
     document.querySelectorAll('.timeline-card, .experience-card').forEach((card, i) => {
       gsap.from(card, {
-        scrollTrigger: { trigger: card, start: 'top 96%', once: true },
+        scrollTrigger: { trigger: '#experience', start: 'top 90%', once: true },
         opacity: 0, y: 30, duration: 0.6,
         delay: i * 0.05,
         ease: C.ease.smooth, clearProps: 'all',
@@ -429,7 +440,7 @@
     const milestones = document.querySelectorAll('.milestone-card, .achieve-card');
     if (milestones.length) {
       gsap.from(milestones, {
-        scrollTrigger: { trigger: '.milestones-grid, .achievements-grid', start: 'top 96%', once: true },
+        scrollTrigger: { trigger: '#achievements', start: 'top 90%', once: true },
         opacity: 0, y: 25, duration: 0.6,
         stagger: C.stagger.milestones, ease: C.ease.smooth, clearProps: 'all',
       });
@@ -438,7 +449,7 @@
     const certs = document.querySelector('.certifications-strip');
     if (certs) {
       gsap.from(certs, {
-        scrollTrigger: { trigger: certs, start: 'top 96%', once: true },
+        scrollTrigger: { trigger: '#achievements', start: 'top 90%', once: true },
         opacity: 0, y: 25, duration: 0.6, ease: C.ease.smooth, clearProps: 'all',
       });
     }
@@ -450,7 +461,7 @@
       const obj = { n: 0 };
 
       ScrollTrigger.create({
-        trigger: el, start: 'top 96%', once: true,
+        trigger: el, start: 'top 95%', once: true,
         onEnter: () => {
           gsap.to(obj, {
             n: target, duration: 1.2, ease: 'power2.out',
@@ -467,7 +478,7 @@
     const contactPanels = document.querySelectorAll('.contact-info-panel, .contact-form-panel');
     if (contactPanels.length) {
       gsap.from(contactPanels, {
-        scrollTrigger: { trigger: '#contact', start: 'top 98%', once: true },
+        scrollTrigger: { trigger: '#contact', start: 'top 92%', once: true },
         opacity: 0, y: 25, duration: 0.6,
         stagger: 0.08, ease: C.ease.smooth, clearProps: 'all',
       });
@@ -503,17 +514,7 @@
       });
     }
 
-    // ── M. Chip items stagger ──
-    const chips = document.querySelectorAll('.chip-item');
-    if (chips.length) {
-      gsap.from(chips, {
-        scrollTrigger: { trigger: '.about-chips', start: 'top 96%', once: true },
-        opacity: 0, y: 15, scale: 0.95,
-        duration: 0.4, stagger: 0.05, ease: C.ease.smooth, clearProps: 'all',
-      });
-    }
-
-    // ── N. Footer ──
+    // ── M. Footer ──
     const footer = document.querySelector('.site-footer, footer');
     if (footer) {
       gsap.from(footer, {

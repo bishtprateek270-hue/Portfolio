@@ -744,10 +744,16 @@ section {
 }
 
 /* High-Impact Content Sections — Always Sharp & 100% Visible */
-.reveal {
+.reveal,
+.about-grid,
+.about-text-col,
+.about-summary-card,
+.project-card,
+.timeline-card,
+.milestone-card,
+.education-card,
+.skill-card {
   opacity: 1;
-  transform: none;
-  filter: none;
 }
 
 .reveal.in, .reveal.revealed {
