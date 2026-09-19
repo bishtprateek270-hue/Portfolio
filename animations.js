@@ -258,7 +258,6 @@
       if (skipBtn) skipBtn.addEventListener('click', () => { tl.kill(); finish(); });
 
       function finish() {
-        sessionStorage.setItem('psb_intro_seen', 'true');
         document.body.style.overflow = '';
         if (overlay) overlay.remove();
         heroEntrance(true);
