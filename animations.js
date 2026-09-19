@@ -1,607 +1,530 @@
 /* ==========================================================================
-   PRATEEK SINGH BISHT — POLISHED ANIMATION ENGINE
-   Powered by GSAP 3, ScrollTrigger, Flip & Lenis
-   Isolated Architecture with Tunable Configuration
+   PRATEEK SINGH BISHT — POLISHED ANIMATION ENGINE v2
+   GSAP 3 + ScrollTrigger + Flip + Lenis
    ========================================================================== */
 
 (function () {
   'use strict';
 
-  // ==========================================================================
-  // 1. TUNABLE CONFIGURATION VALUES (Easily adjust motion timing & feels here)
-  // ==========================================================================
-  const CONFIG = {
-    // Master Motion Timing
-    duration: {
-      introPhotoWipe: 1.1,     // Duration of intro photo clip-path wipe (seconds)
-      introTextReveal: 0.8,    // Duration of name & role slide-up (seconds)
-      introCounter: 1.8,       // Duration of 0-100% counter (seconds)
-      introMorphFlip: 0.95,    // Duration of photo morphing to hero image (seconds)
-      heroStagger: 0.75,       // Duration of hero items entrance (seconds)
-      headingReveal: 0.85,     // Duration of section headings mask reveal (seconds)
-      cardEntrance: 0.8,       // Duration of card scroll-in (seconds)
-      meterFill: 1.4,          // Duration of SGPA/skill bar expansion (seconds)
-      magneticSpeed: 0.35,     // Speed of button magnetic pull effect (seconds)
-      cursorLerp: 0.15         // Smoothing factor for custom cursor lag (0.05 to 0.3)
+  /* ────────────────────────────────────────────────────────────
+     1. TUNABLE CONFIG — adjust motion feel from one place
+     ──────────────────────────────────────────────────────────── */
+  const C = {
+    dur: {
+      introWipe:    1.0,
+      introText:    0.75,
+      introCounter: 1.6,
+      introFlip:    0.9,
+      heroStagger:  0.7,
+      heading:      0.8,
+      card:         0.75,
+      meter:        1.3,
+      magnetic:     0.3,
     },
-
-    // Curated Easing Curves
     ease: {
-      primary: "power4.out",                     // Default smooth deceleration
-      editorial: "cubic-bezier(0.22, 1, 0.36, 1)", // Signature high-end cubic bezier
-      expo: "expo.out",                          // High-impact snappy entrance
-      smoothInOut: "power3.inOut"                // Layer transitions
+      smooth:  'power4.out',
+      editorial: 'cubic-bezier(0.22,1,0.36,1)',
+      expo:    'expo.out',
+      inOut:   'power3.inOut',
     },
-
-    // Staggers
     stagger: {
-      hero: 0.12,              // Stagger between hero elements
-      projects: 0.18,          // Stagger between project cards
-      skills: 0.1,             // Stagger between skill items
-      milestones: 0.12         // Stagger between milestone cards
+      hero:       0.11,
+      projects:   0.15,
+      skills:     0.09,
+      milestones: 0.1,
     },
-
-    // Parallax Multipliers (5% to 15%)
-    parallax: {
-      cards: 0.08,             // 8% subtle parallax on cards
-      images: 0.12             // 12% parallax on portrait/project thumbnails
-    }
+    cursor: {
+      dotLerp:  0.92,   // lower = more lag, 1 = instant
+      ringLerp: 0.12,   // smooth trailing ring
+    },
   };
 
-  // ==========================================================================
-  // 2. ENVIRONMENT & PREFERENCE CHECKS
-  // ==========================================================================
-  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const isDesktop = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  /* ────────────────────────────────────────────────────────────
+     2. ENVIRONMENT
+     ──────────────────────────────────────────────────────────── */
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const isDesktop     = window.matchMedia('(hover:hover) and (pointer:fine)').matches;
 
-  // Verify GSAP Availability
   if (typeof gsap === 'undefined') {
-    console.warn('[Animations] GSAP library not detected. Running fallback.');
+    console.warn('[Anim] GSAP missing — skipping animations.');
     return;
   }
-
-  // Register GSAP Plugins
   if (typeof ScrollTrigger !== 'undefined') gsap.registerPlugin(ScrollTrigger);
-  if (typeof Flip !== 'undefined') gsap.registerPlugin(Flip);
+  if (typeof Flip !== 'undefined')          gsap.registerPlugin(Flip);
 
-  // ==========================================================================
-  // 3. SMOOTH INERTIA SCROLLING (LENIS)
-  // ==========================================================================
-  let lenisInstance = null;
+  /* ────────────────────────────────────────────────────────────
+     3. LENIS SMOOTH SCROLL
+     ──────────────────────────────────────────────────────────── */
+  let lenis = null;
 
-  function initSmoothScroll() {
-    if (prefersReducedMotion || typeof Lenis === 'undefined') return;
+  function initLenis() {
+    if (reducedMotion || typeof Lenis === 'undefined') return;
 
-    lenisInstance = new Lenis({
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      orientation: 'vertical',
+    lenis = new Lenis({
+      duration:           1.2,
+      easing:             (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      orientation:        'vertical',
       gestureOrientation: 'vertical',
-      smoothWheel: true,
-      wheelMultiplier: 1.05,
-      touchMultiplier: 1.5,
-      infinite: false
+      smoothWheel:        true,
+      wheelMultiplier:    1,
+      touchMultiplier:    1.5,
+      infinite:           false,
     });
 
-    // Synchronize Lenis with GSAP ScrollTrigger
-    lenisInstance.on('scroll', ScrollTrigger.update);
-
-    gsap.ticker.add((time) => {
-      lenisInstance.raf(time * 1000);
-    });
-
+    lenis.on('scroll', ScrollTrigger.update);
+    gsap.ticker.add((time) => { lenis.raf(time * 1000); });
     gsap.ticker.lagSmoothing(0);
   }
 
-  // ==========================================================================
-  // 4. CUSTOM DESKTOP CURSOR (DOT + SMOOTH EXPANDING RING)
-  // ==========================================================================
-  function initCustomCursor() {
-    if (!isDesktop || prefersReducedMotion) return;
+  /* ────────────────────────────────────────────────────────────
+     4. CUSTOM CURSOR (DESKTOP ONLY) — zero-lag dot
+        The dot tracks raw mouse coords every single frame via
+        gsap.ticker so it never falls behind during scroll.
+     ──────────────────────────────────────────────────────────── */
+  function initCursor() {
+    if (!isDesktop || reducedMotion) return;
 
-    const dot = document.getElementById('customCursorDot');
+    const dot  = document.getElementById('customCursorDot');
     const ring = document.getElementById('customCursorRing');
     if (!dot || !ring) return;
 
-    let mouseX = window.innerWidth / 2;
-    let mouseY = window.innerHeight / 2;
-    let ringX = mouseX;
-    let ringY = mouseY;
+    // Raw target from mousemove
+    let mx = window.innerWidth  / 2;
+    let my = window.innerHeight / 2;
+    // Current rendered positions
+    let dx = mx, dy = my;   // dot
+    let rx = mx, ry = my;   // ring
 
+    // Update raw target on every mouse event
     window.addEventListener('mousemove', (e) => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-      gsap.set(dot, { x: mouseX, y: mouseY });
-    });
+      mx = e.clientX;
+      my = e.clientY;
+    }, { passive: true });
 
-    // Smooth lerp loop for the lagging ring
+    // Render loop — runs every frame (~60/120fps)
     gsap.ticker.add(() => {
-      ringX += (mouseX - ringX) * CONFIG.duration.cursorLerp;
-      ringY += (mouseY - ringY) * CONFIG.duration.cursorLerp;
-      gsap.set(ring, { x: ringX, y: ringY });
+      // Dot: near-instant tracking (lerp close to 1)
+      dx += (mx - dx) * C.cursor.dotLerp;
+      dy += (my - dy) * C.cursor.dotLerp;
+      dot.style.transform = `translate(${dx - 4}px, ${dy - 4}px)`;
+
+      // Ring: smooth trailing
+      rx += (mx - rx) * C.cursor.ringLerp;
+      ry += (my - ry) * C.cursor.ringLerp;
+      ring.style.transform = `translate(${rx - 18}px, ${ry - 18}px)`;
     });
 
-    // Expand cursor on interactive targets
-    const hoverTargets = document.querySelectorAll('a, button, .project-card, .btn, .link-btn, .c-link, input, textarea, .stat-badge-bento, .chip-item');
-    hoverTargets.forEach((el) => {
+    // Hover expansion on interactive elements
+    const targets = document.querySelectorAll(
+      'a, button, .project-card, .btn, .link-btn, .c-link, input, textarea, .stat-badge-bento, .chip-item'
+    );
+    targets.forEach((el) => {
       el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
       el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
     });
+
+    // Hide cursor when mouse leaves viewport
+    document.addEventListener('mouseleave', () => {
+      dot.style.opacity  = '0';
+      ring.style.opacity = '0';
+    });
+    document.addEventListener('mouseenter', () => {
+      dot.style.opacity  = '1';
+      ring.style.opacity = '1';
+    });
   }
 
-  // ==========================================================================
-  // 5. INTRO ANIMATION (PHOTO WIPE, MASKED TEXT, COUNTER & FLIP MORPH)
-  // ==========================================================================
-  function initIntroAnimation() {
-    const introOverlay = document.getElementById('introOverlay');
-    const introPhotoMask = document.getElementById('introPhotoMask');
-    const introPhoto = document.getElementById('introPhoto');
-    const introName = document.getElementById('introName');
-    const introRole = document.getElementById('introRole');
-    const introCounter = document.getElementById('introCounter');
-    const introSkipBtn = document.getElementById('introSkipBtn');
+  /* ────────────────────────────────────────────────────────────
+     5. INTRO SEQUENCE
+     ──────────────────────────────────────────────────────────── */
+  function initIntro() {
+    const overlay     = document.getElementById('introOverlay');
+    const photoMask   = document.getElementById('introPhotoMask');
+    const photo       = document.getElementById('introPhoto');
+    const nameEl      = document.getElementById('introName');
+    const roleEl      = document.getElementById('introRole');
+    const counter     = document.getElementById('introCounter');
+    const skipBtn     = document.getElementById('introSkipBtn');
     const heroPortrait = document.getElementById('heroPortrait');
 
-    if (!introOverlay) return;
+    if (!overlay) { heroEntrance(false); return; }
 
-    // Check if user already saw intro in current session or prefers reduced motion
-    const hasSeenIntro = sessionStorage.getItem('psb_intro_seen');
-    if (hasSeenIntro || prefersReducedMotion) {
-      introOverlay.remove();
-      runHeroEntrance(false);
+    // Skip if already seen or user prefers reduced motion
+    if (sessionStorage.getItem('psb_intro_seen') || reducedMotion) {
+      overlay.remove();
+      heroEntrance(false);
       return;
     }
 
-    // Read Name & Role directly from existing DOM to guarantee 100% content fidelity
-    const domBrandName = document.querySelector('.brand-name');
-    const domBrandRole = document.querySelector('.brand-role');
-    if (domBrandName && introName) introName.textContent = domBrandName.textContent.trim();
-    if (domBrandRole && introRole) introRole.textContent = domBrandRole.textContent.trim();
+    // Sync intro text from the actual page content
+    const brandName = document.querySelector('.brand-name');
+    const brandRole = document.querySelector('.brand-role');
+    if (brandName && nameEl) nameEl.textContent = brandName.textContent.trim();
+    if (brandRole && roleEl) roleEl.textContent = brandRole.textContent.trim();
 
-    // Lock page scrolling during intro
     document.body.style.overflow = 'hidden';
 
-    // Preload photo with fallback timeout
-    const preloadPromise = new Promise((resolve) => {
+    // Preload photo
+    const preload = new Promise((res) => {
       const img = new Image();
-      img.src = introPhoto ? introPhoto.src : 'assets/images/prateek.jpg';
-      if (img.complete && img.naturalWidth !== 0) {
-        resolve();
-      } else {
-        img.onload = resolve;
-        img.onerror = resolve;
-        setTimeout(resolve, 2500); // 2.5s fallback
-      }
+      img.src = photo ? photo.src : 'assets/images/prateek.jpg';
+      if (img.complete && img.naturalWidth) res();
+      else { img.onload = res; img.onerror = res; setTimeout(res, 2500); }
     });
 
-    preloadPromise.then(() => {
-      const introTl = gsap.timeline({
-        onComplete: () => {
-          finishIntro();
-        }
-      });
+    preload.then(() => {
+      // Initial states
+      gsap.set(photoMask, { clipPath: 'inset(100% 0% 0% 0% round 20px)' });
+      gsap.set(photo,     { scale: 1.3 });
+      gsap.set(nameEl,    { yPercent: 110 });
+      gsap.set(roleEl,    { opacity: 0, y: 20 });
 
-      // 1. Initial State Setup
-      gsap.set(introPhotoMask, { clipPath: 'inset(100% 0% 0% 0% round 20px)' });
-      gsap.set(introPhoto, { scale: 1.25 });
-      gsap.set(introName, { yPercent: 105 });
-      gsap.set(introRole, { opacity: 0, y: 15 });
+      const tl = gsap.timeline({ onComplete: finish });
 
-      // 2. Photo Clip-path Wipe & Scale
-      introTl.to(introPhotoMask, {
+      // Photo wipe-in
+      tl.to(photoMask, {
         clipPath: 'inset(0% 0% 0% 0% round 20px)',
-        duration: CONFIG.duration.introPhotoWipe,
-        ease: CONFIG.ease.editorial
-      }, 0.2);
+        duration: C.dur.introWipe,
+        ease: C.ease.smooth,
+      }, 0.15);
 
-      introTl.to(introPhoto, {
+      tl.to(photo, {
         scale: 1,
-        duration: CONFIG.duration.introPhotoWipe + 0.3,
-        ease: CONFIG.ease.editorial
-      }, 0.2);
+        duration: C.dur.introWipe + 0.4,
+        ease: C.ease.smooth,
+      }, 0.15);
 
-      // 3. Name & Role Masked Reveal
-      introTl.to(introName, {
+      // Name slide-up (masked)
+      tl.to(nameEl, {
         yPercent: 0,
-        duration: CONFIG.duration.introTextReveal,
-        ease: CONFIG.ease.editorial
-      }, 0.6);
+        duration: C.dur.introText,
+        ease: C.ease.smooth,
+      }, 0.5);
 
-      introTl.to(introRole, {
-        opacity: 1,
-        y: 0,
-        duration: CONFIG.duration.introTextReveal * 0.8,
-        ease: CONFIG.ease.primary
-      }, 0.8);
+      // Role fade-in
+      tl.to(roleEl, {
+        opacity: 1, y: 0,
+        duration: C.dur.introText * 0.75,
+        ease: C.ease.smooth,
+      }, 0.7);
 
-      // 4. Counter Progress (0% to 100%)
-      const counterObj = { val: 0 };
-      introTl.to(counterObj, {
-        val: 100,
-        duration: CONFIG.duration.introCounter,
-        ease: "power2.out",
+      // Counter 0→100%
+      const cObj = { v: 0 };
+      tl.to(cObj, {
+        v: 100,
+        duration: C.dur.introCounter,
+        ease: 'power2.out',
         onUpdate: () => {
-          if (introCounter) {
-            introCounter.textContent = `${Math.floor(counterObj.val).toString().padStart(3, '0')}%`;
-          }
-        }
-      }, 0.2);
+          if (counter) counter.textContent = `${String(Math.floor(cObj.v)).padStart(3, '0')}%`;
+        },
+      }, 0.15);
 
-      // Hold briefly before morph
-      introTl.to({}, { duration: 0.35 });
+      // Short hold
+      tl.to({}, { duration: 0.3 });
 
-      // 5. Flip Morph Transition to Hero
-      introTl.add(() => {
-        if (typeof Flip !== 'undefined' && heroPortrait && introPhoto) {
-          // Record state for Flip transition
-          const state = Flip.getState(introPhoto);
-          heroPortrait.parentElement.appendChild(introPhoto);
-
+      // Flip morph photo into hero
+      tl.add(() => {
+        if (typeof Flip !== 'undefined' && heroPortrait && photo) {
+          const state = Flip.getState(photo);
+          heroPortrait.parentElement.appendChild(photo);
           Flip.from(state, {
-            duration: CONFIG.duration.introMorphFlip,
-            ease: CONFIG.ease.editorial,
-            onComplete: () => {
-              // Return image structure
-              if (introPhoto.parentElement !== introPhotoMask) {
-                introPhoto.remove();
-              }
-            }
+            duration: C.dur.introFlip,
+            ease: C.ease.smooth,
+            onComplete: () => { if (photo.parentElement !== photoMask) photo.remove(); },
           });
         }
       });
 
-      // 6. Wipe up intro overlay
-      introTl.to(introOverlay, {
+      // Wipe overlay up
+      tl.to(overlay, {
         yPercent: -100,
-        duration: 0.85,
-        ease: CONFIG.ease.editorial
-      }, "-=0.7");
+        duration: 0.8,
+        ease: C.ease.smooth,
+      }, '-=0.65');
 
-      // Skip Button Handler
-      function skipIntro() {
-        introTl.kill();
-        finishIntro();
-      }
+      // Skip button
+      if (skipBtn) skipBtn.addEventListener('click', () => { tl.kill(); finish(); });
 
-      if (introSkipBtn) introSkipBtn.addEventListener('click', skipIntro);
-
-      function finishIntro() {
+      function finish() {
         sessionStorage.setItem('psb_intro_seen', 'true');
         document.body.style.overflow = '';
-        if (introOverlay) introOverlay.remove();
-        runHeroEntrance(true);
+        if (overlay) overlay.remove();
+        heroEntrance(true);
       }
     });
   }
 
-  // ==========================================================================
-  // 6. HERO STAGGERED ENTRANCE ANIMATION
-  // ==========================================================================
-  function runHeroEntrance(animate) {
-    const heroElements = [
+  /* ────────────────────────────────────────────────────────────
+     6. HERO ENTRANCE
+     ──────────────────────────────────────────────────────────── */
+  function heroEntrance(animate) {
+    const els = [
       '.eyebrow-chip',
       '.hero-headline',
       '.hero-subheadline',
       '.bento-bio-card',
       '.bento-portrait-card',
-      '.metrics-strip'
+      '.metrics-strip',
     ];
 
-    if (!animate || prefersReducedMotion) {
-      gsap.set(heroElements, { opacity: 1, y: 0, clearProps: "all" });
+    if (!animate || reducedMotion) {
+      gsap.set(els, { opacity: 1, y: 0, clearProps: 'all' });
       return;
     }
 
-    gsap.fromTo(heroElements,
-      { opacity: 0, y: 35 },
+    gsap.fromTo(els,
+      { opacity: 0, y: 40 },
       {
-        opacity: 1,
-        y: 0,
-        duration: CONFIG.duration.heroStagger,
-        stagger: CONFIG.stagger.hero,
-        ease: CONFIG.ease.editorial,
-        clearProps: "transform"
+        opacity: 1, y: 0,
+        duration: C.dur.heroStagger,
+        stagger: C.stagger.hero,
+        ease: C.ease.smooth,
+        clearProps: 'transform',
       }
     );
   }
 
-  // ==========================================================================
-  // 7. SITE-WIDE SCROLL ANIMATIONS (SCROLLTRIGGER)
-  // ==========================================================================
+  /* ────────────────────────────────────────────────────────────
+     7. SCROLL-DRIVEN ANIMATIONS
+     ──────────────────────────────────────────────────────────── */
   function initScrollAnimations() {
-    if (prefersReducedMotion) return;
+    if (reducedMotion) return;
 
-    // ─── A. SMART NAVBAR (HIDE ON SCROLL DOWN / SHOW ON SCROLL UP) ───
+    // ── A. Smart navbar: hide on scroll down, show on scroll up ──
     const nav = document.querySelector('.nav');
     if (nav) {
+      let lastDir = 0;
       ScrollTrigger.create({
         start: 'top top',
         end: 'max',
         onUpdate: (self) => {
-          if (self.direction === 1 && self.scroll() > 120) {
-            nav.classList.add('nav-hidden');
-          } else if (self.direction === -1) {
-            nav.classList.remove('nav-hidden');
+          if (self.direction !== lastDir) {
+            lastDir = self.direction;
+            if (self.direction === 1 && self.scroll() > 120) {
+              gsap.to(nav, { yPercent: -100, duration: 0.35, ease: C.ease.smooth });
+            } else {
+              gsap.to(nav, { yPercent: 0, duration: 0.35, ease: C.ease.smooth });
+            }
           }
-        }
+        },
       });
     }
 
-    // ─── B. SECTION HEADINGS MASK SLIDE-UP ───
-    document.querySelectorAll('.sec-head').forEach((secHead) => {
-      const indexTag = secHead.querySelector('.sec-index');
-      const heading = secHead.querySelector('h2');
+    // ── B. Section headings reveal ──
+    document.querySelectorAll('.sec-head').forEach((head) => {
+      const idx = head.querySelector('.sec-index');
+      const h2  = head.querySelector('h2');
 
       const tl = gsap.timeline({
         scrollTrigger: {
-          trigger: secHead,
-          start: 'top 85%',
-          toggleActions: 'play none none none'
-        }
+          trigger: head,
+          start: 'top 82%',
+          toggleActions: 'play none none none',
+        },
       });
 
-      if (indexTag) {
-        tl.from(indexTag, {
-          opacity: 0,
-          y: 15,
-          duration: 0.6,
-          ease: CONFIG.ease.primary
-        });
+      if (idx) {
+        tl.from(idx, { opacity: 0, x: -20, duration: 0.5, ease: C.ease.smooth });
       }
-
-      if (heading) {
-        tl.from(heading, {
-          opacity: 0,
-          y: 35,
-          duration: CONFIG.duration.headingReveal,
-          ease: CONFIG.ease.editorial
-        }, "-=0.4");
+      if (h2) {
+        tl.from(h2, { opacity: 0, y: 40, duration: C.dur.heading, ease: C.ease.smooth }, idx ? '-=0.35' : 0);
       }
     });
 
-    // ─── C. PROJECTS SECTION (STAGGERED 3D LIFT & PARALLAX) ───
-    document.querySelectorAll('.project-card').forEach((card) => {
+    // ── C. General content blocks (about text, summary card, etc.) ──
+    document.querySelectorAll('.about-text-col, .about-summary-card, .about-chips').forEach((el) => {
+      gsap.from(el, {
+        scrollTrigger: { trigger: el, start: 'top 85%', toggleActions: 'play none none none' },
+        opacity: 0, y: 35, duration: 0.8, ease: C.ease.smooth,
+      });
+    });
+
+    // ── D. Project cards — staggered lift with 3D tilt on desktop ──
+    document.querySelectorAll('.project-card').forEach((card, i) => {
       gsap.from(card, {
-        scrollTrigger: {
-          trigger: card,
-          start: 'top 88%',
-          toggleActions: 'play none none none'
-        },
+        scrollTrigger: { trigger: card, start: 'top 88%', toggleActions: 'play none none none' },
         opacity: 0,
-        y: 40,
-        scale: 0.98,
-        duration: CONFIG.duration.cardEntrance,
-        ease: CONFIG.ease.editorial
+        y: 50,
+        scale: 0.97,
+        duration: C.dur.card,
+        delay: i * 0.05,
+        ease: C.ease.smooth,
       });
 
-      // Desktop Subtle 3D Tilt on Mouse Move
+      // Desktop 3D tilt
       if (isDesktop) {
         card.addEventListener('mousemove', (e) => {
-          const rect = card.getBoundingClientRect();
-          const x = e.clientX - rect.left;
-          const y = e.clientY - rect.top;
-          const centerX = rect.width / 2;
-          const centerY = rect.height / 2;
-          const rotateX = ((y - centerY) / centerY) * -3;
-          const rotateY = ((x - centerX) / centerX) * 3;
-
+          const r = card.getBoundingClientRect();
+          const rx = ((e.clientY - r.top - r.height / 2) / (r.height / 2)) * -2.5;
+          const ry = ((e.clientX - r.left - r.width / 2) / (r.width / 2)) * 2.5;
           gsap.to(card, {
-            rotationX: rotateX,
-            rotationY: rotateY,
+            rotationX: rx, rotationY: ry,
             transformPerspective: 1000,
-            duration: 0.4,
-            ease: "power2.out"
+            duration: 0.35, ease: 'power2.out',
           });
         });
-
         card.addEventListener('mouseleave', () => {
-          gsap.to(card, {
-            rotationX: 0,
-            rotationY: 0,
-            duration: 0.6,
-            ease: CONFIG.ease.editorial
-          });
+          gsap.to(card, { rotationX: 0, rotationY: 0, duration: 0.5, ease: C.ease.smooth });
         });
       }
     });
 
-    // ─── D. ACADEMICS & SGPA METERS ───
+    // ── E. Education card + SGPA bars ──
     const eduCard = document.querySelector('.education-card, .edu-card');
     if (eduCard) {
       gsap.from(eduCard, {
-        scrollTrigger: {
-          trigger: eduCard,
-          start: 'top 85%',
-          toggleActions: 'play none none none'
-        },
-        opacity: 0,
-        y: 35,
-        duration: 0.8,
-        ease: CONFIG.ease.editorial
+        scrollTrigger: { trigger: eduCard, start: 'top 85%', toggleActions: 'play none none none' },
+        opacity: 0, y: 35, duration: 0.8, ease: C.ease.smooth,
       });
 
-      // Animate SGPA Bars with GSAP
       document.querySelectorAll('.sgpa-bar').forEach((bar) => {
-        const targetWidth = bar.getAttribute('data-width') || '80';
-        gsap.fromTo(bar,
-          { width: '0%' },
-          {
-            scrollTrigger: {
-              trigger: bar,
-              start: 'top 90%',
-              toggleActions: 'play none none none'
-            },
-            width: `${targetWidth}%`,
-            duration: CONFIG.duration.meterFill,
-            ease: CONFIG.ease.editorial
-          }
-        );
+        const tw = bar.getAttribute('data-width') || '80';
+        gsap.fromTo(bar, { width: '0%' }, {
+          scrollTrigger: { trigger: bar, start: 'top 90%', toggleActions: 'play none none none' },
+          width: `${tw}%`, duration: C.dur.meter, ease: C.ease.smooth,
+        });
       });
     }
 
-    // ─── E. SKILLS TOOLKIT BENTO ───
+    // ── F. Skills toolkit ──
     const skillCards = document.querySelectorAll('.skills-bento .skill-card');
     if (skillCards.length) {
       gsap.from(skillCards, {
-        scrollTrigger: {
-          trigger: '.skills-bento',
-          start: 'top 85%',
-          toggleActions: 'play none none none'
-        },
-        opacity: 0,
-        y: 35,
-        duration: 0.75,
-        stagger: CONFIG.stagger.skills,
-        ease: CONFIG.ease.editorial
+        scrollTrigger: { trigger: '.skills-bento', start: 'top 85%', toggleActions: 'play none none none' },
+        opacity: 0, y: 40, duration: 0.7,
+        stagger: C.stagger.skills, ease: C.ease.smooth,
       });
 
-      // Skill meter bars expansion
       document.querySelectorAll('.meter-bar i').forEach((bar) => {
-        const targetWidth = bar.getAttribute('data-width') || '85%';
-        gsap.fromTo(bar,
-          { width: '0%' },
-          {
-            scrollTrigger: {
-              trigger: bar,
-              start: 'top 92%',
-              toggleActions: 'play none none none'
-            },
-            width: targetWidth,
-            duration: CONFIG.duration.meterFill,
-            ease: CONFIG.ease.editorial
-          }
-        );
+        const tw = bar.getAttribute('data-width') || '85%';
+        gsap.fromTo(bar, { width: '0%' }, {
+          scrollTrigger: { trigger: bar, start: 'top 92%', toggleActions: 'play none none none' },
+          width: tw, duration: C.dur.meter, ease: C.ease.smooth,
+        });
       });
     }
 
-    // ─── F. EXPERIENCE TIMELINE ───
-    document.querySelectorAll('.timeline-card, .experience-card').forEach((card) => {
+    // ── G. Experience timeline ──
+    document.querySelectorAll('.timeline-card, .experience-card').forEach((card, i) => {
       gsap.from(card, {
-        scrollTrigger: {
-          trigger: card,
-          start: 'top 85%',
-          toggleActions: 'play none none none'
-        },
-        opacity: 0,
-        y: 35,
-        duration: 0.8,
-        ease: CONFIG.ease.editorial
+        scrollTrigger: { trigger: card, start: 'top 85%', toggleActions: 'play none none none' },
+        opacity: 0, y: 40, duration: 0.8,
+        delay: i * 0.08,
+        ease: C.ease.smooth,
       });
     });
 
-    // ─── G. MILESTONES & CERTIFICATES ───
-    const milestoneCards = document.querySelectorAll('.milestone-card, .achieve-card');
-    if (milestoneCards.length) {
-      gsap.from(milestoneCards, {
-        scrollTrigger: {
-          trigger: '.milestones-grid, .achievements-grid',
-          start: 'top 85%',
-          toggleActions: 'play none none none'
-        },
-        opacity: 0,
-        y: 30,
-        duration: 0.7,
-        stagger: CONFIG.stagger.milestones,
-        ease: CONFIG.ease.editorial
+    // ── H. Milestones & certificates ──
+    const milestones = document.querySelectorAll('.milestone-card, .achieve-card');
+    if (milestones.length) {
+      gsap.from(milestones, {
+        scrollTrigger: { trigger: '.milestones-grid, .achievements-grid', start: 'top 85%', toggleActions: 'play none none none' },
+        opacity: 0, y: 35, duration: 0.7,
+        stagger: C.stagger.milestones, ease: C.ease.smooth,
       });
     }
 
-    const certsStrip = document.querySelector('.certifications-strip');
-    if (certsStrip) {
-      gsap.from(certsStrip, {
-        scrollTrigger: {
-          trigger: certsStrip,
-          start: 'top 88%',
-          toggleActions: 'play none none none'
-        },
-        opacity: 0,
-        y: 30,
-        duration: 0.7,
-        ease: CONFIG.ease.editorial
+    const certs = document.querySelector('.certifications-strip');
+    if (certs) {
+      gsap.from(certs, {
+        scrollTrigger: { trigger: certs, start: 'top 88%', toggleActions: 'play none none none' },
+        opacity: 0, y: 30, duration: 0.7, ease: C.ease.smooth,
       });
     }
 
-    // ─── H. NUMERIC STATS COUNTERS ───
-    document.querySelectorAll('.val[data-count]').forEach((counter) => {
-      const target = parseInt(counter.getAttribute('data-count'), 10);
-      const suffix = counter.getAttribute('data-suffix') || '';
-      const obj = { count: 0 };
+    // ── I. Stat counters ──
+    document.querySelectorAll('.val[data-count]').forEach((el) => {
+      const target = parseInt(el.getAttribute('data-count'), 10);
+      const suffix = el.getAttribute('data-suffix') || '';
+      const obj = { n: 0 };
 
       ScrollTrigger.create({
-        trigger: counter,
-        start: 'top 90%',
-        once: true,
+        trigger: el, start: 'top 90%', once: true,
         onEnter: () => {
           gsap.to(obj, {
-            count: target,
-            duration: 1.4,
-            ease: 'power2.out',
+            n: target, duration: 1.3, ease: 'power2.out',
             onUpdate: () => {
-              counter.textContent = `${Math.floor(obj.count)}${Math.floor(obj.count) === target ? suffix : ''}`;
-            }
+              const v = Math.floor(obj.n);
+              el.textContent = v === target ? `${v}${suffix}` : `${v}`;
+            },
           });
-        }
+        },
       });
     });
 
-    // ─── I. CONTACT SECTION & MAGNETIC BUTTON EFFECT ───
+    // ── J. Contact section ──
     const contactPanels = document.querySelectorAll('.contact-bento > div, .contact-bento');
     if (contactPanels.length) {
       gsap.from(contactPanels, {
-        scrollTrigger: {
-          trigger: '.contact-bento',
-          start: 'top 95%',
-          toggleActions: 'play none none none'
-        },
-        opacity: 0,
-        y: 35,
-        duration: 0.8,
-        stagger: 0.15,
-        ease: CONFIG.ease.editorial
+        scrollTrigger: { trigger: '.contact-bento', start: 'top 90%', toggleActions: 'play none none none' },
+        opacity: 0, y: 35, duration: 0.8,
+        stagger: 0.12, ease: C.ease.smooth,
       });
     }
 
+    // ── K. Magnetic buttons (desktop) ──
     if (isDesktop) {
       document.querySelectorAll('.submit-btn, .nav-cta, .btn.primary').forEach((btn) => {
         btn.addEventListener('mousemove', (e) => {
-          const rect = btn.getBoundingClientRect();
-          const x = (e.clientX - rect.left - rect.width / 2) * 0.25;
-          const y = (e.clientY - rect.top - rect.height / 2) * 0.25;
-
-          gsap.to(btn, {
-            x: x,
-            y: y,
-            duration: CONFIG.duration.magneticSpeed,
-            ease: "power2.out"
-          });
+          const r = btn.getBoundingClientRect();
+          const x = (e.clientX - r.left - r.width / 2) * 0.22;
+          const y = (e.clientY - r.top - r.height / 2) * 0.22;
+          gsap.to(btn, { x, y, duration: C.dur.magnetic, ease: 'power2.out' });
         });
-
         btn.addEventListener('mouseleave', () => {
-          gsap.to(btn, {
-            x: 0,
-            y: 0,
-            duration: CONFIG.duration.magneticSpeed + 0.15,
-            ease: CONFIG.ease.editorial
-          });
+          gsap.to(btn, { x: 0, y: 0, duration: C.dur.magnetic + 0.12, ease: C.ease.smooth });
         });
+      });
+    }
+
+    // ── L. Portrait parallax on scroll ──
+    const portrait = document.querySelector('.portrait-img');
+    if (portrait) {
+      gsap.to(portrait, {
+        scrollTrigger: {
+          trigger: '.bento-portrait-card',
+          start: 'top bottom',
+          end: 'bottom top',
+          scrub: 0.6,
+        },
+        yPercent: -8,
+        ease: 'none',
+      });
+    }
+
+    // ── M. Chip items stagger ──
+    const chips = document.querySelectorAll('.chip-item');
+    if (chips.length) {
+      gsap.from(chips, {
+        scrollTrigger: { trigger: '.about-chips', start: 'top 88%', toggleActions: 'play none none none' },
+        opacity: 0, y: 15, scale: 0.92,
+        duration: 0.5, stagger: 0.07, ease: C.ease.smooth,
+      });
+    }
+
+    // ── N. Footer ──
+    const footer = document.querySelector('.site-footer, footer');
+    if (footer) {
+      gsap.from(footer, {
+        scrollTrigger: { trigger: footer, start: 'top 95%', toggleActions: 'play none none none' },
+        opacity: 0, y: 20, duration: 0.6, ease: C.ease.smooth,
       });
     }
   }
 
-  // ==========================================================================
-  // 8. INITIALIZE ON DOM READY
-  // ==========================================================================
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => {
-      initSmoothScroll();
-      initCustomCursor();
-      initIntroAnimation();
-      initScrollAnimations();
-    });
-  } else {
-    initSmoothScroll();
-    initCustomCursor();
-    initIntroAnimation();
+  /* ────────────────────────────────────────────────────────────
+     8. INIT
+     ──────────────────────────────────────────────────────────── */
+  function boot() {
+    initLenis();
+    initCursor();
+    initIntro();
     initScrollAnimations();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', boot);
+  } else {
+    boot();
   }
 })();

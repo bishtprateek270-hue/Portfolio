@@ -2009,9 +2009,8 @@ section {
     border-radius: 50%;
     pointer-events: none;
     z-index: 99999;
-    transform: translate(-50%, -50%);
-    transition: transform 0.1s ease-out, opacity 0.2s ease;
     will-change: transform;
+    transition: opacity 0.2s ease, width 0.2s ease, height 0.2s ease;
   }
 
   .custom-cursor-ring {
@@ -2025,12 +2024,12 @@ section {
     border-radius: 50%;
     pointer-events: none;
     z-index: 99998;
-    transform: translate(-50%, -50%);
+    will-change: transform;
     transition: width 0.25s cubic-bezier(0.16, 1, 0.3, 1),
                 height 0.25s cubic-bezier(0.16, 1, 0.3, 1),
                 border-color 0.25s ease,
-                background-color 0.25s ease;
-    will-change: transform, width, height;
+                background-color 0.25s ease,
+                opacity 0.2s ease;
   }
 
   body.cursor-hover .custom-cursor-ring {
@@ -2042,9 +2041,9 @@ section {
 
   body.cursor-hover .custom-cursor-dot {
     opacity: 0.5;
-    transform: translate(-50%, -50%) scale(0.6);
   }
 }
+
 
 /* ─── HARDWARE ACCELERATION FOR SMOOTH 60FPS ─── */
 .project-card,
@@ -2059,7 +2058,8 @@ section {
 }
 
 /* Navbar hide/show state classes */
-.nav.nav-hidden {
-  transform: translateY(-100%);
+.nav {
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
 }
+
 
