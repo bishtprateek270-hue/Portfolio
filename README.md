@@ -53,12 +53,10 @@ An AI-powered EdTech study platform built with Next.js and Firebase, offering au
 ### 📊 ChurnOps — Production MLOps Customer Churn Prediction Engine
 A production-grade end-to-end MLOps pipeline and REST API for customer churn risk prediction, featuring automated schema detection, MLflow model versioning, Docker deployment, and drift monitoring.
 - **GitHub:** https://github.com/bishtprateek270-hue/churnops
-- **Demo / Walkthrough:** https://github.com/bishtprateek270-hue/churnops#readme
 
 ### 💳 SimplePay
 A containerized, full-stack payment application dashboard featuring a 3-tier architecture with a React SPA frontend, a Flask REST API backend, and MongoDB storage.
 - **GitHub:** https://github.com/bishtprateek270-hue/SimplePay
-- **Demo / Walkthrough:** https://github.com/bishtprateek270-hue/SimplePay#readme
 
 ## 💻 Skills
 
