@@ -996,75 +996,338 @@ section {
 }
 
 /* ─── SECTION 03: TECH STACK ─── */
-.skills-bento {
+#skills {
+  position: relative;
+  overflow: hidden;
+}
+
+.skills-bg-grid {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: 
+    linear-gradient(to right, rgba(15, 23, 42, 0.035) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(15, 23, 42, 0.035) 1px, transparent 1px);
+  background-size: 32px 32px;
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 45%, black 20%, transparent 80%);
+  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 45%, black 20%, transparent 80%);
+  z-index: 0;
+}
+
+.skills-head {
+  position: relative;
+  z-index: 1;
+  margin-bottom: 2.5rem;
+}
+
+.heading-wrap {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+}
+
+.heading-light-sweep {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(37, 99, 235, 0.22), transparent);
+  transform: skewX(-20deg);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.sec-subtitle {
+  font-size: 1rem;
+  color: var(--text-body);
+  margin-top: 0.5rem;
+  max-width: 650px;
+  line-height: 1.55;
+  font-weight: 400;
+}
+
+/* 5-Card Asymmetric Modern Grid */
+.skills-grid-5 {
+  position: relative;
+  z-index: 1;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(12, 1fr);
   gap: 1.5rem;
 }
 
+/* Desktop layout:
+   Row 1: Card 1 (7 cols) + Card 2 (5 cols)
+   Row 2: Card 3 (4 cols) + Card 4 (4 cols) + Card 5 (4 cols) */
+.skills-grid-5 > .skill-card:nth-child(1) {
+  grid-column: span 7;
+}
+
+.skills-grid-5 > .skill-card:nth-child(2) {
+  grid-column: span 5;
+}
+
+.skills-grid-5 > .skill-card:nth-child(3) {
+  grid-column: span 4;
+}
+
+.skills-grid-5 > .skill-card:nth-child(4) {
+  grid-column: span 4;
+}
+
+.skills-grid-5 > .skill-card:nth-child(5) {
+  grid-column: span 4;
+}
+
+/* Individual Skill Card */
 .skill-card {
   background: var(--bg-surface);
   border: 1px solid var(--border-light);
   border-radius: var(--radius-lg);
-  padding: 2rem;
   box-shadow: var(--shadow-sm);
+  position: relative;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
-  transition: all var(--transition-smooth);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, opacity;
+  transform-style: preserve-3d;
+}
+
+/* AI/ML Primary Card Subtle Emphasis */
+.skill-card-featured {
+  border-color: rgba(37, 99, 235, 0.25);
+  box-shadow: 0 6px 24px -4px rgba(37, 99, 235, 0.07), var(--shadow-sm);
+  background: linear-gradient(180deg, #FFFFFF 0%, #FAFBFC 100%);
+}
+
+.skill-card-featured::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent-blue), #38BDF8);
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  z-index: 2;
+}
+
+.skill-card-inner {
+  padding: 1.85rem;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  position: relative;
+  z-index: 1;
+}
+
+/* Subtle Cursor Radial Glow inside cards */
+.skill-card-glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(380px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(37, 99, 235, 0.07), transparent 70%);
+  transition: opacity 0.3s ease;
+  z-index: 0;
+}
+
+.skill-card:hover .skill-card-glow {
+  opacity: 1;
 }
 
 .skill-card:hover {
-  border-color: var(--border-mid);
-  transform: translateY(-3px);
-  box-shadow: var(--shadow-md);
+  border-color: rgba(37, 99, 235, 0.4);
+  box-shadow: 0 12px 28px -6px rgba(37, 99, 235, 0.09), var(--shadow-md);
+  transform: translateY(-4px);
 }
 
-.skill-card-head {
+/* Card Header */
+.skill-card-top {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  gap: 0.65rem;
+  margin-bottom: 1.1rem;
+}
+
+.skill-cat-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .skill-cat-icon {
-  font-size: 1.35rem;
+  font-size: 1.3rem;
   line-height: 1;
 }
 
-.skill-card-head h4 {
-  font-size: 1.15rem;
-  font-weight: 700;
-  letter-spacing: -0.01em;
+.skill-badge-text {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
 }
 
-.skill-meter-row {
+.skill-card-featured .skill-badge-text {
+  color: var(--accent-blue);
+  background: var(--accent-blue-bg);
+  padding: 0.2rem 0.55rem;
+  border-radius: var(--radius-pill);
+  border: 1px solid rgba(37, 99, 235, 0.18);
+}
+
+.skill-cat-num {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  opacity: 0.6;
+}
+
+/* Card Titles and Descriptions */
+.skill-card-meta {
+  margin-bottom: 1.35rem;
+}
+
+.skill-card-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  color: var(--text-main);
+  margin-bottom: 0.4rem;
+}
+
+.skill-card-desc {
+  font-size: 0.88rem;
+  line-height: 1.55;
+  color: var(--text-body);
+}
+
+/* Technology Chips / Badges */
+.tech-chips-grid {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  margin-bottom: 1.5rem;
+  flex-grow: 1;
+  align-content: flex-start;
+}
+
+.tech-chip {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 500;
+  background: #F8FAFC;
+  color: var(--text-main);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-pill);
+  padding: 0.38rem 0.8rem;
+  line-height: 1.25;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: default;
+  user-select: none;
+}
+
+.tech-chip:hover {
+  transform: translateY(-2px);
+  background: #FFFFFF;
+  border-color: rgba(37, 99, 235, 0.45);
+  color: var(--accent-blue);
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.08);
+}
+
+.skill-card-featured .tech-chip {
+  background: #FFFFFF;
+  border-color: rgba(226, 232, 240, 0.95);
+}
+
+.skill-card-featured .tech-chip:hover {
+  border-color: var(--accent-blue);
+}
+
+/* Project Evidence Links */
+.skill-evidence {
+  border-top: 1px solid var(--border-light);
+  padding-top: 0.95rem;
+  margin-top: auto;
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  font-size: 0.78rem;
+}
+
+.evidence-lbl {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  flex-shrink: 0;
+}
+
+.evidence-links {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
   gap: 0.35rem;
 }
 
-.skill-meter-row span {
-  font-family: var(--font-mono);
-  font-size: 0.8rem;
+.evidence-link {
+  font-family: var(--font-sans);
+  font-weight: 600;
   color: var(--text-body);
-  font-weight: 500;
+  text-decoration: none;
+  transition: color var(--transition-fast);
 }
 
-.meter-bar {
-  width: 100%;
-  height: 6px;
-  background: var(--bg-subtle);
-  border-radius: var(--radius-pill);
-  overflow: hidden;
+.evidence-link:hover {
+  color: var(--accent-blue);
+  text-decoration: underline;
 }
 
-.meter-bar i {
-  display: block;
-  height: 100%;
-  background: var(--text-main);
-  border-radius: var(--radius-pill);
-  width: 0%;
-  transition: width 1.3s cubic-bezier(0.16, 1, 0.3, 1);
+.evidence-dot {
+  color: var(--text-muted);
+  font-size: 0.72rem;
+  user-select: none;
+}
+
+/* Responsive Grid Breakpoints */
+@media (max-width: 1024px) {
+  .skills-grid-5 > .skill-card:nth-child(1) {
+    grid-column: span 12;
+  }
+  .skills-grid-5 > .skill-card:nth-child(2) {
+    grid-column: span 6;
+  }
+  .skills-grid-5 > .skill-card:nth-child(3) {
+    grid-column: span 6;
+  }
+  .skills-grid-5 > .skill-card:nth-child(4) {
+    grid-column: span 6;
+  }
+  .skills-grid-5 > .skill-card:nth-child(5) {
+    grid-column: span 6;
+  }
+}
+
+@media (max-width: 768px) {
+  .skills-grid-5 {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+  .skills-grid-5 > .skill-card:nth-child(n) {
+    grid-column: span 1;
+  }
+  .skill-card-inner {
+    padding: 1.4rem;
+  }
 }
 
 /* ─── SECTION 04: PROJECTS / CASE STUDIES ─── */

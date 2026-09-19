@@ -325,8 +325,8 @@
       });
     }
 
-    // ── B. Section headings reveal ──
-    document.querySelectorAll('.sec-head').forEach((head) => {
+    // ── B. Section headings reveal (excluding custom skills-head) ──
+    document.querySelectorAll('.sec-head:not(.skills-head)').forEach((head) => {
       const idx = head.querySelector('.sec-index');
       const h2  = head.querySelector('h2');
 
@@ -408,22 +408,128 @@
       });
     }
 
-    // ── F. Skills toolkit ──
-    const skillCards = document.querySelectorAll('.skills-bento .skill-card');
-    if (skillCards.length) {
-      gsap.from(skillCards, {
-        scrollTrigger: { trigger: '#skills', start: 'top 90%', once: true },
-        opacity: 0, y: 30, duration: 0.6,
-        stagger: C.stagger.skills, ease: C.ease.smooth, clearProps: 'all',
+    // ── F. Section 03: Technical Stack Orchestrated Reveal ──
+    const skillsSec = document.querySelector('#skills');
+    if (skillsSec) {
+      const idx = skillsSec.querySelector('.sec-index');
+      const h2 = skillsSec.querySelector('h2');
+      const subtitle = skillsSec.querySelector('.sec-subtitle');
+      const sweep = skillsSec.querySelector('.heading-light-sweep');
+      const cards = skillsSec.querySelectorAll('.skills-grid-5 .skill-card');
+
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: '#skills',
+          start: 'top 85%',
+          once: true,
+        },
       });
 
-      document.querySelectorAll('.meter-bar i').forEach((bar) => {
-        const tw = bar.getAttribute('data-width') || '85%';
-        gsap.fromTo(bar, { width: '0%' }, {
-          scrollTrigger: { trigger: '#skills', start: 'top 90%', once: true },
-          width: tw, duration: C.dur.meter, ease: C.ease.smooth,
+      // Step 1: Label 03 // TOOLKIT fades in and slides slightly upward
+      if (idx) {
+        tl.fromTo(idx, 
+          { opacity: 0, y: 16 }, 
+          { opacity: 1, y: 0, duration: 0.35, ease: C.ease.smooth, clearProps: 'transform' }
+        );
+      }
+
+      // Step 2: "Technical Stack" heading reveals + subtitle fades in immediately afterward
+      if (h2) {
+        tl.fromTo(h2, 
+          { opacity: 0, y: 22 }, 
+          { opacity: 1, y: 0, duration: 0.45, ease: C.ease.smooth, clearProps: 'transform' },
+          idx ? '-=0.15' : 0
+        );
+      }
+
+      if (subtitle) {
+        tl.fromTo(subtitle, 
+          { opacity: 0, y: 12 }, 
+          { opacity: 1, y: 0, duration: 0.4, ease: C.ease.smooth, clearProps: 'transform' },
+          '-=0.25'
+        );
+      }
+
+      // Step 3: Subtle blue light sweep across heading
+      if (sweep) {
+        tl.fromTo(sweep, 
+          { left: '-100%' }, 
+          { left: '150%', duration: 0.75, ease: 'power2.out' },
+          '-=0.3'
+        );
+      }
+
+      // Step 4: Cards staggered entrance (AI/ML card first)
+      if (cards.length) {
+        tl.fromTo(cards, 
+          { opacity: 0, y: 35, scale: 0.96 }, 
+          { 
+            opacity: 1, 
+            y: 0, 
+            scale: 1, 
+            duration: 0.55, 
+            stagger: 0.08, 
+            ease: 'cubic-bezier(0.22, 1, 0.36, 1)',
+            clearProps: 'opacity,transform',
+          },
+          '-=0.45'
+        );
+
+        // Step 5: Fast sequential micro-stagger for tech chips inside each card
+        cards.forEach((card, ci) => {
+          const chips = card.querySelectorAll('.tech-chip');
+          if (chips.length) {
+            tl.fromTo(chips, 
+              { opacity: 0, y: 8, scale: 0.93 }, 
+              { 
+                opacity: 1, 
+                y: 0, 
+                scale: 1, 
+                duration: 0.28, 
+                stagger: 0.02, 
+                ease: 'power2.out',
+                clearProps: 'all',
+              },
+              `-=${0.45 - ci * 0.04}`
+            );
+          }
         });
-      });
+      }
+
+      // Desktop interactive card mouse-follow glow & subtle tilt
+      if (isDesktop) {
+        cards.forEach((card) => {
+          card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            card.style.setProperty('--mouse-x', `${x}px`);
+            card.style.setProperty('--mouse-y', `${y}px`);
+
+            // Subtle 1-1.5deg tilt
+            const rx = ((e.clientY - rect.top - rect.height / 2) / (rect.height / 2)) * -1.5;
+            const ry = ((e.clientX - rect.left - rect.width / 2) / (rect.width / 2)) * 1.5;
+
+            gsap.to(card, {
+              rotationX: rx,
+              rotationY: ry,
+              transformPerspective: 1000,
+              duration: 0.25,
+              ease: 'power2.out',
+            });
+          });
+
+          card.addEventListener('mouseleave', () => {
+            gsap.to(card, {
+              rotationX: 0,
+              rotationY: 0,
+              duration: 0.45,
+              ease: C.ease.smooth,
+            });
+          });
+        });
+      }
     }
 
     // ── G. Experience / Internship timeline ──
