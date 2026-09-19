@@ -742,6 +742,14 @@ section:last-of-type {
   background: #1E7A4C;
 }
 
+.exp-status.demo {
+  color: #8C5B00;
+}
+
+.exp-status.demo .d {
+  background: #D97706;
+}
+
 .exp-meta {
   display: flex;
   flex-wrap: wrap;
