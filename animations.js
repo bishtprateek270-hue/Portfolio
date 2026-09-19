@@ -389,12 +389,12 @@
     });
 
     // ── J. Contact section ──
-    const contactPanels = document.querySelectorAll('.contact-bento > div, .contact-bento');
+    const contactPanels = document.querySelectorAll('.contact-info-panel, .contact-form-panel');
     if (contactPanels.length) {
       gsap.from(contactPanels, {
-        scrollTrigger: { trigger: '.contact-bento', start: 'top 90%', toggleActions: 'play none none none' },
-        opacity: 0, y: 35, duration: 0.8,
-        stagger: 0.12, ease: C.ease.smooth,
+        scrollTrigger: { trigger: '#contact', start: 'top 95%', toggleActions: 'play none none none' },
+        opacity: 0, y: 30, duration: 0.7,
+        stagger: 0.1, ease: C.ease.smooth,
       });
     }
 

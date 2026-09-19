@@ -123,8 +123,8 @@
     // ─── INTERSECTION OBSERVER FOR REVEAL & METERS ─────────
     const observerOptions = {
         root: null,
-        rootMargin: '0px 0px -40px 0px',
-        threshold: 0.08
+        rootMargin: '50px 0px 50px 0px',
+        threshold: 0.01
     };
 
     let sgpaAnimated = false;
