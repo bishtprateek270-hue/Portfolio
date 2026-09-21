@@ -257,8 +257,11 @@
         });
       }
 
-      // Launch Hero Entrance Timeline
-      playHeroEntrance(animated);
+      // Dispatch global event for hero.js
+      document.dispatchEvent(new CustomEvent('intro-finished', { detail: { animated } }));
+
+      // Launch Global Navbar & Metrics Entrance
+      playGlobalEntrance(animated);
 
       // Refresh ScrollTrigger
       if (typeof ScrollTrigger !== 'undefined') {
@@ -269,95 +272,39 @@
   }
 
   /* ────────────────────────────────────────────────────────────
-     5. HERO ENTRANCE TIMELINE (TASK 2)
+     5. GLOBAL NAVBAR & METRICS ENTRANCE TIMELINE
      ──────────────────────────────────────────────────────────── */
-  function playHeroEntrance(animate) {
+  function playGlobalEntrance(animate) {
     const nav = document.querySelector('.nav');
     const topBar = document.querySelector('.top-status-bar');
-    const eyebrow = document.querySelector('.eyebrow-chip');
-    const headlineLines = document.querySelectorAll('.hero-headline-line');
-    const subheadline = document.querySelector('.hero-subheadline');
-    const bioCard = document.querySelector('.bento-bio-card');
-    const portraitCard = document.querySelector('.bento-portrait-card');
     const metricsStrip = document.querySelector('.metrics-strip');
     const metricVals = document.querySelectorAll('.metrics-strip .val[data-count]');
 
     if (!animate || reducedMotion) {
       if (nav) gsap.set(nav, { y: 0, opacity: 1 });
       if (topBar) gsap.set(topBar, { y: 0, opacity: 1 });
-      if (headlineLines.length) gsap.set(headlineLines, { yPercent: 0, opacity: 1 });
-      if (portraitCard) portraitCard.classList.add('hero-floating');
       animateCounters(metricVals);
       return;
     }
 
-    const heroTl = gsap.timeline({
+    const tl = gsap.timeline({
       defaults: { ease: CONFIG.ease.out },
-      onComplete: () => {
-        if (portraitCard) portraitCard.classList.add('hero-floating');
-      },
     });
 
     // 1. Top Bar & Navbar Drop Down
     if (topBar) {
-      heroTl.fromTo(topBar, { yPercent: -100, opacity: 0 }, { yPercent: 0, opacity: 1, duration: 0.5 });
+      tl.fromTo(topBar, { yPercent: -100, opacity: 0 }, { yPercent: 0, opacity: 1, duration: 0.5 });
     }
     if (nav) {
-      heroTl.fromTo(nav, { yPercent: -100, opacity: 0 }, { yPercent: 0, opacity: 1, duration: 0.6 }, '-=0.35');
+      tl.fromTo(nav, { yPercent: -100, opacity: 0 }, { yPercent: 0, opacity: 1, duration: 0.6 }, '-=0.35');
     }
 
-    // 2. Eyebrow Chip Pop
-    if (eyebrow) {
-      heroTl.fromTo(eyebrow, { opacity: 0, y: 18, scale: 0.95 }, { opacity: 1, y: 0, scale: 1, duration: 0.5 }, '-=0.2');
-    }
-
-    // 3. Headline Masked Line-by-Line Slide-Up
-    if (headlineLines.length) {
-      heroTl.fromTo(headlineLines, 
-        { yPercent: 110, opacity: 0 }, 
-        { yPercent: 0, opacity: 1, duration: 0.8, stagger: 0.14, ease: CONFIG.ease.smooth }, 
-        '-=0.3'
-      );
-    }
-
-    // 4. Subheadline Reveal
-    if (subheadline) {
-      heroTl.fromTo(subheadline, { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.6 }, '-=0.4');
-    }
-
-    // 5. Bento Bio Card + Portrait Card
-    if (bioCard) {
-      heroTl.fromTo(bioCard, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.65 }, '-=0.35');
-    }
-    if (portraitCard) {
-      heroTl.fromTo(portraitCard, { opacity: 0, scale: 0.95, y: 25 }, { opacity: 1, scale: 1, y: 0, duration: 0.7 }, '-=0.5');
-
-      const telemetryDeck = portraitCard.querySelector('.hero-telemetry-deck');
-      const metricBoxes = portraitCard.querySelectorAll('.t-metric-box');
-      const domainChips = portraitCard.querySelectorAll('.t-chip');
-
-      if (telemetryDeck) {
-        heroTl.fromTo(telemetryDeck, { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.5 }, '-=0.4');
-      }
-      if (metricBoxes.length) {
-        heroTl.fromTo(metricBoxes, { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.4, stagger: 0.08, ease: CONFIG.ease.bounce }, '-=0.3');
-      }
-      if (domainChips.length) {
-        heroTl.fromTo(domainChips, { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.35, stagger: 0.04 }, '-=0.25');
-      }
-    }
-
-    // 6. Code Snippet Typing Animation
-    heroTl.add(() => {
-      typeHeroCodeSnippet();
-    }, '-=0.3');
-
-    // 7. Metrics Strip Entrance + Numbers Count Up
+    // 2. Metrics Strip Entrance + Numbers Count Up
     if (metricsStrip) {
-      heroTl.fromTo(metricsStrip, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.55 }, '-=0.2');
-      heroTl.add(() => {
+      tl.fromTo(metricsStrip, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.55 }, 0.8);
+      tl.add(() => {
         animateCounters(metricVals);
-      }, '-=0.2');
+      }, 0.8);
     }
   }
 

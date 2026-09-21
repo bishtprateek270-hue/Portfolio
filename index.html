@@ -22,6 +22,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css?v=4.0">
     <link rel="stylesheet" href="assets/css/animations.css?v=1.0">
+    <link rel="stylesheet" href="assets/css/hero.css?v=1.0">
     <script>document.documentElement.classList.add('js-enabled');</script>
 </head>
 
@@ -135,104 +136,98 @@
     <main>
         <!-- ==================== HERO SECTION ==================== -->
         <section class="hero wrap" id="hero">
-            <div class="hero-editorial">
-                <div class="eyebrow-chip hero-anim" style="--delay: 0.1s;">
-                    <span class="pulse-dot"></span>
-                    <span>AI Engineering &amp; Scalable Systems</span>
-                </div>
-                <h1 class="hero-headline hero-anim" style="--delay: 0.25s;">
-                    <span class="hero-headline-line-wrap"><span class="hero-headline-line">I build intelligent AI systems &amp; software —</span></span>
-                    <span class="hero-headline-line-wrap"><span class="hero-headline-line"><em>without the gap</em>.</span></span>
-                </h1>
-                <p class="hero-subheadline hero-anim" style="--delay: 0.4s;">
-                    Taking ideas from mathematical prototypes to high-performance production models — architecting resilient ML pipelines, LLM/RAG engines, and low-latency web platforms.
-                </p>
+            <!-- Background Depth Layers (Dot grid, soft gradient blobs, spotlight) -->
+            <div class="hero-bg-canvas" aria-hidden="true">
+                <div class="hero-bg-grid"></div>
+                <div class="hero-bg-blob hero-blob-blue"></div>
+                <div class="hero-bg-blob hero-blob-green"></div>
+                <div class="hero-cursor-spotlight" id="heroSpotlight"></div>
             </div>
 
-            <!-- Hero Bento Grid: Bio Card & Portrait Card -->
-            <div class="hero-bento">
-                <div class="bento-bio-card hero-anim" style="--delay: 0.55s;">
-                    <div class="code-snippet" id="heroCodeSnippet">
-                        <span class="k">def</span> <span class="fn">engineer_solution</span>(problem) <span class="k">-&gt;</span> <span class="s">"production_ai"</span>:
-                        <br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">return</span> MachineLearningPipeline(optimize_for=<span class="s">"low_latency"</span>)
+            <div class="hero-grid-2col">
+                <!-- Left Column: Headline, Bio, Code, Actions -->
+                <div class="hero-content-col">
+                    <div class="eyebrow-chip hero-anim">
+                        <span class="pulse-dot"></span>
+                        <span>AI Engineering &amp; Scalable Systems</span>
                     </div>
-                    <p class="bio-text">
-                        I'm a 3rd-year B.Tech student specializing in <strong>Artificial Intelligence &amp; Machine Learning</strong> at PIET. I specialize in bridging research-grade machine learning with robust, production-ready full-stack software.
+                    <h1 class="hero-headline hero-anim">
+                        <span class="hero-headline-line-wrap"><span class="hero-headline-line">I build intelligent AI systems &amp; software —</span></span>
+                        <span class="hero-headline-line-wrap"><span class="hero-headline-line"><em>without the gap</em>.</span></span>
+                    </h1>
+                    <p class="hero-subheadline hero-anim">
+                        Taking ideas from mathematical prototypes to high-performance production models — architecting resilient ML pipelines, LLM/RAG engines, and low-latency web platforms.
                     </p>
-                    <div class="hero-actions">
-                        <a class="btn primary" href="#projects">Explore Selected Work ↓</a>
-                        <a class="btn ghost" href="#contact">Get in Touch</a>
-                        <a class="btn ghost" href="Prateek_Singh_Bisht_Resume.pdf?v=3" target="_blank" rel="noopener noreferrer">Download CV ↗</a>
+
+                    <div class="hero-left-card hero-anim">
+                        <div class="code-snippet" id="heroCodeSnippet">
+                            <span class="k">def</span> <span class="fn">engineer_solution</span>(problem) <span class="k">-&gt;</span> <span class="s">"production_ai"</span>:
+                            <br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">return</span> MachineLearningPipeline(optimize_for=<span class="s">"low_latency"</span>)
+                            <div class="code-output-line" id="codeOutputLine">
+                                <span class="check-icon">✓</span>
+                                <span>pipeline initialized &amp; optimized (latency: 32ms)</span>
+                            </div>
+                        </div>
+                        <p class="bio-text">
+                            I'm a 3rd-year B.Tech student specializing in <strong>Artificial Intelligence &amp; Machine Learning</strong> at PIET. I specialize in bridging research-grade machine learning with robust, production-ready full-stack software.
+                        </p>
+                        <div class="hero-actions">
+                            <a class="btn primary" href="#projects">Explore Selected Work <span class="btn-arrow">↓</span></a>
+                            <a class="btn ghost" href="#contact">Get in Touch</a>
+                            <a class="btn ghost" href="Prateek_Singh_Bisht_Resume.pdf?v=3" target="_blank" rel="noopener noreferrer">Download CV <span class="btn-arrow">↗</span></a>
+                        </div>
                     </div>
                 </div>
 
-                <div class="bento-portrait-card hero-anim" style="--delay: 0.7s;">
-                    <!-- Top Profile & Identity Row -->
-                    <div class="portrait-profile-row">
-                        <div class="portrait-avatar-frame">
-                            <img src="assets/images/prateek.jpg" alt="Prateek Singh Bisht" id="heroPortrait" />
-                        </div>
-                        <div class="portrait-info-block">
-                            <h4>Prateek Singh Bisht</h4>
-                            <span class="portrait-role-tag">AI &amp; Machine Learning Engineer</span>
-                            <div class="portrait-status-pill">
-                                <span class="pulse-dot"></span>
-                                <span>PIET '28 • Open to Roles</span>
-                            </div>
-                        </div>
+                <!-- Right Column: Portrait Composition, Floating Glass Chips, Currently Card -->
+                <div class="hero-portrait-composition hero-anim">
+                    <div class="portrait-glow-backdrop" aria-hidden="true"></div>
+
+                    <div class="portrait-frame-container" id="portraitFrame">
+                        <div class="portrait-light-sweep" aria-hidden="true"></div>
+                        <img src="assets/images/prateek.jpg" alt="Prateek Singh Bisht" id="heroPortrait" width="340" height="390" />
                     </div>
 
-                    <!-- AI Engineering Telemetry & Neural Engine HUD -->
-                    <div class="hero-telemetry-deck">
-                        <div class="telemetry-header">
-                            <span class="telemetry-title">⚡ INFERENCE ENGINE</span>
-                            <span class="telemetry-status">ONLINE // 60 FPS</span>
-                        </div>
-
-                        <!-- Animated Neural Wave -->
-                        <div class="neural-wave-container">
-                            <span class="neural-wave-label">Model Pipeline Active</span>
-                            <div class="neural-wave-bars">
-                                <span class="wave-bar"></span>
-                                <span class="wave-bar"></span>
-                                <span class="wave-bar"></span>
-                                <span class="wave-bar"></span>
-                                <span class="wave-bar"></span>
-                                <span class="wave-bar"></span>
-                                <span class="wave-bar"></span>
-                                <span class="wave-bar"></span>
-                            </div>
-                        </div>
-
-                        <!-- Key Engineering Metrics -->
-                        <div class="telemetry-metrics-grid">
-                            <div class="t-metric-box">
-                                <div class="t-metric-val">&lt; 45ms</div>
-                                <div class="t-metric-lbl">Inference P99</div>
-                            </div>
-                            <div class="t-metric-box">
-                                <div class="t-metric-val">98.6%</div>
-                                <div class="t-metric-lbl">Precision F1</div>
-                            </div>
-                            <div class="t-metric-box">
-                                <div class="t-metric-val">9 Shipped</div>
-                                <div class="t-metric-lbl">AI Systems</div>
-                            </div>
-                        </div>
-
-                        <!-- Domain Focus Chips -->
-                        <div class="telemetry-chips-row">
-                            <span class="t-chip">🧠 Deep Learning &amp; LLMs</span>
-                            <span class="t-chip">🗺️ 3D Cadastral GIS</span>
-                            <span class="t-chip">🛡️ Forensic Vision AI</span>
-                            <span class="t-chip">⚡ Async FastAPI</span>
-                        </div>
+                    <!-- Floating Glass Chips (5 drifting chips with distinct phase/parallax) -->
+                    <div class="hero-glass-chip chip-pos-1" aria-hidden="true">
+                        <span>🤖 PyTorch</span>
+                    </div>
+                    <div class="hero-glass-chip chip-pos-2">
+                        <span class="pulse-dot"></span>
+                        <span>Open to Roles</span>
+                    </div>
+                    <div class="hero-glass-chip chip-pos-3" aria-hidden="true">
+                        <span>⚡ FastAPI</span>
+                    </div>
+                    <div class="hero-glass-chip chip-pos-4" aria-hidden="true">
+                        <span>🏆 SIH '25 Finalist</span>
+                    </div>
+                    <div class="hero-glass-chip chip-pos-5" aria-hidden="true">
+                        <span>🚀 9 Projects Shipped</span>
                     </div>
 
-                    <!-- Footer Strip -->
-                    <div class="portrait-footer-strip">
-                        <span class="portrait-loc-tag">📍 Panipat, India</span>
-                        <a href="#projects" class="portrait-deck-link">Explore Selected Work →</a>
+                    <!-- Slim "Currently" Status Card -->
+                    <!-- ============================================================
+                         EDITABLE "CURRENTLY" STATUS BLOCK
+                         Update these three rows anytime to reflect current status
+                         ============================================================ -->
+                    <div class="hero-currently-card" id="heroCurrentlyCard">
+                        <div class="currently-header">
+                            <span class="pulse-dot"></span>
+                            <span>CURRENT STATUS</span>
+                        </div>
+                        <div class="currently-row">
+                            <span class="currently-label">Building:</span>
+                            <span class="currently-val highlight">RAG + MLOps platforms</span>
+                        </div>
+                        <div class="currently-row">
+                            <span class="currently-label">Learning:</span>
+                            <span class="currently-val">GenAI &amp; MLOps</span>
+                        </div>
+                        <div class="currently-row">
+                            <span class="currently-label">Last shipped:</span>
+                            <span class="currently-val">ChurnOps (MLOps API)</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1095,9 +1090,10 @@
     <!-- Lenis Smooth Scrolling -->
     <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
 
-    <!-- App Logic & Isolated Animation Engine -->
+    <!-- App Logic, Animation Engine & Hero Motion -->
     <script src="script.js?v=2.0"></script>
     <script src="assets/js/animations.js?v=4.0"></script>
+    <script src="assets/js/hero.js?v=1.0"></script>
 </body>
 
 </html>
