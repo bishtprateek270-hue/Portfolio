@@ -331,6 +331,20 @@
     }
     if (portraitCard) {
       heroTl.fromTo(portraitCard, { opacity: 0, scale: 0.95, y: 25 }, { opacity: 1, scale: 1, y: 0, duration: 0.7 }, '-=0.5');
+
+      const telemetryDeck = portraitCard.querySelector('.hero-telemetry-deck');
+      const metricBoxes = portraitCard.querySelectorAll('.t-metric-box');
+      const domainChips = portraitCard.querySelectorAll('.t-chip');
+
+      if (telemetryDeck) {
+        heroTl.fromTo(telemetryDeck, { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.5 }, '-=0.4');
+      }
+      if (metricBoxes.length) {
+        heroTl.fromTo(metricBoxes, { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.4, stagger: 0.08, ease: CONFIG.ease.bounce }, '-=0.3');
+      }
+      if (domainChips.length) {
+        heroTl.fromTo(domainChips, { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.35, stagger: 0.04 }, '-=0.25');
+      }
     }
 
     // 6. Code Snippet Typing Animation
