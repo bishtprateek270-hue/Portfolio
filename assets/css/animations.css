@@ -1,0 +1,383 @@
+/* ==========================================================================
+   PRATEEK SINGH BISHT — ADVANCED ANIMATIONS CSS
+   GSAP 3 + ScrollTrigger + Lenis + Flip Support Styles
+   ========================================================================== */
+
+/* ─── 1. LENIS SMOOTH SCROLL STYLES ─── */
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
+/* ─── 2. SCROLL PROGRESS INDICATOR ─── */
+.scroll-progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  width: 0%;
+  background: linear-gradient(90deg, var(--accent-blue, #2563EB), var(--accent-emerald, #10B981));
+  z-index: 9999;
+  pointer-events: none;
+  transform-origin: 0% 50%;
+  will-change: width;
+}
+
+/* ─── 3. FOUC PREVENTION & GATED INITIAL STATES ─── */
+html.js-enabled body:not(.intro-finished) {
+  overflow: hidden;
+}
+
+/* ─── 4. NAVBAR ENHANCEMENTS ─── */
+.nav {
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), 
+              background-color 0.3s ease, 
+              box-shadow 0.3s ease, 
+              border-color 0.3s ease;
+  will-change: transform;
+}
+
+.nav.nav-hidden {
+  transform: translateY(-100%);
+}
+
+.nav.scrolled {
+  background: rgba(250, 250, 250, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(228, 228, 231, 0.9);
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
+}
+
+.links a {
+  position: relative;
+  transition: color 0.25s ease;
+}
+
+.links a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background: var(--accent-blue, #2563EB);
+  border-radius: 2px;
+  transition: width 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.links a.active {
+  color: var(--accent-blue, #2563EB);
+  font-weight: 600;
+}
+
+.links a.active::after {
+  width: 100%;
+}
+
+/* ─── 5. HERO TYPING CODE & FLOATING PORTRAIT ─── */
+.code-cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1.05em;
+  background-color: var(--accent-blue, #2563EB);
+  vertical-align: -0.15em;
+  margin-left: 2px;
+  animation: codeCursorBlink 0.85s infinite ease-in-out;
+}
+
+@keyframes codeCursorBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.bento-portrait-card {
+  will-change: transform;
+}
+
+.bento-portrait-card.hero-floating {
+  animation: heroFloat 5s ease-in-out infinite alternate;
+}
+
+@keyframes heroFloat {
+  0% { transform: translateY(0px); }
+  100% { transform: translateY(-7px); }
+}
+
+/* ─── 6. SECTION REVEAL BASE STYLES ─── */
+.sec-head {
+  overflow: hidden;
+}
+
+.sec-index {
+  display: inline-block;
+  will-change: transform, opacity;
+}
+
+.sec-head h2 {
+  will-change: transform, opacity;
+}
+
+/* ─── 7. ABOUT SECTION TAGS & SUMMARY CARD ─── */
+.chip-item {
+  will-change: transform, opacity;
+}
+
+/* ─── 8. EDUCATION SGPA METER ANIMATIONS ─── */
+.sgpa-bar {
+  width: 0%;
+  will-change: width;
+  transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+  background: linear-gradient(90deg, var(--accent-blue, #2563EB), #38BDF8);
+}
+
+/* ─── 9. TECH STACK INTERACTION ─── */
+.skill-card {
+  position: relative;
+  will-change: transform, opacity;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+}
+
+.skill-card-inner {
+  position: relative;
+  height: 100%;
+}
+
+.tech-chip {
+  will-change: transform, opacity;
+  transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.tech-chip:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent-blue, #2563EB);
+  color: var(--accent-blue, #2563EB);
+}
+
+.evidence-links {
+  transition: transform 0.25s ease;
+}
+
+.evidence-link {
+  transition: color 0.2s ease, transform 0.2s ease;
+  display: inline-block;
+}
+
+.evidence-link:hover {
+  color: var(--accent-blue, #2563EB);
+  transform: translateX(2px);
+}
+
+/* ─── 10. PROJECTS: PINNED HORIZONTAL SCROLL ON DESKTOP ─── */
+.projects-header-wrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 2rem;
+  width: 100%;
+}
+
+.projects-counter-badge {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--accent-blue, #2563EB);
+  background: var(--accent-blue-bg, #EFF6FF);
+  border: 1px solid rgba(37, 99, 235, 0.2);
+  padding: 0.4rem 0.9rem;
+  border-radius: var(--radius-pill);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+/* Desktop horizontal scroll container */
+@media (min-width: 1024px) {
+  #projects.pinned-section {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    max-width: 100% !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  .projects-pinned-container {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .projects-pinned-container .sec-head {
+    padding: 0 4vw;
+    max-width: 1300px;
+    margin: 0 auto 1.5rem 4vw;
+    flex-shrink: 0;
+  }
+
+  .projects-horizontal-track {
+    display: flex;
+    gap: 2rem;
+    padding: 1rem 5vw 2rem 5vw;
+    width: max-content;
+    will-change: transform;
+    align-items: stretch;
+  }
+
+  .projects-horizontal-track .project-card {
+    width: clamp(380px, 32vw, 460px);
+    flex-shrink: 0;
+    margin-bottom: 0;
+    transform-origin: center center;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+  }
+
+  .projects-horizontal-track .project-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: var(--shadow-hover);
+  }
+
+  .projects-horizontal-track .project-card.active-center {
+    border-color: var(--accent-blue, #2563EB);
+    box-shadow: 0 16px 36px -6px rgba(37, 99, 235, 0.15);
+  }
+}
+
+/* Mobile & tablet vertical fallback */
+@media (max-width: 1023px) {
+  .projects-horizontal-track {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    width: 100%;
+  }
+
+  .projects-horizontal-track .project-card {
+    width: 100%;
+  }
+
+  .projects-counter-badge {
+    display: none;
+  }
+}
+
+/* ─── 11. EXPERIENCE TIMELINE DRAWING LINE ─── */
+.timeline-container {
+  position: relative;
+  padding-left: 2rem;
+}
+
+.timeline-track-rail {
+  position: absolute;
+  left: 0.35rem;
+  top: 0.5rem;
+  bottom: 0.5rem;
+  width: 2px;
+  background: var(--border-light, #E4E4E7);
+  border-radius: 2px;
+}
+
+.timeline-track-fill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 0%;
+  background: linear-gradient(180deg, var(--accent-blue, #2563EB), var(--accent-emerald, #10B981));
+  border-radius: 2px;
+  will-change: height;
+}
+
+.timeline-card {
+  position: relative;
+}
+
+.timeline-list li {
+  will-change: transform, opacity;
+}
+
+/* ─── 12. ACHIEVEMENTS & CERTIFICATIONS ─── */
+.milestone-card {
+  will-change: transform, opacity;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+}
+
+.milestone-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+
+.cert-chip {
+  will-change: transform, opacity;
+  display: inline-block;
+  transition: transform 0.25s ease;
+}
+
+.cert-chip:hover {
+  transform: translateY(-2px) scale(1.03);
+}
+
+/* ─── 13. CONTACT MAGNETIC HOVER ─── */
+.contact-links-list .c-link {
+  transition: transform 0.25s ease, background-color 0.25s ease, color 0.25s ease;
+  will-change: transform;
+}
+
+.contact-links-list .c-link:hover {
+  transform: translateX(6px);
+}
+
+/* ─── 14. PREFERS-REDUCED-MOTION OVERRIDES ─── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .intro-overlay {
+    display: none !important;
+  }
+
+  .scroll-progress-bar {
+    display: none !important;
+  }
+
+  .projects-horizontal-track {
+    transform: none !important;
+    display: flex !important;
+    flex-direction: column !important;
+  }
+
+  .projects-pinned-container {
+    height: auto !important;
+  }
+
+  .timeline-track-fill {
+    height: 100% !important;
+  }
+
+  .bento-portrait-card.hero-floating {
+    animation: none !important;
+  }
+}
