@@ -1,6 +1,6 @@
 /* ==========================================================================
    PRATEEK SINGH BISHT — HERO SECTION INTERACTION & ENTRANCE ENGINE
-   Spotlight, 3D Tilt, Chip Parallax, Code Typing & Coordinated Entrance
+   3D Tilt, Chip Parallax, Code Typing & Coordinated Entrance
    ========================================================================== */
 
 (function () {
@@ -9,7 +9,6 @@
   // ─── 1. TUNABLE CONFIGURATION & TOGGLES ───
   // Easily enable/disable or tweak individual effects here
   const HERO_CONFIG = {
-    enableSpotlight: true,     // Cursor spotlight on hero background
     enableTilt: true,          // 3D tilt on portrait card
     enableChipParallax: true,  // Floating glass chips parallax offset
     enableTyping: true,        // Code snippet character-by-character typing
@@ -21,47 +20,7 @@
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const isDesktop = window.matchMedia('(min-width: 1024px) and (hover: hover) and (pointer: fine)').matches;
 
-  // ─── 2. CURSOR SPOTLIGHT TRACKER ───
-  function initHeroSpotlight() {
-    if (!HERO_CONFIG.enableSpotlight || reducedMotion || !isDesktop) return;
-
-    const hero = document.getElementById('hero');
-    const spotlight = document.getElementById('heroSpotlight');
-    if (!hero || !spotlight) return;
-
-    let rafId = null;
-    let targetX = 50;
-    let targetY = 40;
-    let currentX = 50;
-    let currentY = 40;
-
-    function updateSpotlight() {
-      // Smooth lerp (12% per frame)
-      currentX += (targetX - currentX) * 0.12;
-      currentY += (targetY - currentY) * 0.12;
-
-      spotlight.style.setProperty('--mx', `${currentX.toFixed(2)}px`);
-      spotlight.style.setProperty('--my', `${currentY.toFixed(2)}px`);
-
-      if (Math.abs(targetX - currentX) > 0.1 || Math.abs(targetY - currentY) > 0.1) {
-        rafId = requestAnimationFrame(updateSpotlight);
-      } else {
-        rafId = null;
-      }
-    }
-
-    hero.addEventListener('mousemove', (e) => {
-      const rect = hero.getBoundingClientRect();
-      targetX = e.clientX - rect.left;
-      targetY = e.clientY - rect.top;
-
-      if (!rafId) {
-        rafId = requestAnimationFrame(updateSpotlight);
-      }
-    });
-  }
-
-  // ─── 3. 3D TILT ON PORTRAIT & GLASS CHIP PARALLAX ───
+  // ─── 2. 3D TILT ON PORTRAIT & GLASS CHIP PARALLAX ───
   function initPortraitTiltAndParallax() {
     if (reducedMotion || !isDesktop) return;
 
@@ -288,7 +247,6 @@
 
   // ─── 7. INITIALIZATION & LIFECYCLE HOOKS ───
   function bootHero() {
-    initHeroSpotlight();
     initPortraitTiltAndParallax();
     initMagneticButtons();
 

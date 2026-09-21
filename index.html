@@ -23,12 +23,35 @@
     <link rel="stylesheet" href="style.css?v=4.0">
     <link rel="stylesheet" href="assets/css/animations.css?v=1.0">
     <link rel="stylesheet" href="assets/css/hero.css?v=1.0">
+    <link rel="stylesheet" href="assets/css/background.css?v=1.0">
     <script>document.documentElement.classList.add('js-enabled');</script>
 </head>
 
 <body>
 
+    <!-- ==================== GLOBAL ANIMATED BACKGROUND SYSTEM ==================== -->
+    <div class="bg-system" id="bgSystem" aria-hidden="true">
+        <!-- Layer 1: Global Ambient Dot Grid -->
+        <div class="bg-dot-grid-base"></div>
 
+        <!-- Layer 2: Drifting Gradient Blobs with Scroll Color Shift -->
+        <div class="bg-blobs-layer">
+            <div class="bg-blob bg-blob-1" id="bgBlob1"></div>
+            <div class="bg-blob bg-blob-2" id="bgBlob2"></div>
+            <div class="bg-blob bg-blob-3" id="bgBlob3"></div>
+        </div>
+
+        <!-- Layer 3: Interactive Cursor Spotlight & Bright Grid Mask -->
+        <div class="bg-spotlight-layer" id="bgSpotlight">
+            <div class="bg-dot-grid-bright"></div>
+        </div>
+
+        <!-- Signature Touch: Left-Side Telemetry Data Line -->
+        <div class="bg-dataline-container">
+            <div class="bg-dataline-track"></div>
+            <div class="bg-dataline-dot" id="bgDatalineDot"></div>
+        </div>
+    </div>
 
     <!-- ==================== INTRO ANIMATION OVERLAY ==================== -->
     <div class="intro-overlay" id="introOverlay">
@@ -136,14 +159,6 @@
     <main>
         <!-- ==================== HERO SECTION ==================== -->
         <section class="hero wrap" id="hero">
-            <!-- Background Depth Layers (Dot grid, soft gradient blobs, spotlight) -->
-            <div class="hero-bg-canvas" aria-hidden="true">
-                <div class="hero-bg-grid"></div>
-                <div class="hero-bg-blob hero-blob-blue"></div>
-                <div class="hero-bg-blob hero-blob-green"></div>
-                <div class="hero-cursor-spotlight" id="heroSpotlight"></div>
-            </div>
-
             <div class="hero-grid-2col">
                 <!-- Left Column: Headline, Bio, Code, Actions -->
                 <div class="hero-content-col">
@@ -1090,10 +1105,11 @@
     <!-- Lenis Smooth Scrolling -->
     <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
 
-    <!-- App Logic, Animation Engine & Hero Motion -->
+    <!-- App Logic, Animation Engine, Background & Hero Motion -->
     <script src="script.js?v=2.0"></script>
     <script src="assets/js/animations.js?v=4.0"></script>
     <script src="assets/js/hero.js?v=1.0"></script>
+    <script src="assets/js/background.js?v=1.0"></script>
 </body>
 
 </html>

@@ -1,0 +1,255 @@
+/* ==========================================================================
+   PRATEEK SINGH BISHT — GLOBAL ANIMATED BACKGROUND SYSTEM
+   Layer 1: Ambient Dot Grid
+   Layer 2: Drifting Gradient Blobs with Scroll-Reactive Color Shift
+   Layer 3: Interactive Cursor Spotlight & Bright Grid Mask
+   Signature: Left-Side Vertical Telemetry Data Line
+   ========================================================================== */
+
+/* ─── 1. TUNABLE CONFIGURATION VARIABLES ─── */
+:root {
+  /* Master Strength / Opacity multiplier */
+  --bg-system-strength: 1.0;
+
+  /* Layer 1: Dot Grid Tokens */
+  --bg-dot-color: rgba(148, 163, 184, 0.22);        /* Faint ambient dot */
+  --bg-dot-bright-color: rgba(37, 99, 235, 0.58);   /* Spotlight energized dot */
+  --bg-dot-size: 1.2px;
+  --bg-dot-spacing: 26px;
+
+  /* Layer 2: Blob Base Colors (Smoothly updated via JS per active section) */
+  --blob-color-1: rgba(37, 99, 235, 0.13);    /* Hero: Blue */
+  --blob-color-2: rgba(16, 185, 129, 0.12);   /* Hero: Green */
+  --blob-color-3: rgba(124, 58, 237, 0.09);   /* Hero: Violet */
+  --blob-blur: 95px;
+  --blob-opacity: 1.0;
+
+  /* Layer 3: Spotlight */
+  --spotlight-radius: 360px;
+  --spotlight-glow: rgba(37, 99, 235, 0.08);
+
+  /* Signature Touch: Data Line */
+  --dataline-color: rgba(37, 99, 235, 0.18);
+  --dataline-dot-color: #2563EB;
+}
+
+/* Ensure canvas background is transparent so global layer shows through */
+body {
+  background-color: var(--bg-canvas, #FAFAFA);
+  position: relative;
+}
+
+/* ─── 2. MAIN CONTAINER ─── */
+.bg-system {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+  opacity: var(--bg-system-strength);
+  transition: opacity 0.5s ease;
+  will-change: opacity;
+}
+
+/* ─── 3. LAYER 1: AMBIENT DOT GRID ─── */
+.bg-dot-grid-base {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(var(--bg-dot-color) var(--bg-dot-size), transparent var(--bg-dot-size));
+  background-size: var(--bg-dot-spacing) var(--bg-dot-spacing);
+  mask-image: radial-gradient(ellipse at 50% 50%, rgba(0, 0, 0, 1) 40%, rgba(0, 0, 0, 0) 85%);
+  -webkit-mask-image: radial-gradient(ellipse at 50% 50%, rgba(0, 0, 0, 1) 40%, rgba(0, 0, 0, 0) 85%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ─── 4. LAYER 2: DRIFTING GRADIENT BLOBS ─── */
+.bg-blobs-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+  opacity: var(--blob-opacity);
+  filter: blur(var(--blob-blur));
+  -webkit-filter: blur(var(--blob-blur));
+  transition: opacity 0.8s ease;
+}
+
+.bg-blob {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  will-change: transform;
+  transition: background 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Blob 1 (Top-Left / Center Drift) */
+.bg-blob-1 {
+  width: 52vw;
+  height: 52vw;
+  max-width: 750px;
+  max-height: 750px;
+  top: -10vw;
+  left: 5vw;
+  background: radial-gradient(circle, var(--blob-color-1) 0%, transparent 70%);
+  animation: blobMotion1 32s ease-in-out infinite alternate;
+}
+
+/* Blob 2 (Mid-Right / Center Drift) */
+.bg-blob-2 {
+  width: 48vw;
+  height: 48vw;
+  max-width: 680px;
+  max-height: 680px;
+  top: 35vh;
+  right: -5vw;
+  background: radial-gradient(circle, var(--blob-color-2) 0%, transparent 70%);
+  animation: blobMotion2 28s ease-in-out infinite alternate;
+}
+
+/* Blob 3 (Bottom-Left Drift) */
+.bg-blob-3 {
+  width: 45vw;
+  height: 45vw;
+  max-width: 640px;
+  max-height: 640px;
+  bottom: -10vh;
+  left: 20vw;
+  background: radial-gradient(circle, var(--blob-color-3) 0%, transparent 70%);
+  animation: blobMotion3 36s ease-in-out infinite alternate;
+}
+
+@keyframes blobMotion1 {
+  0%   { transform: translate(0px, 0px) scale(1.0); }
+  35%  { transform: translate(6vw, 8vh) scale(1.08); }
+  70%  { transform: translate(-4vw, 14vh) scale(0.94); }
+  100% { transform: translate(3vw, 4vh) scale(1.02); }
+}
+
+@keyframes blobMotion2 {
+  0%   { transform: translate(0px, 0px) scale(1.0); }
+  40%  { transform: translate(-8vw, -6vh) scale(1.06); }
+  80%  { transform: translate(4vw, 10vh) scale(0.96); }
+  100% { transform: translate(-3vw, 5vh) scale(1.04); }
+}
+
+@keyframes blobMotion3 {
+  0%   { transform: translate(0px, 0px) scale(1.0); }
+  30%  { transform: translate(7vw, -10vh) scale(1.07); }
+  75%  { transform: translate(-6vw, -4vh) scale(0.92); }
+  100% { transform: translate(2vw, -8vh) scale(1.03); }
+}
+
+/* ─── 5. LAYER 3: INTERACTIVE SPOTLIGHT & BRIGHT GRID ─── */
+.bg-spotlight-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 3;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  background: radial-gradient(var(--spotlight-radius) circle at var(--mx, 50%) var(--my, 50%), var(--spotlight-glow) 0%, transparent 70%);
+  mask-image: radial-gradient(var(--spotlight-radius) circle at var(--mx, 50%) var(--my, 50%), rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 80%);
+  -webkit-mask-image: radial-gradient(var(--spotlight-radius) circle at var(--mx, 50%) var(--my, 50%), rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 80%);
+}
+
+.bg-spotlight-layer.active {
+  opacity: 1;
+}
+
+.bg-dot-grid-bright {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(var(--bg-dot-bright-color) var(--bg-dot-size), transparent var(--bg-dot-size));
+  background-size: var(--bg-dot-spacing) var(--bg-dot-spacing);
+  pointer-events: none;
+}
+
+/* ─── 6. SIGNATURE TOUCH: LEFT-SIDE TELEMETRY DATA LINE ─── */
+.bg-dataline-container {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: max(16px, calc((100vw - 1280px) / 2 - 28px));
+  width: 14px;
+  pointer-events: none;
+  z-index: 4;
+}
+
+.bg-dataline-track {
+  position: absolute;
+  top: 80px;
+  bottom: 80px;
+  left: 6px;
+  width: 1px;
+  background: linear-gradient(180deg, transparent, var(--dataline-color) 10%, var(--dataline-color) 90%, transparent);
+  opacity: 0.8;
+}
+
+.bg-dataline-dot {
+  position: absolute;
+  left: 3px;
+  top: 80px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--dataline-dot-color);
+  box-shadow: 0 0 10px 2px rgba(37, 99, 235, 0.45);
+  transform: translateY(0px);
+  will-change: transform;
+  transition: transform 0.1s linear;
+}
+
+/* ─── 7. RESPONSIVE BREAKPOINTS ─── */
+@media (max-width: 1023px) {
+  .bg-dataline-container {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  :root {
+    --blob-blur: 60px;
+  }
+
+  .bg-blob-1 {
+    width: 75vw;
+    height: 75vw;
+  }
+
+  .bg-blob-2 {
+    width: 65vw;
+    height: 65vw;
+  }
+
+  /* Reduce to 2 blobs on mobile for maximum battery & GPU efficiency */
+  .bg-blob-3 {
+    display: none;
+  }
+
+  .bg-spotlight-layer {
+    display: none !important;
+  }
+}
+
+/* ─── 8. PREFERS REDUCED MOTION ─── */
+@media (prefers-reduced-motion: reduce) {
+  .bg-blob-1,
+  .bg-blob-2,
+  .bg-blob-3 {
+    animation: none !important;
+    transform: none !important;
+  }
+
+  .bg-blob {
+    transition: none !important;
+  }
+
+  .bg-spotlight-layer {
+    display: none !important;
+  }
+
+  .bg-dataline-dot {
+    display: none !important;
+  }
+}

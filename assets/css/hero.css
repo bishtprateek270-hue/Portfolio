@@ -1,84 +1,14 @@
 /* ==========================================================================
    PRATEEK SINGH BISHT — HERO SECTION DESIGN SYSTEM & MOTION
-   Depth, 2-Column Responsive Layout, Floating Glass Chips & Portrait HUD
+   2-Column Responsive Layout, Floating Glass Chips & Portrait HUD
    ========================================================================== */
 
-/* ─── 1. HERO SECTION WRAPPER & DEPTH LAYERS ─── */
+/* ─── 1. HERO SECTION WRAPPER ─── */
 .hero {
   position: relative;
   padding-top: 1.75rem;
   padding-bottom: 2.75rem;
   overflow: visible;
-}
-
-/* Faint dot grid with radial fade mask */
-.hero-bg-canvas {
-  position: absolute;
-  inset: -40px -20px -20px -20px;
-  pointer-events: none;
-  z-index: 0;
-  overflow: hidden;
-}
-
-.hero-bg-grid {
-  position: absolute;
-  inset: 0;
-  background-image: radial-gradient(#CBD5E1 1.2px, transparent 1.2px);
-  background-size: 24px 24px;
-  mask-image: radial-gradient(ellipse at center, rgba(0,0,0,1) 30%, rgba(0,0,0,0) 75%);
-  -webkit-mask-image: radial-gradient(ellipse at center, rgba(0,0,0,1) 30%, rgba(0,0,0,0) 75%);
-  opacity: 0.5;
-}
-
-/* Soft drifting gradient blobs */
-.hero-bg-blob {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(75px);
-  opacity: 0.12;
-  pointer-events: none;
-  will-change: transform;
-}
-
-.hero-blob-blue {
-  width: 480px;
-  height: 480px;
-  top: -10%;
-  left: 15%;
-  background: radial-gradient(circle, #2563EB 0%, #38BDF8 50%, transparent 70%);
-  animation: blobFloat1 18s ease-in-out infinite alternate;
-}
-
-.hero-blob-green {
-  width: 420px;
-  height: 420px;
-  bottom: 0%;
-  right: 10%;
-  background: radial-gradient(circle, #10B981 0%, #06B6D4 50%, transparent 70%);
-  animation: blobFloat2 22s ease-in-out infinite alternate;
-}
-
-@keyframes blobFloat1 {
-  0% { transform: translate(0px, 0px) scale(1); }
-  50% { transform: translate(40px, 30px) scale(1.08); }
-  100% { transform: translate(-20px, 50px) scale(0.95); }
-}
-
-@keyframes blobFloat2 {
-  0% { transform: translate(0px, 0px) scale(1); }
-  50% { transform: translate(-35px, -25px) scale(1.06); }
-  100% { transform: translate(25px, -40px) scale(0.92); }
-}
-
-/* Interactive cursor spotlight */
-.hero-cursor-spotlight {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: radial-gradient(600px circle at var(--mx, 50%) var(--my, 40%), rgba(37, 99, 235, 0.07), transparent 60%);
-  opacity: 1;
-  transition: opacity 0.3s ease;
-  z-index: 1;
 }
 
 /* ─── 2. BALANCED 2-COLUMN HERO GRID ─── */
