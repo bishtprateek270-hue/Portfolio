@@ -112,21 +112,89 @@
         }
     });
 
-    // ─── CONTACT FORM SUBMISSION ────────────────────────────
+    // ─── CONTACT FORM SUBMISSION (FORMSUBMIT AJAX) ─────────
     if (contactForm) {
-        contactForm.addEventListener('submit', (e) => {
+        contactForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            showToast();
-            contactForm.reset();
+
+            const submitBtn = contactForm.querySelector('button[type="submit"]');
+            const originalBtnHtml = submitBtn ? submitBtn.innerHTML : '<span>Send Message</span>';
+
+            const nameInput = document.getElementById('name');
+            const emailInput = document.getElementById('email');
+            const subjectInput = document.getElementById('subject');
+            const messageInput = document.getElementById('message');
+
+            const name = nameInput ? nameInput.value.trim() : '';
+            const email = emailInput ? emailInput.value.trim() : '';
+            const subject = subjectInput ? subjectInput.value.trim() : 'Portfolio Inquiry';
+            const message = messageInput ? messageInput.value.trim() : '';
+
+            const payload = {
+                name: name,
+                email: email,
+                subject: subject,
+                message: message,
+                _subject: `Portfolio Message from ${name}: ${subject}`,
+                _captcha: 'false',
+                _template: 'table'
+            };
+
+            // Set loading state
+            if (submitBtn) {
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<span class="spinner"></span> <span>Sending...</span>';
+            }
+
+            try {
+                const response = await fetch('https://formsubmit.co/ajax/bishtprateek270@gmail.com', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify(payload)
+                });
+
+                if (response.ok) {
+                    showToast("Message sent successfully! I'll get back to you soon.", false);
+                    contactForm.reset();
+                } else {
+                    throw new Error(`Server returned HTTP ${response.status}`);
+                }
+            } catch (err) {
+                console.error('Contact form submission error:', err);
+                showToast("Could not send message automatically. Please email bishtprateek270@gmail.com directly.", true);
+            } finally {
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = originalBtnHtml;
+                }
+            }
         });
     }
 
-    function showToast() {
+    let toastTimer = null;
+    function showToast(message, isError = false) {
         if (!toast) return;
+        const toastMessageEl = document.getElementById('toastMessage');
+        if (toastMessageEl && message) {
+            toastMessageEl.textContent = message;
+        }
+
+        if (isError) {
+            toast.classList.add('error');
+        } else {
+            toast.classList.remove('error');
+        }
+
         toast.classList.add('visible');
-        setTimeout(() => {
+
+        if (toastTimer) clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => {
             toast.classList.remove('visible');
-        }, 4000);
+            toast.classList.remove('error');
+        }, 5500);
     }
 
     // ─── ANCHOR SMOOTH SCROLL FALLBACK (if Lenis not available) ───

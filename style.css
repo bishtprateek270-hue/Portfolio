@@ -1840,10 +1840,33 @@ section {
   transition: all var(--transition-smooth);
 }
 
-.submit-btn:hover {
+.submit-btn:hover:not(:disabled) {
   background: #1E293B !important;
   transform: translateY(-2px);
   box-shadow: var(--shadow-md);
+}
+
+.submit-btn:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+.submit-btn .spinner {
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #FFFFFF;
+  border-radius: 50%;
+  display: inline-block;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* ─── FOOTER ─── */
@@ -2029,6 +2052,7 @@ section {
   position: fixed;
   bottom: 2rem;
   right: 2rem;
+  max-width: calc(100vw - 3rem);
   background: #0F172A;
   color: #FFFFFF;
   padding: 0.85rem 1.35rem;
@@ -2038,22 +2062,34 @@ section {
   display: flex;
   align-items: center;
   gap: 0.65rem;
-  box-shadow: var(--shadow-lg);
+  box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.3), 0 8px 10px -6px rgba(15, 23, 42, 0.2);
   opacity: 0;
   visibility: hidden;
   transform: translateY(12px);
   transition: all var(--transition-smooth);
   z-index: 1000;
+  pointer-events: none;
 }
 
 .toast.show, .toast.visible {
   opacity: 1;
   visibility: visible;
   transform: translateY(0);
+  pointer-events: auto;
 }
 
-.toast svg {
+.toast.error {
+  background: #7F1D1D;
+  color: #FEE2E2;
+}
+
+.toast svg, .toast .toast-icon {
   color: var(--accent-emerald);
+  flex-shrink: 0;
+}
+
+.toast.error svg, .toast.error .toast-icon {
+  color: #F87171;
 }
 
 /* ─── RESPONSIVE BREAKPOINTS ─── */

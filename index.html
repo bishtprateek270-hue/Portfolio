@@ -1021,7 +1021,10 @@
                 </div>
 
                 <div class="contact-form-panel">
-                    <form class="contact-form" id="contactForm">
+                    <form class="contact-form" id="contactForm" action="https://formsubmit.co/bishtprateek270@gmail.com" method="POST">
+                        <input type="hidden" name="_subject" id="formSubjectHidden" value="New Portfolio Message from Portfolio Website">
+                        <input type="hidden" name="_captcha" value="false">
+                        <input type="hidden" name="_template" value="table">
                         <div class="form-row">
                             <div class="form-field">
                                 <label for="name">Your Name</label>
@@ -1040,9 +1043,9 @@
                             <label for="message">Message</label>
                             <textarea id="message" name="message" rows="4" placeholder="Tell me about your project or team..." required></textarea>
                         </div>
-                        <button type="submit" class="submit-btn">
-                            <span>Send Message</span>
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <button type="submit" class="submit-btn" id="contactSubmitBtn">
+                            <span class="btn-text">Send Message</span>
+                            <svg class="btn-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <line x1="22" y1="2" x2="11" y2="13"></line>
                                 <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
                             </svg>
@@ -1097,6 +1100,14 @@
         </div>
     </div>
 
+    <!-- ==================== TOAST NOTIFICATION ==================== -->
+    <div class="toast" id="toast" role="status" aria-live="polite">
+        <svg class="toast-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <polyline points="20 6 9 17 4 12"></polyline>
+        </svg>
+        <span id="toastMessage">Message sent successfully! I'll get back to you soon.</span>
+    </div>
+
     <!-- GSAP Core & Plugins -->
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
@@ -1106,7 +1117,7 @@
     <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
 
     <!-- App Logic, Animation Engine, Background & Hero Motion -->
-    <script src="script.js?v=2.0"></script>
+    <script src="script.js?v=2.1"></script>
     <script src="assets/js/animations.js?v=4.0"></script>
     <script src="assets/js/hero.js?v=1.0"></script>
     <script src="assets/js/background.js?v=1.0"></script>
